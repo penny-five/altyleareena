@@ -14,30 +14,16 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena;
+package com.github.pennyfive.altyleareena.ui;
 
-import android.app.Application;
+import android.support.v4.app.FragmentActivity;
 
-/**
- * TODO: rename once app name has been decided
- */
-public class MyApplication extends Application {
-    private ApplicationComponent component;
+import com.github.pennyfive.altyleareena.ApplicationComponent;
+import com.github.pennyfive.altyleareena.MyApplication;
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        component = createApplicationComponent();
-    }
-
-    private ApplicationComponent createApplicationComponent() {
-        return DaggerApplicationComponent
-                .builder()
-                .applicationModule(new ApplicationModule(this))
-                .build();
-    }
+public class BaseActivity extends FragmentActivity {
 
     public ApplicationComponent getApplicationComponent() {
-        return component;
+        return ((MyApplication) getApplication()).getApplicationComponent();
     }
 }

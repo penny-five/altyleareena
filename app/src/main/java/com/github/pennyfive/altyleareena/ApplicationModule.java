@@ -16,28 +16,24 @@
 
 package com.github.pennyfive.altyleareena;
 
-import android.app.Application;
+import android.content.Context;
 
-/**
- * TODO: rename once app name has been decided
- */
-public class MyApplication extends Application {
-    private ApplicationComponent component;
+import com.github.pennyfive.altyleareena.util.ForApplication;
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        component = createApplicationComponent();
+import dagger.Module;
+import dagger.Provides;
+
+@Module
+public class ApplicationModule {
+    private final MyApplication application;
+
+    ApplicationModule(MyApplication application) {
+        this.application = application;
     }
 
-    private ApplicationComponent createApplicationComponent() {
-        return DaggerApplicationComponent
-                .builder()
-                .applicationModule(new ApplicationModule(this))
-                .build();
-    }
-
-    public ApplicationComponent getApplicationComponent() {
-        return component;
+    @Provides
+    @ForApplication
+    Context provideApplicationContext() {
+        return application;
     }
 }

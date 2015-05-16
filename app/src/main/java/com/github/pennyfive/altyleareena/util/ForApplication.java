@@ -14,7 +14,17 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.ui;
+package com.github.pennyfive.altyleareena.util;
 
-public class MainActivity extends BaseActivity {
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+import javax.inject.Scope;
+
+/**
+ * Application level scope for Dagger context injection.
+ */
+@Scope
+@Retention(RetentionPolicy.RUNTIME)
+public @interface ForApplication {
 }

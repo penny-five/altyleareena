@@ -16,28 +16,8 @@
 
 package com.github.pennyfive.altyleareena;
 
-import android.app.Application;
+import dagger.Component;
 
-/**
- * TODO: rename once app name has been decided
- */
-public class MyApplication extends Application {
-    private ApplicationComponent component;
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        component = createApplicationComponent();
-    }
-
-    private ApplicationComponent createApplicationComponent() {
-        return DaggerApplicationComponent
-                .builder()
-                .applicationModule(new ApplicationModule(this))
-                .build();
-    }
-
-    public ApplicationComponent getApplicationComponent() {
-        return component;
-    }
+@Component(modules = ApplicationModule.class)
+public interface ApplicationComponent {
 }
