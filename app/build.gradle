@@ -31,6 +31,10 @@ android {
         targetSdkVersion 22
         versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+
+        /* Yle API credentials must be placed in gradle.properties */
+        buildConfigField("String", "YLE_APP_ID", getProperty("yle_app_id"))
+        buildConfigField("String", "YLE_APP_KEY", getProperty("yle_app_key"))
     }
     buildTypes {
         release {

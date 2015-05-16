@@ -22,4 +22,9 @@ import android.app.Application;
  * TODO: rename once app name has been decided
  */
 public class MyApplication extends Application {
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+    }
 }
