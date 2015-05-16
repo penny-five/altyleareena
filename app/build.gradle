@@ -42,6 +42,7 @@ android {
         versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
 
+        buildConfigField("String", "YLE_API_ENDPOINT", "\"https://external.api.yle.fi/v1/programs/\"")
         /* Yle API credentials must be placed in gradle.properties */
         buildConfigField("String", "YLE_APP_ID", getProperty("yle_app_id"))
         buildConfigField("String", "YLE_APP_KEY", getProperty("yle_app_key"))
@@ -65,9 +66,18 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.1.1'
 
+    // REST
+    compile 'com.squareup.retrofit:retrofit:1.9.0'
+
     // Dependency injection
     compile 'com.google.dagger:dagger:2.0'
     apt 'com.google.dagger:dagger-compiler:2.0'
+
+    // Reactive programming
+    compile 'io.reactivex:rxjava:1.0.10'
+    compile 'io.reactivex:rxandroid:0.24.0'
+
+    // Required by Dagger & RxJava
     compile 'javax.inject:javax.inject:1'
     compile 'javax.annotation:jsr250-api:1.0'
 }

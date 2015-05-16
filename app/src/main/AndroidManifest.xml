@@ -14,9 +14,11 @@
   ~ limitations under the License.
   -->
 
-<manifest package="com.github.pennyfive.altyleareena"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest
+    package="com.github.pennyfive.altyleareena"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:name=".MyApplication"
         android:allowBackup="true"

@@ -16,8 +16,13 @@
 
 package com.github.pennyfive.altyleareena;
 
+import com.github.pennyfive.altyleareena.ui.MainActivity;
+import com.github.pennyfive.altyleareena.util.ForApplication;
+
 import dagger.Component;
 
+@ForApplication
 @Component(modules = ApplicationModule.class)
 public interface ApplicationComponent {
+    void inject(MainActivity activity);
 }

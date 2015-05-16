@@ -16,5 +16,39 @@
 
 package com.github.pennyfive.altyleareena.ui;
 
+import android.os.Bundle;
+import android.util.Log;
+
+import com.github.pennyfive.altyleareena.model.categories.CategoriesStore;
+import com.github.pennyfive.altyleareena.model.categories.Category;
+
+import javax.inject.Inject;
+
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+
 public class MainActivity extends BaseActivity {
+    @Inject CategoriesStore categories;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getApplicationComponent().inject(this);
+        categories.getCategories().observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<Category>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(Category category) {
+                Log.d("MainActivity", "received category: " + category);
+            }
+        });
+    }
 }

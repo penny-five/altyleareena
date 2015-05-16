@@ -18,10 +18,15 @@ package com.github.pennyfive.altyleareena;
 
 import android.content.Context;
 
+import com.github.pennyfive.altyleareena.model.api.YleApiService;
+import com.github.pennyfive.altyleareena.model.categories.CategoriesStore;
+import com.github.pennyfive.altyleareena.model.categories.impl.ApiServiceBackedCategoriesStore;
 import com.github.pennyfive.altyleareena.util.ForApplication;
 
 import dagger.Module;
 import dagger.Provides;
+import retrofit.RequestInterceptor;
+import retrofit.RestAdapter;
 
 @Module
 public class ApplicationModule {
@@ -35,5 +40,29 @@ public class ApplicationModule {
     @ForApplication
     Context provideApplicationContext() {
         return application;
+    }
+
+    @Provides
+    @ForApplication
+    CategoriesStore provideCategories(YleApiService service) {
+        return new ApiServiceBackedCategoriesStore(service);
+    }
+
+    @Provides
+    @ForApplication
+    YleApiService provideYleApiService() {
+        return new RestAdapter.Builder()
+                .setEndpoint(BuildConfig.YLE_API_ENDPOINT)
+                .setRequestInterceptor(new RequestInterceptor() {
+                    @Override
+                    public void intercept(RequestFacade request) {
+                        // app_id and app_key are required for all API queries.
+                        request.addQueryParam("app_id", BuildConfig.YLE_APP_ID);
+                        request.addQueryParam("app_key", BuildConfig.YLE_APP_KEY);
+                    }
+                })
+                .setLogLevel(BuildConfig.DEBUG ? RestAdapter.LogLevel.BASIC : RestAdapter.LogLevel.NONE)
+                .build()
+                .create(YleApiService.class);
     }
 }

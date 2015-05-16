@@ -14,16 +14,19 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.ui;
+package com.github.pennyfive.altyleareena.model.api;
 
-import android.support.v4.app.FragmentActivity;
+import com.github.pennyfive.altyleareena.model.categories.Category;
 
-import com.github.pennyfive.altyleareena.ApplicationComponent;
-import com.github.pennyfive.altyleareena.MyApplication;
+import java.util.List;
 
-public abstract class BaseActivity extends FragmentActivity {
+import retrofit.http.GET;
+import rx.Observable;
 
-    public ApplicationComponent getApplicationComponent() {
-        return ((MyApplication) getApplication()).getApplicationComponent();
-    }
+/**
+ *
+ */
+public interface YleApiService {
+    @GET("/categories.json")
+    Observable<Response<List<Category>>> getCategories();
 }

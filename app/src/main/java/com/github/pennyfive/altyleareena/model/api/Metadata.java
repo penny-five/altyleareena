@@ -14,16 +14,12 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.ui;
+package com.github.pennyfive.altyleareena.model.api;
 
-import android.support.v4.app.FragmentActivity;
+import com.google.gson.annotations.SerializedName;
 
-import com.github.pennyfive.altyleareena.ApplicationComponent;
-import com.github.pennyfive.altyleareena.MyApplication;
-
-public abstract class BaseActivity extends FragmentActivity {
-
-    public ApplicationComponent getApplicationComponent() {
-        return ((MyApplication) getApplication()).getApplicationComponent();
-    }
+public class Metadata {
+    @SerializedName("offset") private int offset;
+    @SerializedName("limit") private int limit;
+    @SerializedName("count") private int count;
 }

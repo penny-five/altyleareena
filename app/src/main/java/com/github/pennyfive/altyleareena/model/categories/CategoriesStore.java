@@ -14,16 +14,10 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.ui;
+package com.github.pennyfive.altyleareena.model.categories;
 
-import android.support.v4.app.FragmentActivity;
+import rx.Observable;
 
-import com.github.pennyfive.altyleareena.ApplicationComponent;
-import com.github.pennyfive.altyleareena.MyApplication;
-
-public abstract class BaseActivity extends FragmentActivity {
-
-    public ApplicationComponent getApplicationComponent() {
-        return ((MyApplication) getApplication()).getApplicationComponent();
-    }
+public interface CategoriesStore {
+    Observable<Category> getCategories();
 }
