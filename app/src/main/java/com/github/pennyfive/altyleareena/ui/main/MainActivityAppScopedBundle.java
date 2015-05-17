@@ -1,16 +1,16 @@
 package com.github.pennyfive.altyleareena.ui.main;
 
 import com.github.pennyfive.altyleareena.model.categories.CategoriesStore;
-import com.github.pennyfive.altyleareena.ui.main.categories.CategoriesMVPPresenter;
+import com.github.pennyfive.altyleareena.ui.main.categories.CategoriesMvpPresenter;
 
 public class MainActivityAppScopedBundle {
-    private final CategoriesMVPPresenter categoriesMVPPresenter;
+    private final CategoriesMvpPresenter categoriesMVPPresenter;
 
     public MainActivityAppScopedBundle(CategoriesStore store) {
-        categoriesMVPPresenter = new CategoriesMVPPresenter(store);
+        categoriesMVPPresenter = new CategoriesMvpPresenter(store);
     }
 
-    public CategoriesMVPPresenter getCategoriesMVPPresenter() {
+    public CategoriesMvpPresenter getCategoriesMVPPresenter() {
         return categoriesMVPPresenter;
     }
 }

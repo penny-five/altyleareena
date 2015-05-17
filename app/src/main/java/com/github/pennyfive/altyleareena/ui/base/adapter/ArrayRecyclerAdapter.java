@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Simple {@link RecyclerView} implementation backed by an array of items.
+ * Simple {@link RecyclerView} backed by an array of items.
  *
  * @param <E>
  * @param <VH>

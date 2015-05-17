@@ -21,10 +21,10 @@ import android.os.Bundle;
 /**
  * View for MVP architecture.
  *
- * @see MVPPresenter
- * @see AsyncMVPView
+ * @see MvpPresenter
+ * @see StatefulMvpView
  */
-public interface MVPView {
+public interface MvpView {
     void onRestoreState(Bundle savedInstanceState);
 
     void onSaveState(Bundle outState);

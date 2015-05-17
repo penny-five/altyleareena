@@ -28,7 +28,7 @@ import android.view.View;
 
 import com.github.pennyfive.altyleareena.R;
 import com.github.pennyfive.altyleareena.model.categories.Category;
-import com.github.pennyfive.altyleareena.ui.base.layout.MVPStatefulFrameLayout;
+import com.github.pennyfive.altyleareena.ui.base.layout.StatefulMvpFrameLayout;
 import com.github.pennyfive.altyleareena.ui.main.MainActivity;
 
 import java.util.List;
@@ -36,22 +36,24 @@ import java.util.List;
 import javax.inject.Inject;
 
 /**
- * Implementation of {@link CategoriesMVPView}
+ * Implementation of {@link CategoriesMvpView}
+ * <p/>
+ * TODO could use a better name
  */
-public class CategoriesListLayout extends MVPStatefulFrameLayout implements CategoriesMVPView {
-    private CategoriesMVPPresenter presenter;
+public class CategoriesMvpLayout extends StatefulMvpFrameLayout implements CategoriesMvpView {
+    private CategoriesMvpPresenter presenter;
     private CategoriesAdapter adapter;
     private RecyclerView recyclerView;
 
-    public CategoriesListLayout(Context context) {
+    public CategoriesMvpLayout(Context context) {
         this(context, null);
     }
 
-    public CategoriesListLayout(Context context, AttributeSet attrs) {
+    public CategoriesMvpLayout(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public CategoriesListLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CategoriesMvpLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         ((MainActivity) getContext()).getActivityComponent().inject(this);
         initializeRecyclerView();
@@ -66,7 +68,7 @@ public class CategoriesListLayout extends MVPStatefulFrameLayout implements Cate
     }
 
     @Inject
-    public void setPresenter(CategoriesMVPPresenter presenter) {
+    public void setPresenter(CategoriesMvpPresenter presenter) {
         this.presenter = presenter;
     }
 

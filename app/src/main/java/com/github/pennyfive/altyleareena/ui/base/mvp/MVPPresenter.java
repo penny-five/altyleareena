@@ -24,15 +24,15 @@ import android.util.Log;
  * Presenter for MVP architecture.
  *
  * @param <T>
- * @see MVPView
+ * @see MvpView
  */
-public abstract class MVPPresenter<T extends MVPView> {
-    private static final String DEBUG_LOG_TAG = "MVPPresenter";
+public abstract class MvpPresenter<T extends MvpView> {
+    private static final String DEBUG_LOG_TAG = "MvpPresenter";
     private static final boolean DEBUG = true;
     private Bundle savedState;
     private T view;
 
-    protected MVPPresenter() {
+    protected MvpPresenter() {
         if (DEBUG) Log.d(DEBUG_LOG_TAG, "create presenter " + this);
     }
 
@@ -43,7 +43,7 @@ public abstract class MVPPresenter<T extends MVPView> {
 
     public void bindView(T view) {
         if (this.view != null) {
-            throw new IllegalStateException("Tried to bound presenter that already was bound to a view");
+            throw new IllegalStateException("Tried to bind presenter that already was bound to a view");
         }
 
         this.view = view;

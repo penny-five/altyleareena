@@ -17,11 +17,12 @@
 package com.github.pennyfive.altyleareena.ui.base.mvp;
 
 /**
- * Special {@link MVPView} for cases where view data is loaded asynchronously, having a need to display load/error/empty-states.
+ * Special {@link MvpView} for cases where the view data is loaded asynchronously, having a need to display specific UI states for data loading,
+ * empty results and failed load operation.
  * <p/>
  * TODO could use a better name
  */
-public interface AsyncMVPView extends MVPView {
+public interface StatefulMvpView extends MvpView {
     void showContent();
 
     void showLoading();

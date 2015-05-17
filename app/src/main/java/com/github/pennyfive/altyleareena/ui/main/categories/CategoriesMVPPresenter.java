@@ -18,23 +18,23 @@ package com.github.pennyfive.altyleareena.ui.main.categories;
 
 import com.github.pennyfive.altyleareena.model.categories.CategoriesStore;
 import com.github.pennyfive.altyleareena.model.categories.Category;
-import com.github.pennyfive.altyleareena.ui.base.mvp.MVPPresenter;
+import com.github.pennyfive.altyleareena.ui.base.mvp.MvpPresenter;
 
 import java.util.List;
 
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 
-public class CategoriesMVPPresenter extends MVPPresenter<CategoriesMVPView> {
+public class CategoriesMvpPresenter extends MvpPresenter<CategoriesMvpView> {
     private final CategoriesStore store;
 
-    public CategoriesMVPPresenter(CategoriesStore store) {
+    public CategoriesMvpPresenter(CategoriesStore store) {
         super();
         this.store = store;
     }
 
     @Override
-    protected void onViewBound(CategoriesMVPView view) {
+    protected void onViewBound(CategoriesMvpView view) {
         store.getCategories().observeOn(AndroidSchedulers.mainThread()).toList().subscribe(new Observer<List<Category>>() {
             @Override
             public void onCompleted() {
@@ -57,7 +57,7 @@ public class CategoriesMVPPresenter extends MVPPresenter<CategoriesMVPView> {
     }
 
     @Override
-    protected void onViewDropped(CategoriesMVPView view) {
+    protected void onViewDropped(CategoriesMvpView view) {
 
     }
 }
