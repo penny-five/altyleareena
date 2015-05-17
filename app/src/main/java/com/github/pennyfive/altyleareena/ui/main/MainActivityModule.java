@@ -14,21 +14,22 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena;
+package com.github.pennyfive.altyleareena.ui.main;
 
 import com.github.pennyfive.altyleareena.model.categories.CategoriesStore;
-import com.github.pennyfive.altyleareena.ui.main.MainActivity;
-import com.github.pennyfive.altyleareena.util.annotations.ApplicationScope;
+import com.github.pennyfive.altyleareena.ui.main.categories.CategoriesMVPPresenter;
+import com.github.pennyfive.altyleareena.util.annotations.ActivityScope;
 
-import dagger.Component;
+import dagger.Module;
+import dagger.Provides;
 
-/**
- * Dagger component with application scope.
- */
-@ApplicationScope
-@Component(modules = ApplicationModule.class)
-public interface ApplicationComponent {
-    void inject(MainActivity activity);
+@Module
+public class MainActivityModule {
 
-    CategoriesStore getCategoriesStore();
+    @Provides
+    @ActivityScope
+    CategoriesMVPPresenter provideCategoriesPresenter(CategoriesStore store) {
+        return new CategoriesMVPPresenter(store);
+    }
+
 }

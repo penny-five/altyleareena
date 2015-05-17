@@ -14,21 +14,16 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena;
+package com.github.pennyfive.altyleareena.ui.base.activity;
 
-import com.github.pennyfive.altyleareena.model.categories.CategoriesStore;
-import com.github.pennyfive.altyleareena.ui.main.MainActivity;
-import com.github.pennyfive.altyleareena.util.annotations.ApplicationScope;
+import android.support.v4.app.FragmentActivity;
 
-import dagger.Component;
+import com.github.pennyfive.altyleareena.ApplicationComponent;
+import com.github.pennyfive.altyleareena.MyApplication;
 
-/**
- * Dagger component with application scope.
- */
-@ApplicationScope
-@Component(modules = ApplicationModule.class)
-public interface ApplicationComponent {
-    void inject(MainActivity activity);
+public abstract class BaseActivity extends FragmentActivity {
 
-    CategoriesStore getCategoriesStore();
+    protected ApplicationComponent getApplicationComponent() {
+        return ((MyApplication) getApplication()).getApplicationComponent();
+    }
 }

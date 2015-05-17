@@ -27,15 +27,15 @@ import rx.Observable;
 import rx.functions.Func1;
 
 public class ApiServiceBackedCategoriesStore implements CategoriesStore {
-    private final YleApiService service;
+    private final Observable<Response<List<Category>>> observable;
 
     public ApiServiceBackedCategoriesStore(YleApiService service) {
-        this.service = service;
+        observable = service.getCategories().cache();
     }
 
     @Override
     public Observable<Category> getCategories() {
-        return service.getCategories().flatMap(new Func1<Response<List<Category>>, Observable<Category>>() {
+        return observable.flatMap(new Func1<Response<List<Category>>, Observable<Category>>() {
             @Override
             public Observable<Category> call(Response<List<Category>> response) {
                 return Observable.from(response.getData());

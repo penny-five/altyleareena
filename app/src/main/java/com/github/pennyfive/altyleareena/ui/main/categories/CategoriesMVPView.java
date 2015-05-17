@@ -14,17 +14,13 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.util;
+package com.github.pennyfive.altyleareena.ui.main.categories;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import com.github.pennyfive.altyleareena.model.categories.Category;
+import com.github.pennyfive.altyleareena.ui.base.mvp.AsyncMVPView;
 
-import javax.inject.Scope;
+import java.util.List;
 
-/**
- * Activity level scope for Dagger context injection.
- */
-@Scope
-@Retention(RetentionPolicy.RUNTIME)
-public @interface ForActivity {
+public interface CategoriesMVPView extends AsyncMVPView {
+    void setCategories(List<Category> categories);
 }

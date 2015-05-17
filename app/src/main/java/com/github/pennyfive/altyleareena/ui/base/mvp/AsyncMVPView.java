@@ -14,21 +14,19 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena;
-
-import com.github.pennyfive.altyleareena.model.categories.CategoriesStore;
-import com.github.pennyfive.altyleareena.ui.main.MainActivity;
-import com.github.pennyfive.altyleareena.util.annotations.ApplicationScope;
-
-import dagger.Component;
+package com.github.pennyfive.altyleareena.ui.base.mvp;
 
 /**
- * Dagger component with application scope.
+ * Special {@link MVPView} for cases where view data is loaded asynchronously, having need to display load/error/empty-states.
+ * <p/>
+ * TODO could use a better name
  */
-@ApplicationScope
-@Component(modules = ApplicationModule.class)
-public interface ApplicationComponent {
-    void inject(MainActivity activity);
+public interface AsyncMVPView extends MVPView {
+    void showContent();
 
-    CategoriesStore getCategoriesStore();
+    void showLoading();
+
+    void showError(String text);
+
+    void showEmpty(String text);
 }

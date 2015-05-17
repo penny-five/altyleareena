@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.util;
+package com.github.pennyfive.altyleareena.util.annotations;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -26,5 +26,5 @@ import javax.inject.Scope;
  */
 @Scope
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ForApplication {
+public @interface ApplicationScope {
 }

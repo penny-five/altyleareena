@@ -14,21 +14,18 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena;
+package com.github.pennyfive.altyleareena.ui.base.mvp;
 
-import com.github.pennyfive.altyleareena.model.categories.CategoriesStore;
-import com.github.pennyfive.altyleareena.ui.main.MainActivity;
-import com.github.pennyfive.altyleareena.util.annotations.ApplicationScope;
-
-import dagger.Component;
+import android.os.Bundle;
 
 /**
- * Dagger component with application scope.
+ * View for MVP architecture.
+ *
+ * @see MVPPresenter
+ * @see AsyncMVPView
  */
-@ApplicationScope
-@Component(modules = ApplicationModule.class)
-public interface ApplicationComponent {
-    void inject(MainActivity activity);
+public interface MVPView {
+    void onRestoreState(Bundle savedInstanceState);
 
-    CategoriesStore getCategoriesStore();
+    void onSaveState(Bundle outState);
 }

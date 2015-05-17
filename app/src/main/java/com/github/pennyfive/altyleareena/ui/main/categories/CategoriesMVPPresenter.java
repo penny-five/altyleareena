@@ -14,27 +14,27 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.ui;
-
-import android.os.Bundle;
-import android.util.Log;
+package com.github.pennyfive.altyleareena.ui.main.categories;
 
 import com.github.pennyfive.altyleareena.model.categories.CategoriesStore;
 import com.github.pennyfive.altyleareena.model.categories.Category;
+import com.github.pennyfive.altyleareena.ui.base.mvp.MVPPresenter;
 
-import javax.inject.Inject;
+import java.util.List;
 
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 
-public class MainActivity extends BaseActivity {
-    @Inject CategoriesStore categories;
+public class CategoriesMVPPresenter extends MVPPresenter<CategoriesMVPView> {
+    private final CategoriesStore store;
+
+    public CategoriesMVPPresenter(CategoriesStore store) {
+        this.store = store;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getApplicationComponent().inject(this);
-        categories.getCategories().observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<Category>() {
+    protected void onViewBound(CategoriesMVPView view) {
+        store.getCategories().observeOn(AndroidSchedulers.mainThread()).toList().subscribe(new Observer<List<Category>>() {
             @Override
             public void onCompleted() {
 
@@ -46,9 +46,16 @@ public class MainActivity extends BaseActivity {
             }
 
             @Override
-            public void onNext(Category category) {
-                Log.d("MainActivity", "received category: " + category);
+            public void onNext(List<Category> categories) {
+                if (getView() != null) {
+                    getView().setCategories(categories);
+                }
             }
         });
+    }
+
+    @Override
+    protected void onViewDropped(CategoriesMVPView view) {
+
     }
 }

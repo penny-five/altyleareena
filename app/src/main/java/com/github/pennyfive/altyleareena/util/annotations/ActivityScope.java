@@ -14,16 +14,17 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.ui;
+package com.github.pennyfive.altyleareena.util.annotations;
 
-import android.support.v4.app.FragmentActivity;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
-import com.github.pennyfive.altyleareena.ApplicationComponent;
-import com.github.pennyfive.altyleareena.MyApplication;
+import javax.inject.Scope;
 
-public abstract class BaseActivity extends FragmentActivity {
-
-    public ApplicationComponent getApplicationComponent() {
-        return ((MyApplication) getApplication()).getApplicationComponent();
-    }
+/**
+ * Activity level scope for Dagger context injection.
+ */
+@Scope
+@Retention(RetentionPolicy.RUNTIME)
+public @interface ActivityScope {
 }

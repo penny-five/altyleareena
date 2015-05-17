@@ -21,7 +21,7 @@ import android.content.Context;
 import com.github.pennyfive.altyleareena.model.api.YleApiService;
 import com.github.pennyfive.altyleareena.model.categories.CategoriesStore;
 import com.github.pennyfive.altyleareena.model.categories.impl.ApiServiceBackedCategoriesStore;
-import com.github.pennyfive.altyleareena.util.ForApplication;
+import com.github.pennyfive.altyleareena.util.annotations.ApplicationScope;
 
 import dagger.Module;
 import dagger.Provides;
@@ -37,19 +37,19 @@ public class ApplicationModule {
     }
 
     @Provides
-    @ForApplication
+    @ApplicationScope
     Context provideApplicationContext() {
         return application;
     }
 
     @Provides
-    @ForApplication
-    CategoriesStore provideCategories(YleApiService service) {
+    @ApplicationScope
+    CategoriesStore provideCategoriesStore(YleApiService service) {
         return new ApiServiceBackedCategoriesStore(service);
     }
 
     @Provides
-    @ForApplication
+    @ApplicationScope
     YleApiService provideYleApiService() {
         return new RestAdapter.Builder()
                 .setEndpoint(BuildConfig.YLE_API_ENDPOINT)

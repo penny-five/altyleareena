@@ -31,8 +31,7 @@ public class MyApplication extends Application {
     }
 
     private ApplicationComponent createApplicationComponent() {
-        return DaggerApplicationComponent
-                .builder()
+        return DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .build();
     }
