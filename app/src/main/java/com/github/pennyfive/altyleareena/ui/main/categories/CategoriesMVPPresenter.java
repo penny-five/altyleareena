@@ -16,6 +16,8 @@
 
 package com.github.pennyfive.altyleareena.ui.main.categories;
 
+import android.util.Log;
+
 import com.github.pennyfive.altyleareena.model.categories.CategoriesStore;
 import com.github.pennyfive.altyleareena.model.categories.Category;
 import com.github.pennyfive.altyleareena.ui.base.mvp.MvpPresenter;
@@ -59,5 +61,9 @@ public class CategoriesMvpPresenter extends MvpPresenter<CategoriesMvpView> {
     @Override
     protected void onViewDropped(CategoriesMvpView view) {
 
+    }
+
+    public void onCategoryClicked(Category category) {
+        Log.d("foo", "on click " + category.toString());
     }
 }

@@ -22,12 +22,14 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import com.github.pennyfive.altyleareena.R;
 import com.github.pennyfive.altyleareena.model.categories.Category;
+import com.github.pennyfive.altyleareena.ui.base.adapter.ArrayRecyclerAdapter;
 import com.github.pennyfive.altyleareena.ui.base.layout.StatefulMvpFrameLayout;
 import com.github.pennyfive.altyleareena.ui.main.MainActivity;
 
@@ -40,7 +42,7 @@ import javax.inject.Inject;
  * <p/>
  * TODO could use a better name
  */
-public class CategoriesMvpLayout extends StatefulMvpFrameLayout implements CategoriesMvpView {
+public class CategoriesMvpLayout extends StatefulMvpFrameLayout implements CategoriesMvpView, ArrayRecyclerAdapter.OnItemClickListener {
     private CategoriesMvpPresenter presenter;
     private CategoriesAdapter adapter;
     private RecyclerView recyclerView;
@@ -99,6 +101,7 @@ public class CategoriesMvpLayout extends StatefulMvpFrameLayout implements Categ
     @Override
     public void setCategories(List<Category> categories) {
         adapter = new CategoriesAdapter(getContext(), categories);
+        adapter.setItemClickListener(this);
         recyclerView.setAdapter(adapter);
     }
 
@@ -106,5 +109,10 @@ public class CategoriesMvpLayout extends StatefulMvpFrameLayout implements Categ
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         presenter.dropView(this);
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        presenter.onCategoryClicked(adapter.getItem(position));
     }
 }

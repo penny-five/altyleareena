@@ -18,9 +18,6 @@ package com.github.pennyfive.altyleareena.model.api;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- *
- */
 public class Response<T> {
     @SerializedName("apiVersion") private String apiVersion;
     @SerializedName("meta") private Metadata meta;

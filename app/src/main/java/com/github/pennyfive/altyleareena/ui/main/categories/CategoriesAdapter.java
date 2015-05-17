@@ -22,7 +22,7 @@ public class CategoriesAdapter extends ArrayRecyclerAdapter<Category, Categories
 
     @Override
     public CategoriesViewHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int ViewType) {
-        return new CategoriesViewHolder(inflater.inflate(R.layout.categories_item, parent, false));
+        return new CategoriesViewHolder(inflater.inflate(R.layout.item_categories, parent, false));
     }
 
     @Override
