@@ -23,9 +23,6 @@ import java.util.List;
 import retrofit.http.GET;
 import rx.Observable;
 
-/**
- *
- */
 public interface YleApiService {
     @GET("/categories.json")
     Observable<Response<List<Category>>> getCategories();
