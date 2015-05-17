@@ -18,6 +18,7 @@ package com.github.pennyfive.altyleareena.ui.base.mvp;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 /**
  * Presenter for MVP architecture.
@@ -26,8 +27,14 @@ import android.support.annotation.Nullable;
  * @see MVPView
  */
 public abstract class MVPPresenter<T extends MVPView> {
+    private static final String DEBUG_LOG_TAG = "MVPPresenter";
+    private static final boolean DEBUG = true;
     private Bundle savedState;
     private T view;
+
+    protected MVPPresenter() {
+        if (DEBUG) Log.d(DEBUG_LOG_TAG, "create presenter " + this);
+    }
 
     @Nullable
     protected T getView() {
@@ -35,10 +42,17 @@ public abstract class MVPPresenter<T extends MVPView> {
     }
 
     public void bindView(T view) {
+        if (this.view != null) {
+            throw new IllegalStateException("Tried to bound presenter that already was bound to a view");
+        }
+
         this.view = view;
         onViewBound(view);
+        if (DEBUG) Log.d(DEBUG_LOG_TAG, "bind view " + view + "@" + this);
+
         if (savedState != null && !savedState.isEmpty()) {
             view.onRestoreState(savedState);
+            if (DEBUG) Log.d(DEBUG_LOG_TAG, "restore state " + savedState + "@" + this);
         }
     }
 
@@ -48,10 +62,14 @@ public abstract class MVPPresenter<T extends MVPView> {
         if (this.view != view) {
             throw new IllegalStateException("Tried to drop unbound view");
         }
+
         savedState = new Bundle();
         view.onSaveState(savedState);
+        if (DEBUG) Log.d(DEBUG_LOG_TAG, "save state " + savedState + "@" + this);
+
         onViewDropped(this.view);
         this.view = null;
+        if (DEBUG) Log.d(DEBUG_LOG_TAG, "drop view " + view + "@" + this);
     }
 
     abstract protected void onViewDropped(T view);

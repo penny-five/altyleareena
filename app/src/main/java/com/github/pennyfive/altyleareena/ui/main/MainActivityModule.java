@@ -16,7 +16,6 @@
 
 package com.github.pennyfive.altyleareena.ui.main;
 
-import com.github.pennyfive.altyleareena.model.categories.CategoriesStore;
 import com.github.pennyfive.altyleareena.ui.main.categories.CategoriesMVPPresenter;
 import com.github.pennyfive.altyleareena.util.annotations.ActivityScope;
 
@@ -28,8 +27,8 @@ public class MainActivityModule {
 
     @Provides
     @ActivityScope
-    CategoriesMVPPresenter provideCategoriesPresenter(CategoriesStore store) {
-        return new CategoriesMVPPresenter(store);
+    CategoriesMVPPresenter provideCategoriesPresenter(MainActivityAppScopedBundle bundle) {
+        return bundle.getCategoriesMVPPresenter();
     }
 
 }

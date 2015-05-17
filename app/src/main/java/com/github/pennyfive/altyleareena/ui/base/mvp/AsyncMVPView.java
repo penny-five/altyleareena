@@ -17,7 +17,7 @@
 package com.github.pennyfive.altyleareena.ui.base.mvp;
 
 /**
- * Special {@link MVPView} for cases where view data is loaded asynchronously, having need to display load/error/empty-states.
+ * Special {@link MVPView} for cases where view data is loaded asynchronously, having a need to display load/error/empty-states.
  * <p/>
  * TODO could use a better name
  */

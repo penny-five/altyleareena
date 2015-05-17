@@ -29,6 +29,7 @@ public class CategoriesMVPPresenter extends MVPPresenter<CategoriesMVPView> {
     private final CategoriesStore store;
 
     public CategoriesMVPPresenter(CategoriesStore store) {
+        super();
         this.store = store;
     }
 
@@ -49,6 +50,7 @@ public class CategoriesMVPPresenter extends MVPPresenter<CategoriesMVPView> {
             public void onNext(List<Category> categories) {
                 if (getView() != null) {
                     getView().setCategories(categories);
+                    getView().showContent();
                 }
             }
         });

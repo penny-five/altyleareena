@@ -21,6 +21,7 @@ import android.content.Context;
 import com.github.pennyfive.altyleareena.model.api.YleApiService;
 import com.github.pennyfive.altyleareena.model.categories.CategoriesStore;
 import com.github.pennyfive.altyleareena.model.categories.impl.ApiServiceBackedCategoriesStore;
+import com.github.pennyfive.altyleareena.ui.main.MainActivityAppScopedBundle;
 import com.github.pennyfive.altyleareena.util.annotations.ApplicationScope;
 
 import dagger.Module;
@@ -64,5 +65,11 @@ public class ApplicationModule {
                 .setLogLevel(BuildConfig.DEBUG ? RestAdapter.LogLevel.BASIC : RestAdapter.LogLevel.NONE)
                 .build()
                 .create(YleApiService.class);
+    }
+
+    @Provides
+    @ApplicationScope
+    MainActivityAppScopedBundle getMainActivityBundle(CategoriesStore categoriesStore) {
+        return new MainActivityAppScopedBundle(categoriesStore);
     }
 }

@@ -21,4 +21,18 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="TextAppearance.Altyleareena.Headline" parent="@style/None">
+        <item name="android:textSize">@dimen/abc_text_size_headline_material</item>
+    </style>
+
+    <style name="TextAppearance.Altyleareena.Body" parent="@style/None">
+        <item name="android:textSize">@dimen/abc_text_size_body_1_material</item>
+    </style>
+
+    <style name="TextAppearance.Altyleareena.Caption" parent="@style/None">
+        <item name="android:textSize">@dimen/abc_text_size_caption_material</item>
+    </style>
+
+    <style name="None"/>
+
 </resources>

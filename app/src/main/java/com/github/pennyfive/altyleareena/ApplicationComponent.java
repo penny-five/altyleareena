@@ -16,8 +16,8 @@
 
 package com.github.pennyfive.altyleareena;
 
-import com.github.pennyfive.altyleareena.model.categories.CategoriesStore;
 import com.github.pennyfive.altyleareena.ui.main.MainActivity;
+import com.github.pennyfive.altyleareena.ui.main.MainActivityAppScopedBundle;
 import com.github.pennyfive.altyleareena.util.annotations.ApplicationScope;
 
 import dagger.Component;
@@ -30,5 +30,5 @@ import dagger.Component;
 public interface ApplicationComponent {
     void inject(MainActivity activity);
 
-    CategoriesStore getCategoriesStore();
+    MainActivityAppScopedBundle getMainActivityBundle();
 }

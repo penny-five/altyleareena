@@ -17,9 +17,12 @@
 package com.github.pennyfive.altyleareena.ui.base.layout;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -44,6 +47,21 @@ public abstract class MVPStatefulFrameLayout extends AbsStatefulFrameLayout impl
 
     public MVPStatefulFrameLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        setSaveEnabled(true);
+        setId(android.support.v7.appcompat.R.id.custom);
+    }
+
+    @Override
+    public final void onSaveState(Bundle outState) {
+        SparseArray<Parcelable> stateContainer = new SparseArray<>();
+        saveHierarchyState(stateContainer);
+        outState.putSparseParcelableArray(getClass().getName(), stateContainer);
+    }
+
+    @Override
+    public final void onRestoreState(Bundle savedInstanceState) {
+        SparseArray<Parcelable> stateContainer = savedInstanceState.getSparseParcelableArray(getClass().getName());
+        restoreHierarchyState(stateContainer);
     }
 
     public void showLoading() {
