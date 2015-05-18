@@ -25,19 +25,21 @@ import com.github.pennyfive.altyleareena.ui.base.mvp.MvpPresenter;
 import java.util.List;
 
 import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
+import rx.Scheduler;
 
 public class CategoriesMvpPresenter extends MvpPresenter<CategoriesMvpView> {
     private final CategoriesStore store;
+    private final Scheduler scheduler;
 
-    public CategoriesMvpPresenter(CategoriesStore store) {
+    public CategoriesMvpPresenter(CategoriesStore store, Scheduler scheduler) {
         super();
         this.store = store;
+        this.scheduler = scheduler;
     }
 
     @Override
     protected void onViewBound(CategoriesMvpView view) {
-        store.getCategories().observeOn(AndroidSchedulers.mainThread()).toList().subscribe(new Observer<List<Category>>() {
+        store.getCategories().observeOn(scheduler).toList().subscribe(new Observer<List<Category>>() {
             @Override
             public void onCompleted() {
 

@@ -23,11 +23,14 @@ import com.github.pennyfive.altyleareena.model.categories.CategoriesStore;
 import com.github.pennyfive.altyleareena.model.categories.impl.ApiServiceBackedCategoriesStore;
 import com.github.pennyfive.altyleareena.ui.main.MainActivityAppScopedBundle;
 import com.github.pennyfive.altyleareena.util.annotations.ApplicationScope;
+import com.github.pennyfive.altyleareena.util.annotations.UiThread;
 
 import dagger.Module;
 import dagger.Provides;
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
+import rx.Scheduler;
+import rx.android.schedulers.AndroidSchedulers;
 
 @Module
 public class ApplicationModule {
@@ -69,7 +72,14 @@ public class ApplicationModule {
 
     @Provides
     @ApplicationScope
-    MainActivityAppScopedBundle getMainActivityBundle(CategoriesStore categoriesStore) {
-        return new MainActivityAppScopedBundle(categoriesStore);
+    @UiThread
+    Scheduler provideUiScheduler() {
+        return AndroidSchedulers.mainThread();
+    }
+
+    @Provides
+    @ApplicationScope
+    MainActivityAppScopedBundle getMainActivityBundle(CategoriesStore categoriesStore, @UiThread Scheduler scheduler) {
+        return new MainActivityAppScopedBundle(categoriesStore, scheduler);
     }
 }
