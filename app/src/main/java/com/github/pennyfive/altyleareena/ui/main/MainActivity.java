@@ -18,10 +18,13 @@ package com.github.pennyfive.altyleareena.ui.main;
 
 import android.os.Bundle;
 
+import com.github.pennyfive.altyleareena.ApplicationComponent;
 import com.github.pennyfive.altyleareena.R;
 import com.github.pennyfive.altyleareena.ui.base.activity.BaseActivity;
+import com.github.pennyfive.altyleareena.util.DaggerUtils;
+import com.github.pennyfive.altyleareena.util.annotations.ProvidesComponent;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements ProvidesComponent<MainActivityComponent> {
     private MainActivityComponent component;
 
     @Override
@@ -34,11 +37,12 @@ public class MainActivity extends BaseActivity {
     private void buildActivityComponent() {
         component = DaggerMainActivityComponent.builder()
                 .mainActivityModule(new MainActivityModule())
-                .applicationComponent(getApplicationComponent())
+                .applicationComponent(DaggerUtils.getComponent(this, ApplicationComponent.class))
                 .build();
     }
 
-    public MainActivityComponent getActivityComponent() {
+    @Override
+    public MainActivityComponent provideComponent() {
         return component;
     }
 }

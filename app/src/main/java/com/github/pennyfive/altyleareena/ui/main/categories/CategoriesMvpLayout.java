@@ -22,7 +22,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +30,8 @@ import com.github.pennyfive.altyleareena.R;
 import com.github.pennyfive.altyleareena.model.categories.Category;
 import com.github.pennyfive.altyleareena.ui.base.adapter.ArrayRecyclerAdapter;
 import com.github.pennyfive.altyleareena.ui.base.layout.StatefulMvpFrameLayout;
-import com.github.pennyfive.altyleareena.ui.main.MainActivity;
+import com.github.pennyfive.altyleareena.ui.main.MainActivityComponent;
+import com.github.pennyfive.altyleareena.util.DaggerUtils;
 
 import java.util.List;
 
@@ -57,7 +57,7 @@ public class CategoriesMvpLayout extends StatefulMvpFrameLayout implements Categ
 
     public CategoriesMvpLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        ((MainActivity) getContext()).getActivityComponent().inject(this);
+        DaggerUtils.getComponent(context, MainActivityComponent.class).inject(this);
         initializeRecyclerView();
     }
 

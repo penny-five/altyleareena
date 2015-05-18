@@ -18,12 +18,6 @@ package com.github.pennyfive.altyleareena.ui.base.activity;
 
 import android.support.v4.app.FragmentActivity;
 
-import com.github.pennyfive.altyleareena.ApplicationComponent;
-import com.github.pennyfive.altyleareena.MyApplication;
-
 public abstract class BaseActivity extends FragmentActivity {
 
-    protected ApplicationComponent getApplicationComponent() {
-        return ((MyApplication) getApplication()).getApplicationComponent();
-    }
 }

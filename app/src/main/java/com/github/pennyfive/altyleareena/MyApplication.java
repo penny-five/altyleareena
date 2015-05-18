@@ -18,10 +18,12 @@ package com.github.pennyfive.altyleareena;
 
 import android.app.Application;
 
+import com.github.pennyfive.altyleareena.util.annotations.ProvidesComponent;
+
 /**
  * TODO: rename once app name has been decided
  */
-public class MyApplication extends Application {
+public class MyApplication extends Application implements ProvidesComponent<ApplicationComponent> {
     private ApplicationComponent component;
 
     @Override
@@ -36,7 +38,8 @@ public class MyApplication extends Application {
                 .build();
     }
 
-    public ApplicationComponent getApplicationComponent() {
+    @Override
+    public ApplicationComponent provideComponent() {
         return component;
     }
 }
