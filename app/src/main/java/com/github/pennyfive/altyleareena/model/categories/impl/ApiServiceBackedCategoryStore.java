@@ -24,7 +24,6 @@ import com.github.pennyfive.altyleareena.model.categories.CategoryStore;
 import java.util.List;
 
 import rx.Observable;
-import rx.functions.Func1;
 
 public class ApiServiceBackedCategoryStore implements CategoryStore {
     private final Observable<Response<List<Category>>> observable;
@@ -35,11 +34,6 @@ public class ApiServiceBackedCategoryStore implements CategoryStore {
 
     @Override
     public Observable<Category> getCategories() {
-        return observable.flatMap(new Func1<Response<List<Category>>, Observable<Category>>() {
-            @Override
-            public Observable<Category> call(Response<List<Category>> response) {
-                return Observable.from(response.getData());
-            }
-        });
+        return observable.flatMap(response -> Observable.from(response.getData()));
     }
 }

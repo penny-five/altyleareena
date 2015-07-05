@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.Map;
 
 import rx.Observable;
-import rx.functions.Func1;
 
 public class ApiServiceBackedProgramStore implements ProgramStore {
     private final YleApiService service;
@@ -39,12 +38,7 @@ public class ApiServiceBackedProgramStore implements ProgramStore {
 
     @Override
     public Observable<Program> getPrograms(Category category) {
-        return getOrCreateProgramObservable(category).flatMap(new Func1<Response<List<Program>>, Observable<Program>>() {
-            @Override
-            public Observable<Program> call(Response<List<Program>> response) {
-                return Observable.from(response.getData());
-            }
-        });
+        return getOrCreateProgramObservable(category).flatMap(response -> Observable.from(response.getData()));
     }
 
     private Observable<Response<List<Program>>> getOrCreateProgramObservable(Category category) {

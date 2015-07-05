@@ -33,7 +33,6 @@ import com.google.gson.GsonBuilder;
 import auto.parcelgson.gson.AutoParcelGsonTypeAdapterFactory;
 import dagger.Module;
 import dagger.Provides;
-import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 import retrofit.converter.GsonConverter;
 import rx.Scheduler;
@@ -71,13 +70,10 @@ public class ApplicationModule {
         return new RestAdapter.Builder()
                 .setEndpoint(BuildConfig.YLE_API_ENDPOINT)
                 .setConverter(new GsonConverter(gson))
-                .setRequestInterceptor(new RequestInterceptor() {
-                    @Override
-                    public void intercept(RequestFacade request) {
-                        // app_id and app_key are required for all API queries.
-                        request.addQueryParam("app_id", BuildConfig.YLE_APP_ID);
-                        request.addQueryParam("app_key", BuildConfig.YLE_APP_KEY);
-                    }
+                .setRequestInterceptor(request -> {
+                    // app_id and app_key are required for all API queries.
+                    request.addQueryParam("app_id", BuildConfig.YLE_APP_ID);
+                    request.addQueryParam("app_key", BuildConfig.YLE_APP_KEY);
                 })
                 .setLogLevel(BuildConfig.DEBUG ? RestAdapter.LogLevel.BASIC : RestAdapter.LogLevel.NONE)
                 .build()
