@@ -23,4 +23,6 @@ import java.util.List;
 
 public interface CategoriesMvpView extends StatefulMvpView {
     void setCategories(List<Category> categories);
+
+    void showCategoryView(Category category);
 }

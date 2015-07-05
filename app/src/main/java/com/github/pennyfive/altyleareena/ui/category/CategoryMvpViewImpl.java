@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.ui.main.categories;
+package com.github.pennyfive.altyleareena.ui.category;
 
 import android.content.Context;
 import android.os.Parcelable;
@@ -27,39 +27,32 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.github.pennyfive.altyleareena.R;
-import com.github.pennyfive.altyleareena.model.categories.Category;
+import com.github.pennyfive.altyleareena.model.programs.Program;
 import com.github.pennyfive.altyleareena.ui.Views;
 import com.github.pennyfive.altyleareena.ui.base.adapter.ArrayRecyclerAdapter;
 import com.github.pennyfive.altyleareena.ui.base.layout.StatefulMvpFrameLayout;
-import com.github.pennyfive.altyleareena.ui.category.CategoryActivity;
-import com.github.pennyfive.altyleareena.ui.main.MainActivityComponent;
 import com.github.pennyfive.altyleareena.util.DaggerUtils;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-/**
- * Implementation of {@link CategoriesMvpView}
- * <p/>
- * TODO could use a better name
- */
-public class CategoriesMvpLayout extends StatefulMvpFrameLayout implements CategoriesMvpView, ArrayRecyclerAdapter.OnItemClickListener {
-    private CategoriesMvpPresenter presenter;
-    private CategoriesAdapter adapter;
+public class CategoryMvpViewImpl extends StatefulMvpFrameLayout implements CategoryMvpView, ArrayRecyclerAdapter.OnItemClickListener {
+    private CategoryMvpPresenter presenter;
+    private ProgramsAdapter adapter;
     private RecyclerView recyclerView;
 
-    public CategoriesMvpLayout(Context context) {
+    public CategoryMvpViewImpl(Context context) {
         this(context, null);
     }
 
-    public CategoriesMvpLayout(Context context, AttributeSet attrs) {
+    public CategoryMvpViewImpl(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public CategoriesMvpLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CategoryMvpViewImpl(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        DaggerUtils.getComponent(context, MainActivityComponent.class).inject(this);
+        DaggerUtils.getComponent(context, CategoryActivityComponent.class).injectCategoryView(this);
         initializeRecyclerView();
     }
 
@@ -72,7 +65,7 @@ public class CategoriesMvpLayout extends StatefulMvpFrameLayout implements Categ
     }
 
     @Inject
-    public void setPresenter(CategoriesMvpPresenter presenter) {
+    public void setPresenter(CategoryMvpPresenter presenter) {
         this.presenter = presenter;
     }
 
@@ -100,8 +93,8 @@ public class CategoriesMvpLayout extends StatefulMvpFrameLayout implements Categ
     }
 
     @Override
-    public void setCategories(List<Category> categories) {
-        adapter = new CategoriesAdapter(getContext(), categories);
+    public void setPrograms(List<Program> programs) {
+        adapter = new ProgramsAdapter(getContext(), programs);
         adapter.setItemClickListener(this);
         recyclerView.setAdapter(adapter);
     }
@@ -114,11 +107,7 @@ public class CategoriesMvpLayout extends StatefulMvpFrameLayout implements Categ
 
     @Override
     public void onItemClick(int position) {
-        presenter.onCategoryClicked(adapter.getItem(position));
+        presenter.onProgramClicked(adapter.getItem(position));
     }
 
-    @Override
-    public void showCategoryView(Category category) {
-        CategoryActivity.launchWith(getContext(), category);
-    }
 }

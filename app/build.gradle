@@ -86,4 +86,8 @@ dependencies {
     // Required by Dagger & RxJava
     compile 'javax.inject:javax.inject:1'
     compile 'javax.annotation:jsr250-api:1.0'
+
+    // Parcelables
+    compile 'me.tatarka:auto-parcel-gson:0.1'
+    apt 'me.tatarka:auto-parcel-gson-processor:0.1'
 }

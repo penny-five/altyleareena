@@ -14,35 +14,35 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.ui.main.categories;
+package com.github.pennyfive.altyleareena.ui.category;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.github.pennyfive.altyleareena.R;
-import com.github.pennyfive.altyleareena.model.categories.Category;
+import com.github.pennyfive.altyleareena.model.programs.Program;
 import com.github.pennyfive.altyleareena.ui.base.adapter.ArrayRecyclerAdapter;
 
 import java.util.Collection;
 
-public class CategoriesAdapter extends ArrayRecyclerAdapter<Category, CategoriesViewHolder> {
+public class ProgramsAdapter extends ArrayRecyclerAdapter<Program, ProgramViewHolder> {
 
-    public CategoriesAdapter(Context context) {
+    public ProgramsAdapter(Context context) {
         super(context);
     }
 
-    public CategoriesAdapter(Context context, Collection<Category> items) {
+    public ProgramsAdapter(Context context, Collection<Program> items) {
         super(context, items);
     }
 
     @Override
-    public CategoriesViewHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int ViewType) {
-        return new CategoriesViewHolder(inflater.inflate(R.layout.item_one_line, parent, false));
+    public ProgramViewHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int ViewType) {
+        return new ProgramViewHolder(inflater.inflate(R.layout.item_one_line, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(CategoriesViewHolder holder, Category item) {
+    public void onBindViewHolder(ProgramViewHolder holder, Program item) {
         holder.bind(item);
     }
 }

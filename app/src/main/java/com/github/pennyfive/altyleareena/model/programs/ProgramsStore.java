@@ -14,21 +14,12 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.model.api;
+package com.github.pennyfive.altyleareena.model.programs;
 
 import com.github.pennyfive.altyleareena.model.categories.Category;
-import com.github.pennyfive.altyleareena.model.programs.Program;
 
-import java.util.List;
-
-import retrofit.http.GET;
-import retrofit.http.Query;
 import rx.Observable;
 
-public interface YleApiService {
-    @GET("/categories.json")
-    Observable<Response<List<Category>>> getCategories();
-
-    @GET("/items.json")
-    Observable<Response<List<Program>>> getCategoryPrograms(@Query("category") String categoryId);
+public interface ProgramsStore {
+    Observable<Program> getPrograms(Category category);
 }

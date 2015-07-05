@@ -14,21 +14,25 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.model.api;
+package com.github.pennyfive.altyleareena.ui.category;
 
 import com.github.pennyfive.altyleareena.model.categories.Category;
-import com.github.pennyfive.altyleareena.model.programs.Program;
+import com.github.pennyfive.altyleareena.util.annotations.ActivityScope;
 
-import java.util.List;
+import dagger.Module;
+import dagger.Provides;
 
-import retrofit.http.GET;
-import retrofit.http.Query;
-import rx.Observable;
+@Module
+public class CategoryActivityModule {
+    private final Category category;
 
-public interface YleApiService {
-    @GET("/categories.json")
-    Observable<Response<List<Category>>> getCategories();
+    CategoryActivityModule(Category category) {
+        this.category = category;
+    }
 
-    @GET("/items.json")
-    Observable<Response<List<Program>>> getCategoryPrograms(@Query("category") String categoryId);
+    @Provides
+    @ActivityScope
+    CategoryMvpPresenter provideCategoryPresenter(CategoryActivityAppScopedBundle bundle) {
+        return bundle.getCategoryPresenter(category);
+    }
 }

@@ -16,6 +16,7 @@
 
 package com.github.pennyfive.altyleareena;
 
+import com.github.pennyfive.altyleareena.ui.category.CategoryActivityAppScopedBundle;
 import com.github.pennyfive.altyleareena.ui.main.MainActivity;
 import com.github.pennyfive.altyleareena.ui.main.MainActivityAppScopedBundle;
 import com.github.pennyfive.altyleareena.util.annotations.ApplicationScope;
@@ -31,4 +32,6 @@ public interface ApplicationComponent {
     void inject(MainActivity activity);
 
     MainActivityAppScopedBundle getMainActivityBundle();
+
+    CategoryActivityAppScopedBundle getCategoryActivityBundle();
 }

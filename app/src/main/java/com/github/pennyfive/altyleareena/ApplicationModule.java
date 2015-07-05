@@ -21,14 +21,21 @@ import android.content.Context;
 import com.github.pennyfive.altyleareena.model.api.YleApiService;
 import com.github.pennyfive.altyleareena.model.categories.CategoriesStore;
 import com.github.pennyfive.altyleareena.model.categories.impl.ApiServiceBackedCategoriesStore;
+import com.github.pennyfive.altyleareena.model.programs.ProgramsStore;
+import com.github.pennyfive.altyleareena.model.programs.impl.ApiServiceBackedProgramsStore;
+import com.github.pennyfive.altyleareena.ui.category.CategoryActivityAppScopedBundle;
 import com.github.pennyfive.altyleareena.ui.main.MainActivityAppScopedBundle;
 import com.github.pennyfive.altyleareena.util.annotations.ApplicationScope;
 import com.github.pennyfive.altyleareena.util.annotations.UiThread;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import auto.parcelgson.gson.AutoParcelGsonTypeAdapterFactory;
 import dagger.Module;
 import dagger.Provides;
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
+import retrofit.converter.GsonConverter;
 import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
 
@@ -54,9 +61,16 @@ public class ApplicationModule {
 
     @Provides
     @ApplicationScope
-    YleApiService provideYleApiService() {
+    ProgramsStore provideProgramsStore(YleApiService service) {
+        return new ApiServiceBackedProgramsStore(service);
+    }
+
+    @Provides
+    @ApplicationScope
+    YleApiService provideYleApiService(Gson gson) {
         return new RestAdapter.Builder()
                 .setEndpoint(BuildConfig.YLE_API_ENDPOINT)
+                .setConverter(new GsonConverter(gson))
                 .setRequestInterceptor(new RequestInterceptor() {
                     @Override
                     public void intercept(RequestFacade request) {
@@ -72,6 +86,14 @@ public class ApplicationModule {
 
     @Provides
     @ApplicationScope
+    Gson provideGson() {
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapterFactory(new AutoParcelGsonTypeAdapterFactory());
+        return builder.create();
+    }
+
+    @Provides
+    @ApplicationScope
     @UiThread
     Scheduler provideUiScheduler() {
         return AndroidSchedulers.mainThread();
@@ -79,7 +101,13 @@ public class ApplicationModule {
 
     @Provides
     @ApplicationScope
-    MainActivityAppScopedBundle getMainActivityBundle(CategoriesStore categoriesStore, @UiThread Scheduler scheduler) {
-        return new MainActivityAppScopedBundle(categoriesStore, scheduler);
+    MainActivityAppScopedBundle provideMainActivityBundle(CategoriesStore store, @UiThread Scheduler scheduler) {
+        return new MainActivityAppScopedBundle(store, scheduler);
+    }
+
+    @Provides
+    @ApplicationScope
+    CategoryActivityAppScopedBundle provideCategoryActivityBundle(ProgramsStore store, @UiThread Scheduler scheduler) {
+        return new CategoryActivityAppScopedBundle(store, scheduler);
     }
 }

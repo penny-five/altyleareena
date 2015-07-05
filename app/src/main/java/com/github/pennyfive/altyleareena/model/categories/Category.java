@@ -16,32 +16,26 @@
 
 package com.github.pennyfive.altyleareena.model.categories;
 
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.Map;
+
+import auto.parcelgson.AutoParcelGson;
+import auto.parcelgson.gson.annotations.SerializedName;
 
 /**
  * Describes a category in Yle Areena (tv shows, movies, news etc.)
  */
-public class Category {
-    @SerializedName("id") private String id;
-    @SerializedName("title") private Map<String, String> titles;
+@AutoParcelGson
+public abstract class Category implements Parcelable {
+    @SerializedName("id")
+    public abstract String id();
 
-    public String getId() {
-        return id;
-    }
+    @SerializedName("title")
+    abstract Map<String, String> titles();
 
     public String getTitleInLanguage(@NonNull String language) {
-        return titles.get(language);
-    }
-
-    @Override
-    public String toString() {
-        return "Category{" +
-                "id='" + id + '\'' +
-                ", titles=" + titles +
-                '}';
+        return titles().get(language);
     }
 }

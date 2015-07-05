@@ -14,21 +14,27 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.model.api;
+package com.github.pennyfive.altyleareena.model.programs;
 
-import com.github.pennyfive.altyleareena.model.categories.Category;
-import com.github.pennyfive.altyleareena.model.programs.Program;
 
-import java.util.List;
+import java.util.Map;
 
-import retrofit.http.GET;
-import retrofit.http.Query;
-import rx.Observable;
+import auto.parcelgson.AutoParcelGson;
+import auto.parcelgson.gson.annotations.SerializedName;
 
-public interface YleApiService {
-    @GET("/categories.json")
-    Observable<Response<List<Category>>> getCategories();
+@AutoParcelGson
+public abstract class Program {
+    @SerializedName("title")
+    abstract Map<String, String> titles();
 
-    @GET("/items.json")
-    Observable<Response<List<Program>>> getCategoryPrograms(@Query("category") String categoryId);
+    public String getTitleInLanguage(String language) {
+        return titles().get(language);
+    }
+
+    @SerializedName("description")
+    abstract Map<String, String> descriptions();
+
+    public String getDescriptionInLanguage(String language) {
+        return descriptions().get(language);
+    }
 }

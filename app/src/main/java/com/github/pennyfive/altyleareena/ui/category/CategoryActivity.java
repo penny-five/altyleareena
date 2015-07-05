@@ -14,35 +14,47 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.ui.main;
+package com.github.pennyfive.altyleareena.ui.category;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 
 import com.github.pennyfive.altyleareena.ApplicationComponent;
 import com.github.pennyfive.altyleareena.R;
-import com.github.pennyfive.altyleareena.ui.base.activity.BaseActivity;
+import com.github.pennyfive.altyleareena.model.categories.Category;
 import com.github.pennyfive.altyleareena.util.DaggerUtils;
 import com.github.pennyfive.altyleareena.util.annotations.ProvidesComponent;
 
-public class MainActivity extends BaseActivity implements ProvidesComponent<MainActivityComponent> {
-    private MainActivityComponent component;
+public class CategoryActivity extends FragmentActivity implements ProvidesComponent<CategoryActivityComponent> {
+    private static final String EXTRA_CATEGORY = "category";
+
+    private CategoryActivityComponent component;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         buildActivityComponent();
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_category);
     }
 
     private void buildActivityComponent() {
-        component = DaggerMainActivityComponent.builder()
+        Category category = getIntent().getParcelableExtra(EXTRA_CATEGORY);
+        component = DaggerCategoryActivityComponent.builder()
                 .applicationComponent(DaggerUtils.getComponent(this, ApplicationComponent.class))
-                .mainActivityModule(new MainActivityModule())
+                .categoryActivityModule(new CategoryActivityModule(category))
                 .build();
     }
 
     @Override
-    public MainActivityComponent provideComponent() {
+    public CategoryActivityComponent provideComponent() {
         return component;
+    }
+
+    public static void launchWith(Context context, Category category) {
+        Intent intent = new Intent(context, CategoryActivity.class);
+        intent.putExtra(EXTRA_CATEGORY, category);
+        context.startActivity(intent);
     }
 }

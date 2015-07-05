@@ -14,21 +14,22 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.model.api;
+package com.github.pennyfive.altyleareena.ui.category;
 
-import com.github.pennyfive.altyleareena.model.categories.Category;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
+
+import com.github.pennyfive.altyleareena.R;
 import com.github.pennyfive.altyleareena.model.programs.Program;
 
-import java.util.List;
+public class ProgramViewHolder extends RecyclerView.ViewHolder {
 
-import retrofit.http.GET;
-import retrofit.http.Query;
-import rx.Observable;
+    public ProgramViewHolder(View itemView) {
+        super(itemView);
+    }
 
-public interface YleApiService {
-    @GET("/categories.json")
-    Observable<Response<List<Category>>> getCategories();
-
-    @GET("/items.json")
-    Observable<Response<List<Program>>> getCategoryPrograms(@Query("category") String categoryId);
+    public void bind(Program program) {
+        ((TextView) itemView.findViewById(R.id.text)).setText(program.getTitleInLanguage("fi"));
+    }
 }
