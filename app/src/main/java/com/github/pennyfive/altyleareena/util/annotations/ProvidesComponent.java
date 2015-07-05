@@ -20,7 +20,7 @@ import android.content.Context;
 
 /**
  * @param <T>
- * @see {@link com.github.pennyfive.altyleareena.util.DaggerUtils#getComponent(Context, Class)}
+ * @see {@link com.github.pennyfive.altyleareena.util.DaggerUtils#findComponent(Context, Class)}
  */
 public interface ProvidesComponent<T> {
     T provideComponent();

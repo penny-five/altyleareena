@@ -36,7 +36,7 @@ public class MainActivity extends BaseActivity implements ProvidesComponent<Main
 
     private void buildActivityComponent() {
         component = DaggerMainActivityComponent.builder()
-                .applicationComponent(DaggerUtils.getComponent(this, ApplicationComponent.class))
+                .applicationComponent(DaggerUtils.findComponent(this, ApplicationComponent.class))
                 .mainActivityModule(new MainActivityModule())
                 .build();
     }

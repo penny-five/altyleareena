@@ -23,9 +23,9 @@ import android.widget.TextView;
 import com.github.pennyfive.altyleareena.R;
 import com.github.pennyfive.altyleareena.model.categories.Category;
 
-public class CategoriesViewHolder extends RecyclerView.ViewHolder {
+public class CategoryListViewHolder extends RecyclerView.ViewHolder {
 
-    public CategoriesViewHolder(View itemView) {
+    public CategoryListViewHolder(View itemView) {
         super(itemView);
     }
 

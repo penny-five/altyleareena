@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.ui.category;
+package com.github.pennyfive.altyleareena.ui.category.programs;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -23,9 +23,9 @@ import android.widget.TextView;
 import com.github.pennyfive.altyleareena.R;
 import com.github.pennyfive.altyleareena.model.programs.Program;
 
-public class ProgramViewHolder extends RecyclerView.ViewHolder {
+public class CategoryProgramsListViewHolder extends RecyclerView.ViewHolder {
 
-    public ProgramViewHolder(View itemView) {
+    public CategoryProgramsListViewHolder(View itemView) {
         super(itemView);
     }
 

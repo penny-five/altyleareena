@@ -17,6 +17,7 @@
 package com.github.pennyfive.altyleareena.ui.category;
 
 import com.github.pennyfive.altyleareena.model.categories.Category;
+import com.github.pennyfive.altyleareena.ui.category.programs.CategoryProgramsListPresenter;
 import com.github.pennyfive.altyleareena.util.annotations.ActivityScope;
 
 import dagger.Module;
@@ -32,7 +33,7 @@ public class CategoryActivityModule {
 
     @Provides
     @ActivityScope
-    CategoryMvpPresenter provideCategoryPresenter(CategoryActivityAppScopedBundle bundle) {
-        return bundle.getCategoryPresenter(category);
+    CategoryProgramsListPresenter provideProgramsListPresenter(CategoryActivityAppScopedBundle bundle) {
+        return bundle.getProgramsListPresenter(category);
     }
 }

@@ -21,7 +21,7 @@ import com.github.pennyfive.altyleareena.ui.base.mvp.StatefulMvpView;
 
 import java.util.List;
 
-public interface CategoriesMvpView extends StatefulMvpView {
+public interface CategoryListView extends StatefulMvpView {
     void setCategories(List<Category> categories);
 
     void showCategoryView(Category category);

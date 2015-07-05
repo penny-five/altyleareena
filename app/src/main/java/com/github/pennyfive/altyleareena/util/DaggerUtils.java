@@ -36,16 +36,16 @@ public class DaggerUtils {
      * @return Requested component or throws {@link IllegalStateException} if provider wasn't found.
      */
     @NonNull
-    public static <T> T getComponent(Context context, Class<T> componentClass) {
+    public static <T> T findComponent(Context context, Class<T> componentClass) {
         if (!componentClass.isAnnotationPresent(Component.class)) {
             throw new IllegalStateException(componentClass.getName() + " is not a component");
         }
-        return tryProvideComponent(context, componentClass);
+        return tryFindComponent(context, componentClass);
     }
 
     @NonNull
     @SuppressWarnings("unchecked")
-    private static <T> T tryProvideComponent(Context context, Class<T> componentClass) {
+    private static <T> T tryFindComponent(Context context, Class<T> componentClass) {
         if (context instanceof ProvidesComponent) {
             Object component = ((ProvidesComponent) context).provideComponent();
             if (componentClass.isInstance(component)) {
@@ -55,6 +55,6 @@ public class DaggerUtils {
         if (context == context.getApplicationContext()) {
             throw new IllegalStateException("Could not find provider for component " + componentClass.getName());
         }
-        return tryProvideComponent(context.getApplicationContext(), componentClass);
+        return tryFindComponent(context.getApplicationContext(), componentClass);
     }
 }

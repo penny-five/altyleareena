@@ -16,7 +16,7 @@
 
 package com.github.pennyfive.altyleareena.ui.main;
 
-import com.github.pennyfive.altyleareena.ui.main.categories.CategoriesMvpPresenter;
+import com.github.pennyfive.altyleareena.ui.main.categories.CategoryListPresenter;
 import com.github.pennyfive.altyleareena.util.annotations.ActivityScope;
 
 import dagger.Module;
@@ -27,8 +27,8 @@ public class MainActivityModule {
 
     @Provides
     @ActivityScope
-    CategoriesMvpPresenter provideCategoriesPresenter(MainActivityAppScopedBundle bundle) {
-        return bundle.getCategoriesMVPPresenter();
+    CategoryListPresenter provideCategoryListPresenter(MainActivityAppScopedBundle bundle) {
+        return bundle.getCategoryListPresenter();
     }
 
 }

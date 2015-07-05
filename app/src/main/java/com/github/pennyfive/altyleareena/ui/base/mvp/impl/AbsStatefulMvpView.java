@@ -14,15 +14,12 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.ui.base.layout;
+package com.github.pennyfive.altyleareena.ui.base.mvp.impl;
 
 import android.content.Context;
-import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -34,59 +31,48 @@ import com.github.pennyfive.altyleareena.ui.base.mvp.StatefulMvpView;
  * Delegates View creation for each state to subclasses. Default implementation of {@link #onCreateLoadingView(LayoutInflater)} (and other similar
  * methods) returns an empty View.
  */
-public abstract class StatefulMvpFrameLayout extends AbsStatefulFrameLayout implements StatefulMvpView {
-    private static final int STATE_LOADING = 0;
-    private static final int STATE_CONTENT = 1;
-    private static final int STATE_EMPTY = 2;
-    private static final int STATE_ERROR = 3;
+public abstract class AbsStatefulMvpView extends AbsMvpView implements StatefulMvpView {
+    private static final String STATE_NOT_DEFINED = "state_undefined";
+    private static final String STATE_LOADING = "state_loading";
+    private static final String STATE_CONTENT = "state_content";
+    private static final String STATE_EMPTY = "state_empty";
+    private static final String STATE_ERROR = "state_error";
+
+    private String currentState = STATE_NOT_DEFINED;
 
     private String emptyText;
     private String errorText;
 
-    public StatefulMvpFrameLayout(Context context) {
+    public AbsStatefulMvpView(Context context) {
         super(context, null);
     }
 
-    public StatefulMvpFrameLayout(Context context, AttributeSet attrs) {
+    public AbsStatefulMvpView(Context context, AttributeSet attrs) {
         super(context, attrs, 0);
     }
 
-    public StatefulMvpFrameLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public AbsStatefulMvpView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
-    @Override
-    public final void onSaveState(Bundle outState) {
-        SparseArray<Parcelable> stateContainer = new SparseArray<>();
-        saveHierarchyState(stateContainer);
-        outState.putSparseParcelableArray(getClass().getName(), stateContainer);
+    private void changeState(String state) {
+        if (!state.equals(currentState)) {
+            currentState = state;
+            applyState();
+        }
     }
 
-    @Override
-    public final void onRestoreState(Bundle savedInstanceState) {
-        SparseArray<Parcelable> stateContainer = savedInstanceState.getSparseParcelableArray(getClass().getName());
-        restoreHierarchyState(stateContainer);
+    private void applyState() {
+        removeAllViews();
+
+        View view = onCreateViewForState(LayoutInflater.from(getContext()), currentState);
+        if (view == null) {
+            throw new IllegalStateException("Didn't create view for state " + currentState);
+        }
+        addView(view);
     }
 
-    public void showLoading() {
-        changeState(STATE_LOADING);
-    }
-
-    public void showEmpty(String text) {
-        emptyText = text;
-        changeState(STATE_EMPTY);
-    }
-
-    public void showError(String text) {
-        errorText = text;
-        changeState(STATE_ERROR);
-    }
-
-    public void showContent() {
-        changeState(STATE_CONTENT);
-    }
-
-    protected final View onCreateViewForState(@NonNull LayoutInflater inflater, int state) {
+    private View onCreateViewForState(@NonNull LayoutInflater inflater, String state) {
         switch (state) {
             case STATE_CONTENT:
                 return onCreateContentView(inflater);
@@ -100,6 +86,25 @@ public abstract class StatefulMvpFrameLayout extends AbsStatefulFrameLayout impl
                 throw new IllegalStateException();
         }
     }
+
+    public void showLoading() {
+        changeState(STATE_LOADING);
+    }
+
+    public void showContent() {
+        changeState(STATE_CONTENT);
+    }
+
+    public void showEmpty(String text) {
+        emptyText = text;
+        changeState(STATE_EMPTY);
+    }
+
+    public void showError(String text) {
+        errorText = text;
+        changeState(STATE_ERROR);
+    }
+
 
     protected View onCreateContentView(@NonNull LayoutInflater inflater) {
         return new View(getContext());

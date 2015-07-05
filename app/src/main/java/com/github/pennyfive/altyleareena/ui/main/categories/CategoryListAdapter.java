@@ -26,23 +26,23 @@ import com.github.pennyfive.altyleareena.ui.base.adapter.ArrayRecyclerAdapter;
 
 import java.util.Collection;
 
-public class CategoriesAdapter extends ArrayRecyclerAdapter<Category, CategoriesViewHolder> {
+public class CategoryListAdapter extends ArrayRecyclerAdapter<Category, CategoryListViewHolder> {
 
-    public CategoriesAdapter(Context context) {
+    public CategoryListAdapter(Context context) {
         super(context);
     }
 
-    public CategoriesAdapter(Context context, Collection<Category> items) {
+    public CategoryListAdapter(Context context, Collection<Category> items) {
         super(context, items);
     }
 
     @Override
-    public CategoriesViewHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int ViewType) {
-        return new CategoriesViewHolder(inflater.inflate(R.layout.item_one_line, parent, false));
+    public CategoryListViewHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int ViewType) {
+        return new CategoryListViewHolder(inflater.inflate(R.layout.item_one_line, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(CategoriesViewHolder holder, Category item) {
+    public void onBindViewHolder(CategoryListViewHolder holder, Category item) {
         holder.bind(item);
     }
 }

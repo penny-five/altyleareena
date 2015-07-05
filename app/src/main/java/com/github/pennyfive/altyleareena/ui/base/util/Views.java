@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.ui;
+package com.github.pennyfive.altyleareena.ui.base.util;
 
 import android.os.Parcelable;
 import android.util.SparseArray;

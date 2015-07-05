@@ -14,13 +14,10 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.ui.category;
+package com.github.pennyfive.altyleareena.ui.main.categories;
 
-import android.util.Log;
-
+import com.github.pennyfive.altyleareena.model.categories.CategoriesStore;
 import com.github.pennyfive.altyleareena.model.categories.Category;
-import com.github.pennyfive.altyleareena.model.programs.Program;
-import com.github.pennyfive.altyleareena.model.programs.ProgramsStore;
 import com.github.pennyfive.altyleareena.ui.base.mvp.MvpPresenter;
 
 import java.util.List;
@@ -28,20 +25,19 @@ import java.util.List;
 import rx.Observer;
 import rx.Scheduler;
 
-public class CategoryMvpPresenter extends MvpPresenter<CategoryMvpView> {
-    private final ProgramsStore store;
-    private final Category category;
+public class CategoryListPresenter extends MvpPresenter<CategoryListView> {
+    private final CategoriesStore store;
     private final Scheduler scheduler;
 
-    public CategoryMvpPresenter(ProgramsStore store, Category category, Scheduler scheduler) {
+    public CategoryListPresenter(CategoriesStore store, Scheduler scheduler) {
+        super();
         this.store = store;
-        this.category = category;
         this.scheduler = scheduler;
     }
 
     @Override
-    protected void onViewBound(CategoryMvpView view) {
-        store.getPrograms(category).observeOn(scheduler).toList().subscribe(new Observer<List<Program>>() {
+    protected void onViewBound(CategoryListView view) {
+        store.getCategories().observeOn(scheduler).toList().subscribe(new Observer<List<Category>>() {
             @Override
             public void onCompleted() {
 
@@ -49,15 +45,13 @@ public class CategoryMvpPresenter extends MvpPresenter<CategoryMvpView> {
 
             @Override
             public void onError(Throwable e) {
-                if (getView() != null) {
-                    getView().showError(e.getMessage());
-                }
+
             }
 
             @Override
-            public void onNext(List<Program> programs) {
+            public void onNext(List<Category> categories) {
                 if (getView() != null) {
-                    getView().setPrograms(programs);
+                    getView().setCategories(categories);
                     getView().showContent();
                 }
             }
@@ -65,11 +59,11 @@ public class CategoryMvpPresenter extends MvpPresenter<CategoryMvpView> {
     }
 
     @Override
-    protected void onViewDropped(CategoryMvpView view) {
+    protected void onViewDropped(CategoryListView view) {
 
     }
 
-    public void onProgramClicked(Program program) {
-        Log.d("foo", "program clicked");
+    public void onCategoryClicked(Category category) {
+        getView().showCategoryView(category);
     }
 }

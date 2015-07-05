@@ -20,7 +20,7 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <com.github.pennyfive.altyleareena.ui.category.CategoryMvpViewImpl
+    <com.github.pennyfive.altyleareena.ui.category.programs.CategoryProgramsListViewImpl
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
