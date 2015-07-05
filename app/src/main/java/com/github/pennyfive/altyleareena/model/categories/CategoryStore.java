@@ -14,14 +14,10 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.util.annotations;
+package com.github.pennyfive.altyleareena.model.categories;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import rx.Observable;
 
-import javax.inject.Qualifier;
-
-@Qualifier
-@Retention(RetentionPolicy.SOURCE)
-public @interface WorkerThread {
+public interface CategoryStore {
+    Observable<Category> getCategories();
 }

@@ -14,17 +14,14 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.util.annotations;
+package com.github.pennyfive.altyleareena.utils.annotations;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import javax.inject.Scope;
+import javax.inject.Qualifier;
 
-/**
- * Application level scope for Dagger context injection.
- */
-@Scope
-@Retention(RetentionPolicy.RUNTIME)
-public @interface ApplicationScope {
+@Qualifier
+@Retention(RetentionPolicy.SOURCE)
+public @interface UiThread {
 }

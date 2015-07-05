@@ -18,18 +18,18 @@ package com.github.pennyfive.altyleareena.model.categories.impl;
 
 import com.github.pennyfive.altyleareena.model.api.Response;
 import com.github.pennyfive.altyleareena.model.api.YleApiService;
-import com.github.pennyfive.altyleareena.model.categories.CategoriesStore;
 import com.github.pennyfive.altyleareena.model.categories.Category;
+import com.github.pennyfive.altyleareena.model.categories.CategoryStore;
 
 import java.util.List;
 
 import rx.Observable;
 import rx.functions.Func1;
 
-public class ApiServiceBackedCategoriesStore implements CategoriesStore {
+public class ApiServiceBackedCategoryStore implements CategoryStore {
     private final Observable<Response<List<Category>>> observable;
 
-    public ApiServiceBackedCategoriesStore(YleApiService service) {
+    public ApiServiceBackedCategoryStore(YleApiService service) {
         observable = service.getCategories().cache();
     }
 

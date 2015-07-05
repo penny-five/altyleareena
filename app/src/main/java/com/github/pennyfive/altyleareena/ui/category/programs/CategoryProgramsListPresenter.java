@@ -20,7 +20,7 @@ import android.util.Log;
 
 import com.github.pennyfive.altyleareena.model.categories.Category;
 import com.github.pennyfive.altyleareena.model.programs.Program;
-import com.github.pennyfive.altyleareena.model.programs.ProgramsStore;
+import com.github.pennyfive.altyleareena.model.programs.ProgramStore;
 import com.github.pennyfive.altyleareena.ui.base.mvp.MvpPresenter;
 
 import java.util.List;
@@ -29,11 +29,11 @@ import rx.Observer;
 import rx.Scheduler;
 
 public class CategoryProgramsListPresenter extends MvpPresenter<CategoryProgramsListView> {
-    private final ProgramsStore store;
+    private final ProgramStore store;
     private final Category category;
     private final Scheduler scheduler;
 
-    public CategoryProgramsListPresenter(ProgramsStore store, Category category, Scheduler scheduler) {
+    public CategoryProgramsListPresenter(ProgramStore store, Category category, Scheduler scheduler) {
         this.store = store;
         this.category = category;
         this.scheduler = scheduler;

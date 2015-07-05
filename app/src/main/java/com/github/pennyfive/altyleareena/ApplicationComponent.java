@@ -19,7 +19,7 @@ package com.github.pennyfive.altyleareena;
 import com.github.pennyfive.altyleareena.ui.category.CategoryActivityAppScopedBundle;
 import com.github.pennyfive.altyleareena.ui.main.MainActivity;
 import com.github.pennyfive.altyleareena.ui.main.MainActivityAppScopedBundle;
-import com.github.pennyfive.altyleareena.util.annotations.ApplicationScope;
+import com.github.pennyfive.altyleareena.utils.annotations.ApplicationScope;
 
 import dagger.Component;
 

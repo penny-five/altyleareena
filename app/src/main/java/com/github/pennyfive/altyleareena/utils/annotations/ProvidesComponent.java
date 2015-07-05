@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.util.annotations;
+package com.github.pennyfive.altyleareena.utils.annotations;
 
 import android.content.Context;
 
 /**
  * @param <T>
- * @see {@link com.github.pennyfive.altyleareena.util.DaggerUtils#findComponent(Context, Class)}
+ * @see {@link com.github.pennyfive.altyleareena.utils.DaggerUtils#findComponent(Context, Class)}
  */
 public interface ProvidesComponent<T> {
     T provideComponent();

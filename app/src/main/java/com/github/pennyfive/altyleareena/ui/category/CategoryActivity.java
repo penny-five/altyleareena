@@ -24,8 +24,8 @@ import android.support.v4.app.FragmentActivity;
 import com.github.pennyfive.altyleareena.ApplicationComponent;
 import com.github.pennyfive.altyleareena.R;
 import com.github.pennyfive.altyleareena.model.categories.Category;
-import com.github.pennyfive.altyleareena.util.DaggerUtils;
-import com.github.pennyfive.altyleareena.util.annotations.ProvidesComponent;
+import com.github.pennyfive.altyleareena.utils.DaggerUtils;
+import com.github.pennyfive.altyleareena.utils.annotations.ProvidesComponent;
 
 public class CategoryActivity extends FragmentActivity implements ProvidesComponent<CategoryActivityComponent> {
     private static final String EXTRA_CATEGORY = "category";

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.util;
+package com.github.pennyfive.altyleareena.utils;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.github.pennyfive.altyleareena.util.annotations.ProvidesComponent;
+import com.github.pennyfive.altyleareena.utils.annotations.ProvidesComponent;
 
 import dagger.Component;
 

@@ -18,7 +18,7 @@ package com.github.pennyfive.altyleareena.ui.category;
 
 import com.github.pennyfive.altyleareena.ApplicationComponent;
 import com.github.pennyfive.altyleareena.ui.category.programs.CategoryProgramsListViewImpl;
-import com.github.pennyfive.altyleareena.util.annotations.ActivityScope;
+import com.github.pennyfive.altyleareena.utils.annotations.ActivityScope;
 
 import dagger.Component;
 

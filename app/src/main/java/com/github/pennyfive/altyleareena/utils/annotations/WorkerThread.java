@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.model.programs;
+package com.github.pennyfive.altyleareena.utils.annotations;
 
-import com.github.pennyfive.altyleareena.model.categories.Category;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
-import rx.Observable;
+import javax.inject.Qualifier;
 
-public interface ProgramsStore {
-    Observable<Program> getPrograms(Category category);
+@Qualifier
+@Retention(RetentionPolicy.SOURCE)
+public @interface WorkerThread {
 }

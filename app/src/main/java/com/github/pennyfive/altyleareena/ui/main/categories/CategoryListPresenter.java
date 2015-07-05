@@ -16,8 +16,8 @@
 
 package com.github.pennyfive.altyleareena.ui.main.categories;
 
-import com.github.pennyfive.altyleareena.model.categories.CategoriesStore;
 import com.github.pennyfive.altyleareena.model.categories.Category;
+import com.github.pennyfive.altyleareena.model.categories.CategoryStore;
 import com.github.pennyfive.altyleareena.ui.base.mvp.MvpPresenter;
 
 import java.util.List;
@@ -26,10 +26,10 @@ import rx.Observer;
 import rx.Scheduler;
 
 public class CategoryListPresenter extends MvpPresenter<CategoryListView> {
-    private final CategoriesStore store;
+    private final CategoryStore store;
     private final Scheduler scheduler;
 
-    public CategoryListPresenter(CategoriesStore store, Scheduler scheduler) {
+    public CategoryListPresenter(CategoryStore store, Scheduler scheduler) {
         super();
         this.store = store;
         this.scheduler = scheduler;

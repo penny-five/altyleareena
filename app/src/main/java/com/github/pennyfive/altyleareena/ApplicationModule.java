@@ -19,14 +19,14 @@ package com.github.pennyfive.altyleareena;
 import android.content.Context;
 
 import com.github.pennyfive.altyleareena.model.api.YleApiService;
-import com.github.pennyfive.altyleareena.model.categories.CategoriesStore;
-import com.github.pennyfive.altyleareena.model.categories.impl.ApiServiceBackedCategoriesStore;
-import com.github.pennyfive.altyleareena.model.programs.ProgramsStore;
-import com.github.pennyfive.altyleareena.model.programs.impl.ApiServiceBackedProgramsStore;
+import com.github.pennyfive.altyleareena.model.categories.CategoryStore;
+import com.github.pennyfive.altyleareena.model.categories.impl.ApiServiceBackedCategoryStore;
+import com.github.pennyfive.altyleareena.model.programs.ProgramStore;
+import com.github.pennyfive.altyleareena.model.programs.impl.ApiServiceBackedProgramStore;
 import com.github.pennyfive.altyleareena.ui.category.CategoryActivityAppScopedBundle;
 import com.github.pennyfive.altyleareena.ui.main.MainActivityAppScopedBundle;
-import com.github.pennyfive.altyleareena.util.annotations.ApplicationScope;
-import com.github.pennyfive.altyleareena.util.annotations.UiThread;
+import com.github.pennyfive.altyleareena.utils.annotations.ApplicationScope;
+import com.github.pennyfive.altyleareena.utils.annotations.UiThread;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -55,14 +55,14 @@ public class ApplicationModule {
 
     @Provides
     @ApplicationScope
-    CategoriesStore provideCategoriesStore(YleApiService service) {
-        return new ApiServiceBackedCategoriesStore(service);
+    CategoryStore provideCategoriesStore(YleApiService service) {
+        return new ApiServiceBackedCategoryStore(service);
     }
 
     @Provides
     @ApplicationScope
-    ProgramsStore provideProgramsStore(YleApiService service) {
-        return new ApiServiceBackedProgramsStore(service);
+    ProgramStore provideProgramsStore(YleApiService service) {
+        return new ApiServiceBackedProgramStore(service);
     }
 
     @Provides
@@ -101,13 +101,13 @@ public class ApplicationModule {
 
     @Provides
     @ApplicationScope
-    MainActivityAppScopedBundle provideMainActivityBundle(CategoriesStore store, @UiThread Scheduler scheduler) {
+    MainActivityAppScopedBundle provideMainActivityBundle(CategoryStore store, @UiThread Scheduler scheduler) {
         return new MainActivityAppScopedBundle(store, scheduler);
     }
 
     @Provides
     @ApplicationScope
-    CategoryActivityAppScopedBundle provideCategoryActivityBundle(ProgramsStore store, @UiThread Scheduler scheduler) {
+    CategoryActivityAppScopedBundle provideCategoryActivityBundle(ProgramStore store, @UiThread Scheduler scheduler) {
         return new CategoryActivityAppScopedBundle(store, scheduler);
     }
 }

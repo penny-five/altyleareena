@@ -21,8 +21,8 @@ import android.os.Bundle;
 import com.github.pennyfive.altyleareena.ApplicationComponent;
 import com.github.pennyfive.altyleareena.R;
 import com.github.pennyfive.altyleareena.ui.base.activity.BaseActivity;
-import com.github.pennyfive.altyleareena.util.DaggerUtils;
-import com.github.pennyfive.altyleareena.util.annotations.ProvidesComponent;
+import com.github.pennyfive.altyleareena.utils.DaggerUtils;
+import com.github.pennyfive.altyleareena.utils.annotations.ProvidesComponent;
 
 public class MainActivity extends BaseActivity implements ProvidesComponent<MainActivityComponent> {
     private MainActivityComponent component;

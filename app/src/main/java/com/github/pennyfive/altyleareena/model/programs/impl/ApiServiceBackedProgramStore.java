@@ -20,7 +20,7 @@ import com.github.pennyfive.altyleareena.model.api.Response;
 import com.github.pennyfive.altyleareena.model.api.YleApiService;
 import com.github.pennyfive.altyleareena.model.categories.Category;
 import com.github.pennyfive.altyleareena.model.programs.Program;
-import com.github.pennyfive.altyleareena.model.programs.ProgramsStore;
+import com.github.pennyfive.altyleareena.model.programs.ProgramStore;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,11 +29,11 @@ import java.util.Map;
 import rx.Observable;
 import rx.functions.Func1;
 
-public class ApiServiceBackedProgramsStore implements ProgramsStore {
+public class ApiServiceBackedProgramStore implements ProgramStore {
     private final YleApiService service;
     private final Map<Category, Observable<Response<List<Program>>>> observables = new HashMap<>();
 
-    public ApiServiceBackedProgramsStore(YleApiService service) {
+    public ApiServiceBackedProgramStore(YleApiService service) {
         this.service = service;
     }
 

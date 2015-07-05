@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.model.categories;
+package com.github.pennyfive.altyleareena.model.programs;
+
+import com.github.pennyfive.altyleareena.model.categories.Category;
 
 import rx.Observable;
 
-public interface CategoriesStore {
-    Observable<Category> getCategories();
+public interface ProgramStore {
+    Observable<Program> getPrograms(Category category);
 }

@@ -18,7 +18,7 @@ package com.github.pennyfive.altyleareena;
 
 import android.app.Application;
 
-import com.github.pennyfive.altyleareena.util.annotations.ProvidesComponent;
+import com.github.pennyfive.altyleareena.utils.annotations.ProvidesComponent;
 
 /**
  * TODO: rename once app name has been decided

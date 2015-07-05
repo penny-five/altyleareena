@@ -17,7 +17,7 @@
 package com.github.pennyfive.altyleareena.ui.main;
 
 import com.github.pennyfive.altyleareena.ui.main.categories.CategoryListPresenter;
-import com.github.pennyfive.altyleareena.util.annotations.ActivityScope;
+import com.github.pennyfive.altyleareena.utils.annotations.ActivityScope;
 
 import dagger.Module;
 import dagger.Provides;

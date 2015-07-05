@@ -30,9 +30,9 @@ import com.github.pennyfive.altyleareena.R;
 import com.github.pennyfive.altyleareena.model.programs.Program;
 import com.github.pennyfive.altyleareena.ui.base.adapter.ArrayRecyclerAdapter;
 import com.github.pennyfive.altyleareena.ui.base.mvp.impl.AbsStatefulMvpView;
-import com.github.pennyfive.altyleareena.ui.base.util.Views;
+import com.github.pennyfive.altyleareena.ui.base.utils.Views;
 import com.github.pennyfive.altyleareena.ui.category.CategoryActivityComponent;
-import com.github.pennyfive.altyleareena.util.DaggerUtils;
+import com.github.pennyfive.altyleareena.utils.DaggerUtils;
 
 import java.util.List;
 

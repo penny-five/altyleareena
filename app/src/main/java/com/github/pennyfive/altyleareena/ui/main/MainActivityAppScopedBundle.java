@@ -16,7 +16,7 @@
 
 package com.github.pennyfive.altyleareena.ui.main;
 
-import com.github.pennyfive.altyleareena.model.categories.CategoriesStore;
+import com.github.pennyfive.altyleareena.model.categories.CategoryStore;
 import com.github.pennyfive.altyleareena.ui.main.categories.CategoryListPresenter;
 
 import rx.Scheduler;
@@ -24,7 +24,7 @@ import rx.Scheduler;
 public class MainActivityAppScopedBundle {
     private final CategoryListPresenter categoryListPresenter;
 
-    public MainActivityAppScopedBundle(CategoriesStore store, Scheduler scheduler) {
+    public MainActivityAppScopedBundle(CategoryStore store, Scheduler scheduler) {
         categoryListPresenter = new CategoryListPresenter(store, scheduler);
     }
 
