@@ -25,15 +25,15 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.github.pennyfive.altyleareena.ui.base.mvp.StatefulMvpView;
+import com.github.pennyfive.altyleareena.ui.base.mvp.AsyncView;
 
 /**
- * Base layout that implements {@link StatefulMvpView}.
+ * Base layout that implements {@link AsyncView}.
  * <p>
  * Delegates View creation for each state to subclasses. Default implementation of {@link #onCreateLoadingView(LayoutInflater)} (and other similar
  * methods) returns an empty View.
  */
-public abstract class AbsStatefulMvpView extends AbsMvpView implements StatefulMvpView {
+public abstract class AbsAsyncView extends AbsView implements AsyncView {
     private static final String STATE_UNDEFINED = "Undefined";
     private static final String STATE_LOADING = "Loading";
     private static final String STATE_CONTENT = "Content";
@@ -48,15 +48,15 @@ public abstract class AbsStatefulMvpView extends AbsMvpView implements StatefulM
 
     private String currentState = STATE_UNDEFINED;
 
-    public AbsStatefulMvpView(Context context) {
+    public AbsAsyncView(Context context) {
         this(context, null);
     }
 
-    public AbsStatefulMvpView(Context context, AttributeSet attrs) {
+    public AbsAsyncView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public AbsStatefulMvpView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public AbsAsyncView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         inflater = LayoutInflater.from(context);
         contentView = onCreateContentView(inflater);

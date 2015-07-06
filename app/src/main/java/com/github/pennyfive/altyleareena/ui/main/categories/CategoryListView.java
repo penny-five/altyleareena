@@ -17,11 +17,11 @@
 package com.github.pennyfive.altyleareena.ui.main.categories;
 
 import com.github.pennyfive.altyleareena.model.categories.Category;
-import com.github.pennyfive.altyleareena.ui.base.mvp.StatefulMvpView;
+import com.github.pennyfive.altyleareena.ui.base.mvp.AsyncView;
 
 import java.util.List;
 
-public interface CategoryListView extends StatefulMvpView {
+public interface CategoryListView extends AsyncView {
     void setCategories(List<Category> categories);
 
     void showCategoryView(Category category);

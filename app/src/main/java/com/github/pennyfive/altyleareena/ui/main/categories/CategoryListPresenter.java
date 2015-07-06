@@ -18,11 +18,11 @@ package com.github.pennyfive.altyleareena.ui.main.categories;
 
 import com.github.pennyfive.altyleareena.model.categories.Category;
 import com.github.pennyfive.altyleareena.model.categories.CategoryStore;
-import com.github.pennyfive.altyleareena.ui.base.mvp.MvpPresenter;
+import com.github.pennyfive.altyleareena.ui.base.mvp.Presenter;
 
 import rx.Scheduler;
 
-public class CategoryListPresenter extends MvpPresenter<CategoryListView> {
+public class CategoryListPresenter extends Presenter<CategoryListView> {
     private final CategoryStore store;
     private final Scheduler scheduler;
 

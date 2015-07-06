@@ -24,15 +24,15 @@ import android.util.Log;
  * Presenter for MVP architecture.
  *
  * @param <T>
- * @see MvpView
+ * @see View
  */
-public abstract class MvpPresenter<T extends MvpView> {
-    private static final String DEBUG_LOG_TAG = "MvpPresenter";
+public abstract class Presenter<T extends View> {
+    private static final String DEBUG_LOG_TAG = "Presenter";
     private static final boolean DEBUG = true;
     private Bundle savedState;
     private T view;
 
-    protected MvpPresenter() {
+    protected Presenter() {
         if (DEBUG) Log.d(DEBUG_LOG_TAG, "create presenter " + this);
     }
 

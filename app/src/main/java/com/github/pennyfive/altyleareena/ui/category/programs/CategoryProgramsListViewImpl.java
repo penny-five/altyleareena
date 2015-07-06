@@ -27,7 +27,7 @@ import android.view.View;
 import com.github.pennyfive.altyleareena.R;
 import com.github.pennyfive.altyleareena.model.programs.Program;
 import com.github.pennyfive.altyleareena.ui.base.adapter.ArrayRecyclerAdapter;
-import com.github.pennyfive.altyleareena.ui.base.mvp.impl.AbsStatefulMvpView;
+import com.github.pennyfive.altyleareena.ui.base.mvp.impl.AbsAsyncView;
 import com.github.pennyfive.altyleareena.ui.category.CategoryActivityComponent;
 import com.github.pennyfive.altyleareena.utils.DaggerUtils;
 
@@ -35,7 +35,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class CategoryProgramsListViewImpl extends AbsStatefulMvpView implements CategoryProgramsListView, ArrayRecyclerAdapter.OnItemClickListener {
+public class CategoryProgramsListViewImpl extends AbsAsyncView implements CategoryProgramsListView, ArrayRecyclerAdapter.OnItemClickListener {
     private CategoryProgramsListPresenter presenter;
     private CategoryProgramsListAdapter adapter;
     private RecyclerView recyclerView;

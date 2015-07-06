@@ -25,24 +25,24 @@ import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.widget.FrameLayout;
 
-import com.github.pennyfive.altyleareena.ui.base.mvp.MvpView;
+import com.github.pennyfive.altyleareena.ui.base.mvp.View;
 
-public class AbsMvpView extends FrameLayout implements MvpView {
+public class AbsView extends FrameLayout implements View {
 
-    public AbsMvpView(Context context) {
+    public AbsView(Context context) {
         super(context);
     }
 
-    public AbsMvpView(Context context, AttributeSet attrs) {
+    public AbsView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public AbsMvpView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public AbsView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public AbsMvpView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public AbsView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 

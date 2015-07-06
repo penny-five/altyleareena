@@ -21,11 +21,11 @@ import android.util.Log;
 import com.github.pennyfive.altyleareena.model.categories.Category;
 import com.github.pennyfive.altyleareena.model.programs.Program;
 import com.github.pennyfive.altyleareena.model.programs.ProgramStore;
-import com.github.pennyfive.altyleareena.ui.base.mvp.MvpPresenter;
+import com.github.pennyfive.altyleareena.ui.base.mvp.Presenter;
 
 import rx.Scheduler;
 
-public class CategoryProgramsListPresenter extends MvpPresenter<CategoryProgramsListView> {
+public class CategoryProgramsListPresenter extends Presenter<CategoryProgramsListView> {
     private final ProgramStore store;
     private final Category category;
     private final Scheduler scheduler;
