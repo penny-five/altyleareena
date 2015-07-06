@@ -33,7 +33,7 @@ public abstract class Presenter<T extends View> {
     private T view;
 
     protected Presenter() {
-        if (DEBUG) Log.d(DEBUG_LOG_TAG, "create presenter " + this);
+        if (DEBUG) Log.d(DEBUG_LOG_TAG, "create presenter " + this.getClass().getSimpleName());
     }
 
     @Nullable
@@ -48,11 +48,11 @@ public abstract class Presenter<T extends View> {
 
         this.view = view;
         onViewBound(view);
-        if (DEBUG) Log.d(DEBUG_LOG_TAG, "bind view " + view + "@" + this);
+        if (DEBUG) Log.d(DEBUG_LOG_TAG, "bind view " + view.getClass().getSimpleName() + " -> " + this.getClass().getSimpleName());
 
         if (savedState != null && !savedState.isEmpty()) {
             view.onRestoreState(savedState);
-            if (DEBUG) Log.d(DEBUG_LOG_TAG, "restore state " + savedState + "@" + this);
+            if (DEBUG) Log.d(DEBUG_LOG_TAG, "restore state " + savedState + " -> " + this.getClass().getSimpleName());
         }
     }
 
@@ -65,11 +65,11 @@ public abstract class Presenter<T extends View> {
 
         savedState = new Bundle();
         view.onSaveState(savedState);
-        if (DEBUG) Log.d(DEBUG_LOG_TAG, "save state " + savedState + "@" + this);
+        if (DEBUG) Log.d(DEBUG_LOG_TAG, "save state " + savedState + " -> " + this.getClass().getSimpleName());
 
         onViewDropped(this.view);
         this.view = null;
-        if (DEBUG) Log.d(DEBUG_LOG_TAG, "drop view " + view + "@" + this);
+        if (DEBUG) Log.d(DEBUG_LOG_TAG, "drop view " + view.getClass().getSimpleName() + " -> " + this.getClass().getSimpleName());
     }
 
     abstract protected void onViewDropped(T view);
