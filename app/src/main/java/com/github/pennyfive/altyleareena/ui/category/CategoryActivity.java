@@ -29,7 +29,6 @@ import com.github.pennyfive.altyleareena.utils.annotations.ProvidesComponent;
 
 public class CategoryActivity extends FragmentActivity implements ProvidesComponent<CategoryActivityComponent> {
     private static final String EXTRA_CATEGORY = "category";
-
     private CategoryActivityComponent component;
 
     @Override

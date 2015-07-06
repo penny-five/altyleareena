@@ -17,7 +17,6 @@
 package com.github.pennyfive.altyleareena.ui.base.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,16 +42,13 @@ public abstract class ArrayRecyclerAdapter<E, VH extends RecyclerView.ViewHolder
     private final Context context;
     private final List<E> items = new ArrayList<>();
 
-    private final View.OnClickListener clickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(@NonNull View v) {
-            if (clickDelegate != null) {
-                int position = (int) v.getTag(R.id.adapter_position);
-                clickDelegate.onItemClick(position);
-            }
+    private OnItemClickListener clickDelegate;
+    private final View.OnClickListener clickListener = v -> {
+        if (clickDelegate != null) {
+            int position = (int) v.getTag(R.id.adapter_position);
+            clickDelegate.onItemClick(position);
         }
     };
-    private OnItemClickListener clickDelegate;
 
     public ArrayRecyclerAdapter(Context context) {
         this.context = context;

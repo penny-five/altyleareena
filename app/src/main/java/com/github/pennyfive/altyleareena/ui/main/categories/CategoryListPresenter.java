@@ -20,9 +20,6 @@ import com.github.pennyfive.altyleareena.model.categories.Category;
 import com.github.pennyfive.altyleareena.model.categories.CategoryStore;
 import com.github.pennyfive.altyleareena.ui.base.mvp.MvpPresenter;
 
-import java.util.List;
-
-import rx.Observer;
 import rx.Scheduler;
 
 public class CategoryListPresenter extends MvpPresenter<CategoryListView> {
@@ -37,25 +34,16 @@ public class CategoryListPresenter extends MvpPresenter<CategoryListView> {
 
     @Override
     protected void onViewBound(CategoryListView view) {
-        store.getCategories().observeOn(scheduler).toList().subscribe(new Observer<List<Category>>() {
-            @Override
-            public void onCompleted() {
-
+        store.getCategories().observeOn(scheduler).toList().doOnError(throwable -> {
+            if (getView() != null) {
+                getView().showError(throwable.getMessage());
             }
-
-            @Override
-            public void onError(Throwable e) {
-
+        }).doOnNext(categories -> {
+            if (getView() != null) {
+                getView().setCategories(categories);
+                getView().showContent();
             }
-
-            @Override
-            public void onNext(List<Category> categories) {
-                if (getView() != null) {
-                    getView().setCategories(categories);
-                    getView().showContent();
-                }
-            }
-        });
+        }).subscribe();
     }
 
     @Override
