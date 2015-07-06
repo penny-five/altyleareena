@@ -21,38 +21,24 @@ import android.util.Log;
 import com.github.pennyfive.altyleareena.model.categories.Category;
 import com.github.pennyfive.altyleareena.model.programs.Program;
 import com.github.pennyfive.altyleareena.model.programs.ProgramStore;
-import com.github.pennyfive.altyleareena.ui.base.mvp.Presenter;
+import com.github.pennyfive.altyleareena.ui.base.mvp.impl.AbsAsyncListPresenter;
 
+import rx.Observable;
 import rx.Scheduler;
 
-public class CategoryProgramsListPresenter extends Presenter<CategoryProgramsListView> {
+public class CategoryProgramsListPresenter extends AbsAsyncListPresenter<Program, CategoryProgramsListView> {
     private final ProgramStore store;
     private final Category category;
-    private final Scheduler scheduler;
 
     public CategoryProgramsListPresenter(ProgramStore store, Category category, Scheduler scheduler) {
+        super(scheduler);
         this.store = store;
         this.category = category;
-        this.scheduler = scheduler;
     }
 
     @Override
-    protected void onViewBound(CategoryProgramsListView view) {
-        store.getPrograms(category).observeOn(scheduler).toList().doOnError(throwable -> {
-            if (getView() != null) {
-                getView().showError(throwable.getMessage());
-            }
-        }).doOnNext(programs -> {
-            if (getView() != null) {
-                getView().setPrograms(programs);
-                getView().showContent();
-            }
-        }).subscribe();
-    }
-
-    @Override
-    protected void onViewDropped(CategoryProgramsListView view) {
-
+    protected Observable<Program> createObservable() {
+        return store.getPrograms(category);
     }
 
     public void onProgramClicked(Program program) {

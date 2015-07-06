@@ -17,28 +17,20 @@
 package com.github.pennyfive.altyleareena.ui.category.programs;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
+import android.view.ViewGroup;
 
 import com.github.pennyfive.altyleareena.R;
 import com.github.pennyfive.altyleareena.model.programs.Program;
-import com.github.pennyfive.altyleareena.ui.base.adapter.ArrayRecyclerAdapter;
-import com.github.pennyfive.altyleareena.ui.base.mvp.impl.AbsAsyncView;
+import com.github.pennyfive.altyleareena.ui.base.mvp.impl.AbsAsyncListView;
 import com.github.pennyfive.altyleareena.ui.category.CategoryActivityComponent;
 import com.github.pennyfive.altyleareena.utils.DaggerUtils;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
-public class CategoryProgramsListViewImpl extends AbsAsyncView implements CategoryProgramsListView, ArrayRecyclerAdapter.OnItemClickListener {
+public class CategoryProgramsListViewImpl extends AbsAsyncListView<Program, CategoryProgramsListViewHolder> implements CategoryProgramsListView {
     private CategoryProgramsListPresenter presenter;
-    private CategoryProgramsListAdapter adapter;
-    private RecyclerView recyclerView;
 
     public CategoryProgramsListViewImpl(Context context) {
         this(context, null);
@@ -65,31 +57,23 @@ public class CategoryProgramsListViewImpl extends AbsAsyncView implements Catego
     }
 
     @Override
-    protected View onCreateContentView(@NonNull LayoutInflater inflater) {
-        recyclerView = new RecyclerView(getContext());
-        recyclerView.setId(R.id.recycler_view);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-        return recyclerView;
-    }
-
-    @Override
-    public void setPrograms(List<Program> programs) {
-        adapter = new CategoryProgramsListAdapter(getContext(), programs);
-        adapter.setItemClickListener(this);
-        recyclerView.setAdapter(adapter);
-    }
-
-    @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         presenter.dropView(this);
     }
 
     @Override
-    public void onItemClick(int position) {
-        presenter.onProgramClicked(adapter.getItem(position));
+    protected CategoryProgramsListViewHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int ViewType) {
+        return new CategoryProgramsListViewHolder(inflater.inflate(R.layout.item_one_line, parent, false));
     }
 
+    @Override
+    protected void onItemClick(int position, Program item) {
+        presenter.onProgramClicked(item);
+    }
+
+    @Override
+    public void showProgramView(Program program) {
+
+    }
 }

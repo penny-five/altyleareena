@@ -29,7 +29,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Simple {@link RecyclerView} backed by an array of items.
+ * Simple {@link android.support.v7.widget.RecyclerView.Adapter} backed by an array of items.
  *
  * @param <E>
  * @param <VH>

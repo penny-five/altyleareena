@@ -17,12 +17,8 @@
 package com.github.pennyfive.altyleareena.ui.main.categories;
 
 import com.github.pennyfive.altyleareena.model.categories.Category;
-import com.github.pennyfive.altyleareena.ui.base.mvp.AsyncView;
+import com.github.pennyfive.altyleareena.ui.base.mvp.AsyncListView;
 
-import java.util.List;
-
-public interface CategoryListView extends AsyncView {
-    void setCategories(List<Category> categories);
-
+public interface CategoryListView extends AsyncListView<Category> {
     void showCategoryView(Category category);
 }

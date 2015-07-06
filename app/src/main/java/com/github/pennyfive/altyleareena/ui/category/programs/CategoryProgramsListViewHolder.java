@@ -16,20 +16,22 @@
 
 package com.github.pennyfive.altyleareena.ui.category.programs;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.github.pennyfive.altyleareena.R;
 import com.github.pennyfive.altyleareena.model.programs.Program;
+import com.github.pennyfive.altyleareena.ui.base.adapter.BindingViewHolder;
 
-public class CategoryProgramsListViewHolder extends RecyclerView.ViewHolder {
+public class CategoryProgramsListViewHolder extends BindingViewHolder<Program> {
 
     public CategoryProgramsListViewHolder(View itemView) {
         super(itemView);
     }
 
-    public void bind(Program program) {
+    @Override
+    public void onBind(Program program) {
         ((TextView) itemView.findViewById(R.id.text)).setText(program.getTitleInLanguage("fi"));
     }
+
 }

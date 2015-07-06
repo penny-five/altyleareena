@@ -14,21 +14,15 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.ui.base.mvp;
+package com.github.pennyfive.altyleareena.ui.base.adapter;
 
-import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
-/**
- * Presenter for MVP architecture.
- *
- * @param <T>
- * @see View
- */
-public interface Presenter<T extends View> {
-    void bindView(T view);
+public abstract class BindingViewHolder<T> extends RecyclerView.ViewHolder {
+    public BindingViewHolder(View itemView) {
+        super(itemView);
+    }
 
-    @Nullable
-    T getView();
-
-    void dropView(T view);
+    public abstract void onBind(T item);
 }

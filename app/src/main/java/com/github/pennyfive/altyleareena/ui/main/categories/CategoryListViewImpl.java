@@ -17,29 +17,21 @@
 package com.github.pennyfive.altyleareena.ui.main.categories;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
+import android.view.ViewGroup;
 
 import com.github.pennyfive.altyleareena.R;
 import com.github.pennyfive.altyleareena.model.categories.Category;
-import com.github.pennyfive.altyleareena.ui.base.adapter.ArrayRecyclerAdapter;
-import com.github.pennyfive.altyleareena.ui.base.mvp.impl.AbsAsyncView;
+import com.github.pennyfive.altyleareena.ui.base.mvp.impl.AbsAsyncListView;
 import com.github.pennyfive.altyleareena.ui.category.CategoryActivity;
 import com.github.pennyfive.altyleareena.ui.main.MainActivityComponent;
 import com.github.pennyfive.altyleareena.utils.DaggerUtils;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
-public class CategoryListViewImpl extends AbsAsyncView implements CategoryListView, ArrayRecyclerAdapter.OnItemClickListener {
+public class CategoryListViewImpl extends AbsAsyncListView<Category, CategoryListViewHolder> implements CategoryListView {
     private CategoryListPresenter presenter;
-    private CategoryListAdapter adapter;
-    private RecyclerView recyclerView;
 
     public CategoryListViewImpl(Context context) {
         this(context, null);
@@ -66,35 +58,24 @@ public class CategoryListViewImpl extends AbsAsyncView implements CategoryListVi
     }
 
     @Override
-    protected View onCreateContentView(@NonNull LayoutInflater inflater) {
-        recyclerView = new RecyclerView(getContext());
-        recyclerView.setId(R.id.recycler_view);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-        return recyclerView;
-    }
-
-    @Override
-    public void setCategories(List<Category> categories) {
-        adapter = new CategoryListAdapter(getContext(), categories);
-        adapter.setItemClickListener(this);
-        recyclerView.setAdapter(adapter);
-    }
-
-    @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         presenter.dropView(this);
     }
 
     @Override
-    public void onItemClick(int position) {
-        presenter.onCategoryClicked(adapter.getItem(position));
+    protected CategoryListViewHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int ViewType) {
+        return new CategoryListViewHolder(inflater.inflate(R.layout.item_one_line, parent, false));
+    }
+
+    @Override
+    protected void onItemClick(int position, Category item) {
+        presenter.onCategoryClicked(item);
     }
 
     @Override
     public void showCategoryView(Category category) {
         CategoryActivity.launchWith(getContext(), category);
     }
+
 }

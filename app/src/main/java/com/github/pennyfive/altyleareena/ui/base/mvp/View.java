@@ -18,10 +18,12 @@ package com.github.pennyfive.altyleareena.ui.base.mvp;
 
 import android.os.Bundle;
 
+import com.github.pennyfive.altyleareena.ui.base.mvp.impl.AbsPresenter;
+
 /**
  * View for MVP architecture.
  *
- * @see Presenter
+ * @see AbsPresenter
  * @see AsyncView
  */
 public interface View {

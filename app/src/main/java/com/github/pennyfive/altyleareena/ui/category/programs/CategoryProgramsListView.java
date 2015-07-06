@@ -17,10 +17,8 @@
 package com.github.pennyfive.altyleareena.ui.category.programs;
 
 import com.github.pennyfive.altyleareena.model.programs.Program;
-import com.github.pennyfive.altyleareena.ui.base.mvp.AsyncView;
+import com.github.pennyfive.altyleareena.ui.base.mvp.AsyncListView;
 
-import java.util.List;
-
-public interface CategoryProgramsListView extends AsyncView {
-    void setPrograms(List<Program> programs);
+public interface CategoryProgramsListView extends AsyncListView<Program> {
+    void showProgramView(Program program);
 }

@@ -16,19 +16,8 @@
 
 package com.github.pennyfive.altyleareena.ui.base.mvp;
 
-import android.support.annotation.Nullable;
+import java.util.List;
 
-/**
- * Presenter for MVP architecture.
- *
- * @param <T>
- * @see View
- */
-public interface Presenter<T extends View> {
-    void bindView(T view);
-
-    @Nullable
-    T getView();
-
-    void dropView(T view);
+public interface AsyncListView<T> extends AsyncView {
+    void setItems(List<T> items);
 }
