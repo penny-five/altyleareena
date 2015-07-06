@@ -17,9 +17,11 @@
 package com.github.pennyfive.altyleareena.ui.base.mvp.impl;
 
 import android.content.Context;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -27,32 +29,37 @@ import com.github.pennyfive.altyleareena.ui.base.mvp.StatefulMvpView;
 
 /**
  * Base layout that implements {@link StatefulMvpView}.
- * <p/>
+ * <p>
  * Delegates View creation for each state to subclasses. Default implementation of {@link #onCreateLoadingView(LayoutInflater)} (and other similar
  * methods) returns an empty View.
  */
 public abstract class AbsStatefulMvpView extends AbsMvpView implements StatefulMvpView {
-    private static final String STATE_NOT_DEFINED = "state_undefined";
-    private static final String STATE_LOADING = "state_loading";
-    private static final String STATE_CONTENT = "state_content";
-    private static final String STATE_EMPTY = "state_empty";
-    private static final String STATE_ERROR = "state_error";
+    private static final String STATE_UNDEFINED = "Undefined";
+    private static final String STATE_LOADING = "Loading";
+    private static final String STATE_CONTENT = "Content";
+    private static final String STATE_EMPTY = "Empty";
+    private static final String STATE_ERROR = "Error";
 
-    private String currentState = STATE_NOT_DEFINED;
+    private LayoutInflater inflater;
+    private View contentView;
 
     private String emptyText;
     private String errorText;
 
+    private String currentState = STATE_UNDEFINED;
+
     public AbsStatefulMvpView(Context context) {
-        super(context, null);
+        this(context, null);
     }
 
     public AbsStatefulMvpView(Context context, AttributeSet attrs) {
-        super(context, attrs, 0);
+        this(context, attrs, 0);
     }
 
     public AbsStatefulMvpView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        inflater = LayoutInflater.from(context);
+        contentView = onCreateContentView(inflater);
     }
 
     private void changeState(String state) {
@@ -65,17 +72,27 @@ public abstract class AbsStatefulMvpView extends AbsMvpView implements StatefulM
     private void applyState() {
         removeAllViews();
 
-        View view = onCreateViewForState(LayoutInflater.from(getContext()), currentState);
+        View view = onCreateViewForState(currentState);
         if (view == null) {
             throw new IllegalStateException("Didn't create view for state " + currentState);
         }
         addView(view);
     }
 
-    private View onCreateViewForState(@NonNull LayoutInflater inflater, String state) {
+    @Override
+    public void saveHierarchyState(@NonNull SparseArray<Parcelable> container) {
+        contentView.saveHierarchyState(container);
+    }
+
+    @Override
+    public void restoreHierarchyState(@NonNull SparseArray<Parcelable> container) {
+        contentView.restoreHierarchyState(container);
+    }
+
+    private View onCreateViewForState(String state) {
         switch (state) {
             case STATE_CONTENT:
-                return onCreateContentView(inflater);
+                return contentView;
             case STATE_LOADING:
                 return onCreateLoadingView(inflater);
             case STATE_ERROR:
