@@ -51,9 +51,12 @@ public abstract class AbsAsyncListView<T, VH extends BindingViewHolder<T>> exten
     protected View onCreateContentView(@NonNull LayoutInflater inflater) {
         recyclerView = new RecyclerView(getContext());
         recyclerView.setId(R.id.recycler_view);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(onCreateLayoutManager());
         return recyclerView;
+    }
+
+    protected RecyclerView.LayoutManager onCreateLayoutManager() {
+        return new LinearLayoutManager(getContext());
     }
 
     @Override
