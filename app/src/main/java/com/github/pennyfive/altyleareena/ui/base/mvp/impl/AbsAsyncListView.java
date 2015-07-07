@@ -18,7 +18,6 @@ package com.github.pennyfive.altyleareena.ui.base.mvp.impl;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -29,6 +28,7 @@ import com.github.pennyfive.altyleareena.R;
 import com.github.pennyfive.altyleareena.ui.base.adapter.ArrayRecyclerAdapter;
 import com.github.pennyfive.altyleareena.ui.base.adapter.BindingViewHolder;
 import com.github.pennyfive.altyleareena.ui.base.mvp.AsyncListView;
+import com.github.pennyfive.altyleareena.ui.base.recyclerview.RecyclerViewBuilder;
 
 import java.util.List;
 
@@ -49,14 +49,11 @@ public abstract class AbsAsyncListView<T, VH extends BindingViewHolder<T>> exten
 
     @Override
     protected View onCreateContentView(@NonNull LayoutInflater inflater) {
-        recyclerView = new RecyclerView(getContext());
+        RecyclerViewBuilder builder = createBuilderWithDefaultParams(getContext());
+        onSetupRecyclerViewBuilder(builder);
+        recyclerView = builder.build();
         recyclerView.setId(R.id.recycler_view);
-        recyclerView.setLayoutManager(onCreateLayoutManager());
         return recyclerView;
-    }
-
-    protected RecyclerView.LayoutManager onCreateLayoutManager() {
-        return new LinearLayoutManager(getContext());
     }
 
     @Override
@@ -79,4 +76,18 @@ public abstract class AbsAsyncListView<T, VH extends BindingViewHolder<T>> exten
     protected abstract VH onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int ViewType);
 
     protected abstract void onItemClick(int position, T item);
+
+    /**
+     * Chance for subclasses to customize {@link RecyclerViewBuilder} that will be used by build RecyclerViews used by AbsAsyncListView.
+     *
+     * @param builder
+     */
+    protected void onSetupRecyclerViewBuilder(RecyclerViewBuilder builder) {
+    }
+
+    private static RecyclerViewBuilder createBuilderWithDefaultParams(Context context) {
+        RecyclerViewBuilder builder = new RecyclerViewBuilder(context);
+        builder.setSpanCount(1);
+        return builder;
+    }
 }
