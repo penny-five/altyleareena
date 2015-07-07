@@ -23,31 +23,31 @@ import android.view.ViewGroup;
 
 import com.github.pennyfive.altyleareena.R;
 import com.github.pennyfive.altyleareena.model.categories.Category;
-import com.github.pennyfive.altyleareena.ui.base.mvp.impl.AbsAsyncListView;
+import com.github.pennyfive.altyleareena.ui.base.mvp.impl.AbsAsyncCollectionView;
 import com.github.pennyfive.altyleareena.ui.category.CategoryActivity;
 import com.github.pennyfive.altyleareena.ui.main.MainActivityComponent;
 import com.github.pennyfive.altyleareena.utils.DaggerUtils;
 
 import javax.inject.Inject;
 
-public class CategoryListViewImpl extends AbsAsyncListView<Category, CategoryListViewHolder> implements CategoryListView {
-    private CategoryListPresenter presenter;
+public class CategoriesViewImpl extends AbsAsyncCollectionView<Category, CategoriesItemViewHolder> implements CategoriesView {
+    private CategoriesPresenter presenter;
 
-    public CategoryListViewImpl(Context context) {
+    public CategoriesViewImpl(Context context) {
         this(context, null);
     }
 
-    public CategoryListViewImpl(Context context, AttributeSet attrs) {
+    public CategoriesViewImpl(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public CategoryListViewImpl(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CategoriesViewImpl(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         DaggerUtils.findComponent(context, MainActivityComponent.class).inject(this);
     }
 
     @Inject
-    public void setPresenter(CategoryListPresenter presenter) {
+    public void setPresenter(CategoriesPresenter presenter) {
         this.presenter = presenter;
     }
 
@@ -64,8 +64,8 @@ public class CategoryListViewImpl extends AbsAsyncListView<Category, CategoryLis
     }
 
     @Override
-    protected CategoryListViewHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int ViewType) {
-        return new CategoryListViewHolder(inflater.inflate(R.layout.item_one_line, parent, false));
+    protected CategoriesItemViewHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int ViewType) {
+        return new CategoriesItemViewHolder(inflater.inflate(R.layout.item_one_line, parent, false));
     }
 
     @Override
@@ -74,7 +74,7 @@ public class CategoryListViewImpl extends AbsAsyncListView<Category, CategoryLis
     }
 
     @Override
-    public void showCategoryView(Category category) {
+    public void showCategory(Category category) {
         CategoryActivity.launchWith(getContext(), category);
     }
 

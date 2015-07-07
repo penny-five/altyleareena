@@ -17,18 +17,18 @@
 package com.github.pennyfive.altyleareena.ui.main;
 
 import com.github.pennyfive.altyleareena.model.categories.CategoryStore;
-import com.github.pennyfive.altyleareena.ui.main.categories.CategoryListPresenter;
+import com.github.pennyfive.altyleareena.ui.main.categories.CategoriesPresenter;
 
 import rx.Scheduler;
 
 public class MainActivityAppScopedBundle {
-    private final CategoryListPresenter categoryListPresenter;
+    private final CategoriesPresenter categoriesPresenter;
 
     public MainActivityAppScopedBundle(CategoryStore store, Scheduler scheduler) {
-        categoryListPresenter = new CategoryListPresenter(store, scheduler);
+        categoriesPresenter = new CategoriesPresenter(store, scheduler);
     }
 
-    public CategoryListPresenter getCategoryListPresenter() {
-        return categoryListPresenter;
+    public CategoriesPresenter getCategoriesPresenter() {
+        return categoriesPresenter;
     }
 }

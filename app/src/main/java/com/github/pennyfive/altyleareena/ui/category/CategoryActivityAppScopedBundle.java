@@ -18,7 +18,7 @@ package com.github.pennyfive.altyleareena.ui.category;
 
 import com.github.pennyfive.altyleareena.model.categories.Category;
 import com.github.pennyfive.altyleareena.model.programs.ProgramStore;
-import com.github.pennyfive.altyleareena.ui.category.programs.CategoryProgramsListPresenter;
+import com.github.pennyfive.altyleareena.ui.category.programs.CategoryProgramsPresenter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,17 +28,17 @@ import rx.Scheduler;
 public class CategoryActivityAppScopedBundle {
     private final ProgramStore store;
     private final Scheduler scheduler;
-    private final Map<Category, CategoryProgramsListPresenter> presenterCache = new HashMap<>();
+    private final Map<Category, CategoryProgramsPresenter> presenterCache = new HashMap<>();
 
     public CategoryActivityAppScopedBundle(ProgramStore store, Scheduler scheduler) {
         this.store = store;
         this.scheduler = scheduler;
     }
 
-    public CategoryProgramsListPresenter getProgramsListPresenter(Category category) {
-        CategoryProgramsListPresenter presenter = presenterCache.get(category);
+    public CategoryProgramsPresenter getProgramsPresenter(Category category) {
+        CategoryProgramsPresenter presenter = presenterCache.get(category);
         if (presenter == null) {
-            presenter = new CategoryProgramsListPresenter(store, category, scheduler);
+            presenter = new CategoryProgramsPresenter(store, category, scheduler);
             presenterCache.put(category, presenter);
         }
         return presenter;

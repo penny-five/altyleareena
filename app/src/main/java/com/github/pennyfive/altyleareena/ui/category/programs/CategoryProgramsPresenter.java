@@ -16,21 +16,19 @@
 
 package com.github.pennyfive.altyleareena.ui.category.programs;
 
-import android.util.Log;
-
 import com.github.pennyfive.altyleareena.model.categories.Category;
 import com.github.pennyfive.altyleareena.model.programs.Program;
 import com.github.pennyfive.altyleareena.model.programs.ProgramStore;
-import com.github.pennyfive.altyleareena.ui.base.mvp.impl.AbsAsyncListPresenter;
+import com.github.pennyfive.altyleareena.ui.base.mvp.impl.AbsAsyncCollectionPresenter;
 
 import rx.Observable;
 import rx.Scheduler;
 
-public class CategoryProgramsListPresenter extends AbsAsyncListPresenter<Program, CategoryProgramsListView> {
+public class CategoryProgramsPresenter extends AbsAsyncCollectionPresenter<Program, CategoryProgramsView> {
     private final ProgramStore store;
     private final Category category;
 
-    public CategoryProgramsListPresenter(ProgramStore store, Category category, Scheduler scheduler) {
+    public CategoryProgramsPresenter(ProgramStore store, Category category, Scheduler scheduler) {
         super(scheduler);
         this.store = store;
         this.category = category;
@@ -42,6 +40,6 @@ public class CategoryProgramsListPresenter extends AbsAsyncListPresenter<Program
     }
 
     public void onProgramClicked(Program program) {
-        Log.d("foo", "program clicked");
+        getView().showProgram(program);
     }
 }

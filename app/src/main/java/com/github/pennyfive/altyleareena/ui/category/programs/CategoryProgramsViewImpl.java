@@ -23,30 +23,30 @@ import android.view.ViewGroup;
 
 import com.github.pennyfive.altyleareena.R;
 import com.github.pennyfive.altyleareena.model.programs.Program;
-import com.github.pennyfive.altyleareena.ui.base.mvp.impl.AbsAsyncListView;
+import com.github.pennyfive.altyleareena.ui.base.mvp.impl.AbsAsyncCollectionView;
 import com.github.pennyfive.altyleareena.ui.category.CategoryActivityComponent;
 import com.github.pennyfive.altyleareena.utils.DaggerUtils;
 
 import javax.inject.Inject;
 
-public class CategoryProgramsListViewImpl extends AbsAsyncListView<Program, CategoryProgramsListViewHolder> implements CategoryProgramsListView {
-    private CategoryProgramsListPresenter presenter;
+public class CategoryProgramsViewImpl extends AbsAsyncCollectionView<Program, CategoryProgramsItemViewHolder> implements CategoryProgramsView {
+    private CategoryProgramsPresenter presenter;
 
-    public CategoryProgramsListViewImpl(Context context) {
+    public CategoryProgramsViewImpl(Context context) {
         this(context, null);
     }
 
-    public CategoryProgramsListViewImpl(Context context, AttributeSet attrs) {
+    public CategoryProgramsViewImpl(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public CategoryProgramsListViewImpl(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CategoryProgramsViewImpl(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        DaggerUtils.findComponent(context, CategoryActivityComponent.class).injectProgramsListView(this);
+        DaggerUtils.findComponent(context, CategoryActivityComponent.class).injectProgramsView(this);
     }
 
     @Inject
-    public void setPresenter(CategoryProgramsListPresenter presenter) {
+    public void setPresenter(CategoryProgramsPresenter presenter) {
         this.presenter = presenter;
     }
 
@@ -63,8 +63,8 @@ public class CategoryProgramsListViewImpl extends AbsAsyncListView<Program, Cate
     }
 
     @Override
-    protected CategoryProgramsListViewHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int ViewType) {
-        return new CategoryProgramsListViewHolder(inflater.inflate(R.layout.item_one_line, parent, false));
+    protected CategoryProgramsItemViewHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int ViewType) {
+        return new CategoryProgramsItemViewHolder(inflater.inflate(R.layout.item_one_line, parent, false));
     }
 
     @Override
@@ -73,7 +73,7 @@ public class CategoryProgramsListViewImpl extends AbsAsyncListView<Program, Cate
     }
 
     @Override
-    public void showProgramView(Program program) {
+    public void showProgram(Program program) {
 
     }
 }

@@ -23,9 +23,9 @@ import com.github.pennyfive.altyleareena.R;
 import com.github.pennyfive.altyleareena.model.programs.Program;
 import com.github.pennyfive.altyleareena.ui.base.adapter.BindingViewHolder;
 
-public class CategoryProgramsListViewHolder extends BindingViewHolder<Program> {
+public class CategoryProgramsItemViewHolder extends BindingViewHolder<Program> {
 
-    public CategoryProgramsListViewHolder(View itemView) {
+    public CategoryProgramsItemViewHolder(View itemView) {
         super(itemView);
     }
 

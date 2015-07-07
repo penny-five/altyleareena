@@ -23,9 +23,9 @@ import com.github.pennyfive.altyleareena.R;
 import com.github.pennyfive.altyleareena.model.categories.Category;
 import com.github.pennyfive.altyleareena.ui.base.adapter.BindingViewHolder;
 
-public class CategoryListViewHolder extends BindingViewHolder<Category> {
+public class CategoriesItemViewHolder extends BindingViewHolder<Category> {
 
-    public CategoryListViewHolder(View itemView) {
+    public CategoriesItemViewHolder(View itemView) {
         super(itemView);
     }
 

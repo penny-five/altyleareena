@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.ui.base.mvp;
+package com.github.pennyfive.altyleareena.ui.category.programs;
 
-import java.util.List;
+import com.github.pennyfive.altyleareena.model.programs.Program;
+import com.github.pennyfive.altyleareena.ui.base.mvp.AsyncView;
+import com.github.pennyfive.altyleareena.ui.base.mvp.CollectionView;
 
-public interface AsyncListView<T> extends AsyncView {
-    void setItems(List<T> items);
+public interface CategoryProgramsView extends CollectionView<Program>, AsyncView {
+    void showProgram(Program program);
 }

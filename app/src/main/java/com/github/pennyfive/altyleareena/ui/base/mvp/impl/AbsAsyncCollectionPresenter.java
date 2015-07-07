@@ -16,15 +16,16 @@
 
 package com.github.pennyfive.altyleareena.ui.base.mvp.impl;
 
-import com.github.pennyfive.altyleareena.ui.base.mvp.AsyncListView;
+import com.github.pennyfive.altyleareena.ui.base.mvp.AsyncView;
+import com.github.pennyfive.altyleareena.ui.base.mvp.CollectionView;
 
 import rx.Observable;
 import rx.Scheduler;
 
-public abstract class AbsAsyncListPresenter<T, E extends AsyncListView<T>> extends AbsPresenter<E> {
+public abstract class AbsAsyncCollectionPresenter<T, E extends CollectionView<T> & AsyncView> extends AbsPresenter<E> {
     private final Scheduler scheduler;
 
-    protected AbsAsyncListPresenter(Scheduler scheduler) {
+    protected AbsAsyncCollectionPresenter(Scheduler scheduler) {
         this.scheduler = scheduler;
     }
 

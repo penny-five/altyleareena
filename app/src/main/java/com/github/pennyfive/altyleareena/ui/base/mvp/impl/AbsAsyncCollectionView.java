@@ -27,23 +27,23 @@ import android.view.ViewGroup;
 import com.github.pennyfive.altyleareena.R;
 import com.github.pennyfive.altyleareena.ui.base.adapter.ArrayRecyclerAdapter;
 import com.github.pennyfive.altyleareena.ui.base.adapter.BindingViewHolder;
-import com.github.pennyfive.altyleareena.ui.base.mvp.AsyncListView;
+import com.github.pennyfive.altyleareena.ui.base.mvp.CollectionView;
 import com.github.pennyfive.altyleareena.ui.base.recyclerview.RecyclerViewBuilder;
 
-import java.util.List;
+import java.util.Collection;
 
-public abstract class AbsAsyncListView<T, VH extends BindingViewHolder<T>> extends AbsAsyncView implements AsyncListView<T> {
+public abstract class AbsAsyncCollectionView<T, VH extends BindingViewHolder<T>> extends AbsAsyncView implements CollectionView<T> {
     private RecyclerView recyclerView;
 
-    public AbsAsyncListView(Context context) {
+    public AbsAsyncCollectionView(Context context) {
         super(context);
     }
 
-    public AbsAsyncListView(Context context, AttributeSet attrs) {
+    public AbsAsyncCollectionView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public AbsAsyncListView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public AbsAsyncCollectionView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -57,11 +57,11 @@ public abstract class AbsAsyncListView<T, VH extends BindingViewHolder<T>> exten
     }
 
     @Override
-    public void setItems(List<T> items) {
+    public void setItems(Collection<T> items) {
         ArrayRecyclerAdapter<T, VH> adapter = new ArrayRecyclerAdapter<T, VH>(getContext(), items) {
             @Override
             public VH onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int ViewType) {
-                return AbsAsyncListView.this.onCreateViewHolder(inflater, parent, ViewType);
+                return AbsAsyncCollectionView.this.onCreateViewHolder(inflater, parent, ViewType);
             }
 
             @Override
@@ -78,7 +78,7 @@ public abstract class AbsAsyncListView<T, VH extends BindingViewHolder<T>> exten
     protected abstract void onItemClick(int position, T item);
 
     /**
-     * Chance for subclasses to customize {@link RecyclerViewBuilder} that will be used by build RecyclerViews used by AbsAsyncListView.
+     * Chance for subclasses to customize {@link RecyclerViewBuilder} that will be used by build RecyclerViews used by AbsCollectionView.
      *
      * @param builder
      */

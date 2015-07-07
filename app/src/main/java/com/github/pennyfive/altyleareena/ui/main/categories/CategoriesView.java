@@ -17,26 +17,9 @@
 package com.github.pennyfive.altyleareena.ui.main.categories;
 
 import com.github.pennyfive.altyleareena.model.categories.Category;
-import com.github.pennyfive.altyleareena.model.categories.CategoryStore;
-import com.github.pennyfive.altyleareena.ui.base.mvp.impl.AbsAsyncListPresenter;
+import com.github.pennyfive.altyleareena.ui.base.mvp.AsyncView;
+import com.github.pennyfive.altyleareena.ui.base.mvp.CollectionView;
 
-import rx.Observable;
-import rx.Scheduler;
-
-public class CategoryListPresenter extends AbsAsyncListPresenter<Category, CategoryListView> {
-    private final CategoryStore store;
-
-    public CategoryListPresenter(CategoryStore store, Scheduler scheduler) {
-        super(scheduler);
-        this.store = store;
-    }
-
-    @Override
-    protected Observable<Category> createObservable() {
-        return store.getCategories();
-    }
-    public void onCategoryClicked(Category category) {
-        getView().showCategoryView(category);
-    }
-
+public interface CategoriesView extends CollectionView<Category>, AsyncView {
+    void showCategory(Category category);
 }
