@@ -29,7 +29,7 @@ import com.github.pennyfive.altyleareena.utils.DaggerUtils;
 
 import javax.inject.Inject;
 
-public class CategoryProgramsViewImpl extends AbsAsyncCollectionView<Program, CategoryProgramsItemViewHolder> implements CategoryProgramsView {
+public class CategoryProgramsViewImpl extends AbsAsyncCollectionView<Program, CategoryProgramsItemHolder> implements CategoryProgramsView {
     private CategoryProgramsPresenter presenter;
 
     public CategoryProgramsViewImpl(Context context) {
@@ -63,8 +63,8 @@ public class CategoryProgramsViewImpl extends AbsAsyncCollectionView<Program, Ca
     }
 
     @Override
-    protected CategoryProgramsItemViewHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int ViewType) {
-        return new CategoryProgramsItemViewHolder(inflater.inflate(R.layout.item_one_line, parent, false));
+    protected CategoryProgramsItemHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int ViewType) {
+        return new CategoryProgramsItemHolder(inflater.inflate(R.layout.item_one_line, parent, false));
     }
 
     @Override

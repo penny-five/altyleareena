@@ -14,24 +14,23 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.ui.category.programs;
+package com.github.pennyfive.altyleareena.ui.main.categories;
 
 import android.view.View;
 import android.widget.TextView;
 
 import com.github.pennyfive.altyleareena.R;
-import com.github.pennyfive.altyleareena.model.programs.Program;
+import com.github.pennyfive.altyleareena.model.categories.Category;
 import com.github.pennyfive.altyleareena.ui.base.adapter.BindingViewHolder;
 
-public class CategoryProgramsItemViewHolder extends BindingViewHolder<Program> {
+public class CategoriesItemHolder extends BindingViewHolder<Category> {
 
-    public CategoryProgramsItemViewHolder(View itemView) {
+    public CategoriesItemHolder(View itemView) {
         super(itemView);
     }
 
     @Override
-    public void onBind(Program program) {
-        ((TextView) itemView.findViewById(R.id.text)).setText(program.getTitleInLanguage("fi"));
+    public void onBind(Category item) {
+        ((TextView) itemView.findViewById(R.id.text)).setText(item.getTitleInLanguage("fi"));
     }
-
 }
