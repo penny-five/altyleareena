@@ -45,6 +45,7 @@ android {
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
 
         buildConfigField("String", "YLE_API_ENDPOINT", "\"https://external.api.yle.fi/v1/programs/\"")
+        buildConfigField("String", "YLE_CLOUDINARY_ENDPOINT", "\"http://images.cdn.yle.fi/\"");
         /* Yle API credentials must be placed in gradle.properties */
         buildConfigField("String", "YLE_APP_ID", getProperty("yle_app_id"))
         buildConfigField("String", "YLE_APP_KEY", getProperty("yle_app_key"))
@@ -80,6 +81,12 @@ dependencies {
     // Dependency injection
     compile 'com.google.dagger:dagger:2.0.1'
     apt 'com.google.dagger:dagger-compiler:2.0.1'
+
+    // View binding
+    compile 'com.jakewharton:butterknife:7.0.1'
+
+    // Image loading & caching
+    compile 'com.github.bumptech.glide:glide:3.6.0'
 
     // Reactive programming
     compile 'io.reactivex:rxjava:1.0.12'
