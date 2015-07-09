@@ -42,7 +42,7 @@ public class CategoryActivity extends FragmentActivity implements ProvidesCompon
         Category category = getIntent().getParcelableExtra(EXTRA_CATEGORY);
         component = DaggerCategoryActivityComponent.builder()
                 .applicationComponent(DaggerUtils.findComponent(this, ApplicationComponent.class))
-                .categoryActivityModule(new CategoryActivityModule(category))
+                .categoryActivityModule(new CategoryActivityModule(this, category))
                 .build();
     }
 

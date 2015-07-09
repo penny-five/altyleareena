@@ -17,6 +17,8 @@
 package com.github.pennyfive.altyleareena.ui.category;
 
 import com.github.pennyfive.altyleareena.model.categories.Category;
+import com.github.pennyfive.altyleareena.ui.base.images.CloudinaryImageLoader;
+import com.github.pennyfive.altyleareena.ui.base.images.CloudinaryImageLoaderFactory;
 import com.github.pennyfive.altyleareena.ui.category.programs.CategoryProgramsPresenter;
 import com.github.pennyfive.altyleareena.utils.annotations.ActivityScope;
 
@@ -25,9 +27,11 @@ import dagger.Provides;
 
 @Module
 public class CategoryActivityModule {
+    private final CategoryActivity activity;
     private final Category category;
 
-    CategoryActivityModule(Category category) {
+    CategoryActivityModule(CategoryActivity activity, Category category) {
+        this.activity = activity;
         this.category = category;
     }
 
@@ -35,5 +39,11 @@ public class CategoryActivityModule {
     @ActivityScope
     CategoryProgramsPresenter provideProgramsPresenter(CategoryActivityAppScopedBundle bundle) {
         return bundle.getProgramsPresenter(category);
+    }
+
+    @Provides
+    @ActivityScope
+    CloudinaryImageLoader provideImageLoader(CloudinaryImageLoaderFactory factory) {
+        return factory.createLoader(activity);
     }
 }

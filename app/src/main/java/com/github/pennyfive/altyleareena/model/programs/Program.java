@@ -24,6 +24,16 @@ import auto.parcelgson.gson.annotations.SerializedName;
 
 @AutoParcelGson
 public abstract class Program {
+    @SerializedName("id")
+    public abstract String id();
+
+    @SerializedName("image")
+    abstract Image image();
+
+    public String imageId() {
+        return image() != null && image().available() ? image().id() : null;
+    }
+
     @SerializedName("title")
     abstract Map<String, String> titles();
 
@@ -37,4 +47,14 @@ public abstract class Program {
     public String getDescriptionInLanguage(String language) {
         return descriptions().get(language);
     }
+
+    @AutoParcelGson
+    static abstract class Image {
+        @SerializedName("id")
+        public abstract String id();
+
+        @SerializedName("available")
+        public abstract boolean available();
+    }
+
 }

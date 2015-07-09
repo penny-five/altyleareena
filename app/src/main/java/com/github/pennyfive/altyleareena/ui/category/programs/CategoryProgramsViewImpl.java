@@ -23,14 +23,17 @@ import android.view.ViewGroup;
 
 import com.github.pennyfive.altyleareena.R;
 import com.github.pennyfive.altyleareena.model.programs.Program;
+import com.github.pennyfive.altyleareena.ui.base.images.CloudinaryImageLoader;
 import com.github.pennyfive.altyleareena.ui.base.mvp.impl.AbsAsyncCollectionView;
+import com.github.pennyfive.altyleareena.ui.base.recyclerview.RecyclerViewBuilder;
 import com.github.pennyfive.altyleareena.ui.category.CategoryActivityComponent;
 import com.github.pennyfive.altyleareena.utils.DaggerUtils;
 
 import javax.inject.Inject;
 
 public class CategoryProgramsViewImpl extends AbsAsyncCollectionView<Program, CategoryProgramsItemHolder> implements CategoryProgramsView {
-    private CategoryProgramsPresenter presenter;
+    @Inject CategoryProgramsPresenter presenter;
+    @Inject CloudinaryImageLoader imageLoader;
 
     public CategoryProgramsViewImpl(Context context) {
         this(context, null);
@@ -43,11 +46,6 @@ public class CategoryProgramsViewImpl extends AbsAsyncCollectionView<Program, Ca
     public CategoryProgramsViewImpl(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         DaggerUtils.findComponent(context, CategoryActivityComponent.class).injectProgramsView(this);
-    }
-
-    @Inject
-    public void setPresenter(CategoryProgramsPresenter presenter) {
-        this.presenter = presenter;
     }
 
     @Override
@@ -63,8 +61,17 @@ public class CategoryProgramsViewImpl extends AbsAsyncCollectionView<Program, Ca
     }
 
     @Override
+    protected void onSetupRecyclerViewBuilder(RecyclerViewBuilder builder) {
+        super.onSetupRecyclerViewBuilder(builder);
+        builder.setSpanCount(2);
+        builder.setPaddingFromResource(R.dimen.grid_padding);
+    }
+
+    @Override
     protected CategoryProgramsItemHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int ViewType) {
-        return new CategoryProgramsItemHolder(inflater.inflate(R.layout.item_one_line, parent, false));
+        CategoryProgramsItemHolder holder = new CategoryProgramsItemHolder(getContext(), parent);
+        holder.setImageLoader(imageLoader);
+        return holder;
     }
 
     @Override

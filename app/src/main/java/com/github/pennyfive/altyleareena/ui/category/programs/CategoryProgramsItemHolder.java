@@ -16,22 +16,38 @@
 
 package com.github.pennyfive.altyleareena.ui.category.programs;
 
-import android.view.View;
+import android.content.Context;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.pennyfive.altyleareena.R;
 import com.github.pennyfive.altyleareena.model.programs.Program;
 import com.github.pennyfive.altyleareena.ui.base.adapter.BindingViewHolder;
+import com.github.pennyfive.altyleareena.ui.base.images.CloudinaryImageLoader;
+import com.github.pennyfive.altyleareena.utils.CloudinaryUriBuilder;
+
+import butterknife.Bind;
 
 public class CategoryProgramsItemHolder extends BindingViewHolder<Program> {
+    private CloudinaryImageLoader imageLoader;
 
-    public CategoryProgramsItemHolder(View itemView) {
-        super(itemView);
+    @Bind(R.id.image) ImageView image;
+    @Bind(R.id.title) TextView title;
+    @Bind(R.id.subtitle) TextView subtitle;
+
+    public CategoryProgramsItemHolder(Context context, ViewGroup parent) {
+        super(context, R.layout.item_grid_two_line_with_image, parent);
+    }
+
+    public void setImageLoader(CloudinaryImageLoader imageLoader) {
+        this.imageLoader = imageLoader;
     }
 
     @Override
     public void onBind(Program program) {
-        ((TextView) itemView.findViewById(R.id.text)).setText(program.getTitleInLanguage("fi"));
+        imageLoader.load(program.imageId()).withCropMode(CloudinaryUriBuilder.CropMode.FIT).withHeight(150).into(image);
+        title.setText(program.getTitleInLanguage("fi"));
+        subtitle.setText("1.1.2015");
     }
-
 }

@@ -16,12 +16,24 @@
 
 package com.github.pennyfive.altyleareena.ui.base.adapter;
 
+import android.content.Context;
+import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+
+import butterknife.ButterKnife;
 
 public abstract class BindingViewHolder<T> extends RecyclerView.ViewHolder {
+
+    public BindingViewHolder(Context context, @LayoutRes int layoutResid, ViewGroup parent) {
+        this(LayoutInflater.from(context).inflate(layoutResid, parent, false));
+    }
+
     public BindingViewHolder(View itemView) {
         super(itemView);
+        ButterKnife.bind(this, itemView);
     }
 
     public abstract void onBind(T item);

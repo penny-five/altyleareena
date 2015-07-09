@@ -33,6 +33,16 @@
         <item name="android:textSize">@dimen/abc_text_size_caption_material</item>
     </style>
 
+    <style name="TextAppearance.Altyleareena.List.Title" parent="@style/None">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/list_text_dark</item>
+    </style>
+
+    <style name="TextAppearance.Altyleareena.List.Subtitle" parent="@style/None">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/list_text_light</item>
+    </style>
+
     <style name="None"/>
 
 </resources>
