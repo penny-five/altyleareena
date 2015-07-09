@@ -25,10 +25,11 @@ import java.util.List;
 /**
  * Constructs Cloudinary Uris that follow pattern
  * <p>
- * <code>http:{cdn}/{transformations}/{id}.{format}</code>
+ * <code>http:{cdn}/{transformations}/{id}.{imageFormat}</code>
  * <p>
- * Default format is .png.
+ * Default imageFormat is .jpg.
  */
+@SuppressWarnings("unused")
 public class CloudinaryUriBuilder {
     public enum ImageFormat {
         JPG("jpg"),
@@ -42,9 +43,22 @@ public class CloudinaryUriBuilder {
         }
     }
 
+    public enum CropMode {
+        SCALE("scale"),
+        FIT("fit"),
+        FILL("fill");
+
+        private final String paramName;
+
+        CropMode(String paramName) {
+            this.paramName = paramName;
+        }
+    }
+
     private static final String CLOUDINARY_ROOT_PATH = "image/upload";
     private final String cdnPath;
-    private ImageFormat format = ImageFormat.PNG;
+    private ImageFormat imageFormat = ImageFormat.JPG;
+    private CropMode cropMode = CropMode.FIT;
     private int widthInPixels = -1;
     private int heightInPixels = -1;
     private String id;
@@ -58,19 +72,44 @@ public class CloudinaryUriBuilder {
         return this;
     }
 
+    public String getId() {
+        return id;
+    }
+
     public CloudinaryUriBuilder setImageFormat(ImageFormat format) {
-        this.format = format;
+        this.imageFormat = format;
         return this;
     }
 
-    public CloudinaryUriBuilder setWidth(int widthInPixels) {
+    public ImageFormat getImageFormat() {
+        return imageFormat;
+    }
+
+    public CloudinaryUriBuilder setCropMode(CropMode cropMode) {
+        this.cropMode = cropMode;
+        return this;
+    }
+
+    public CropMode getCropMode() {
+        return cropMode;
+    }
+
+    public CloudinaryUriBuilder setWidthInPixels(int widthInPixels) {
         this.widthInPixels = widthInPixels;
         return this;
     }
 
-    public CloudinaryUriBuilder setHeight(int heightInPixels) {
+    public int getWidthInPixels() {
+        return widthInPixels;
+    }
+
+    public CloudinaryUriBuilder setHeightInPixels(int heightInPixels) {
         this.heightInPixels = heightInPixels;
         return this;
+    }
+
+    public int getHeightInPixels() {
+        return heightInPixels;
     }
 
     /**
@@ -84,13 +123,14 @@ public class CloudinaryUriBuilder {
         Uri.Builder builder = Uri.parse(cdnPath).buildUpon();
         builder.appendEncodedPath(CLOUDINARY_ROOT_PATH);
         builder.appendEncodedPath(constructManipulationsPath());
-        return builder.appendPath(id + "." + format.fileExtension).build();
+        return builder.appendPath(id + "." + imageFormat.fileExtension).build();
     }
 
     private String constructManipulationsPath() {
         List<String> manipulations = new ArrayList<>();
         if (widthInPixels > 0) manipulations.add("w_" + widthInPixels);
         if (heightInPixels > 0) manipulations.add("h_" + heightInPixels);
+        if (widthInPixels > 0 || heightInPixels > 0) manipulations.add("c_" + cropMode.paramName);
         return TextUtils.join(",", manipulations);
     }
 }
