@@ -23,6 +23,7 @@ import com.github.pennyfive.altyleareena.model.categories.CategoryStore;
 import com.github.pennyfive.altyleareena.model.categories.impl.ApiServiceBackedCategoryStore;
 import com.github.pennyfive.altyleareena.model.programs.ProgramStore;
 import com.github.pennyfive.altyleareena.model.programs.impl.ApiServiceBackedProgramStore;
+import com.github.pennyfive.altyleareena.ui.base.images.CloudinaryImageLoaderFactory;
 import com.github.pennyfive.altyleareena.ui.category.CategoryActivityAppScopedBundle;
 import com.github.pennyfive.altyleareena.ui.main.MainActivityAppScopedBundle;
 import com.github.pennyfive.altyleareena.utils.annotations.ApplicationScope;
@@ -54,6 +55,12 @@ public class ApplicationModule {
 
     @Provides
     @ApplicationScope
+    CloudinaryImageLoaderFactory provideImageLoaderFactory() {
+        return new CloudinaryImageLoaderFactory(BuildConfig.YLE_CLOUDINARY_ENDPOINT, BuildConfig.DEBUG);
+    }
+
+    @Provides
+    @ApplicationScope
     CategoryStore provideCategoriesStore(YleApiService service) {
         return new ApiServiceBackedCategoryStore(service);
     }
@@ -71,7 +78,6 @@ public class ApplicationModule {
                 .setEndpoint(BuildConfig.YLE_API_ENDPOINT)
                 .setConverter(new GsonConverter(gson))
                 .setRequestInterceptor(request -> {
-                    // app_id and app_key are required for all API queries.
                     request.addQueryParam("app_id", BuildConfig.YLE_APP_ID);
                     request.addQueryParam("app_key", BuildConfig.YLE_APP_KEY);
                 })
