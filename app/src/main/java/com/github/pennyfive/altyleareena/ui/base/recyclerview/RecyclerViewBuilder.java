@@ -22,14 +22,21 @@ import android.support.annotation.IntRange;
 import android.support.annotation.IntegerRes;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 
 public class RecyclerViewBuilder {
     private final Context context;
-    private int padding;
-    private int spanCount;
+    private boolean isStaggered = false;
+    private int padding = 0;
+    private int spanCount = 1;
 
     public RecyclerViewBuilder(Context context) {
         this.context = context;
+    }
+
+    public RecyclerViewBuilder setIsStaggered(boolean isStaggered) {
+        this.isStaggered = isStaggered;
+        return this;
     }
 
     public RecyclerViewBuilder setSpanCount(@IntRange(from = 0) int spanCount) {
@@ -62,12 +69,18 @@ public class RecyclerViewBuilder {
 
     public RecyclerView build() {
         RecyclerView recyclerView = new RecyclerView(context);
-        recyclerView.setLayoutManager(new GridLayoutManager(recyclerView.getContext(), spanCount));
+        recyclerView.setLayoutManager(buildLayoutManager());
         if (padding > 0) {
             PaddingDecoration decoration = new PaddingDecoration(padding);
-            decoration.setSpanCount(spanCount);
             recyclerView.addItemDecoration(decoration);
         }
         return recyclerView;
+    }
+
+    private RecyclerView.LayoutManager buildLayoutManager() {
+        if (isStaggered) {
+            return new StaggeredGridLayoutManager(spanCount, StaggeredGridLayoutManager.VERTICAL);
+        }
+        return new GridLayoutManager(context, spanCount);
     }
 }
