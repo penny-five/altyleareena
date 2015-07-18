@@ -63,6 +63,7 @@ public class CategoryProgramsViewImpl extends AbsAsyncCollectionView<Program, Ca
     @Override
     protected void onSetupRecyclerViewBuilder(RecyclerViewBuilder builder) {
         super.onSetupRecyclerViewBuilder(builder);
+        builder.setIsStaggered(true);
         builder.setSpanCount(2);
         builder.setPaddingFromResource(R.dimen.grid_padding);
     }

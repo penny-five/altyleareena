@@ -19,6 +19,7 @@
     <color name="selector_light_background">#B0BEC5</color>
     <color name="background">@color/background_material_light</color>
     <color name="grid_background">@android:color/white</color>
-    <color name="list_text_dark">@color/abc_primary_text_material_light</color>
-    <color name="list_text_light">@color/abc_secondary_text_material_light</color>
+    <color name="text_dark">@color/abc_primary_text_material_light</color>
+    <color name="text_light">#727272</color>
+    <color name="text_extra_light">#b9b9b9</color>
 </resources>

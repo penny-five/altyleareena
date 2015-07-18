@@ -24,7 +24,7 @@
     android:background="@drawable/selector_light"
     android:orientation="vertical"
     android:padding="16dp"
-    android:textAppearance="@style/TextAppearance.Altyleareena.Body"
+    android:textAppearance="@style/TextAppearance.Altyleareena.Body_1"
     tools:text="Item text">
 
 </TextView>

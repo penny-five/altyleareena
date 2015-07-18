@@ -25,8 +25,16 @@
         <item name="android:textSize">@dimen/abc_text_size_headline_material</item>
     </style>
 
-    <style name="TextAppearance.Altyleareena.Body" parent="@style/None">
+    <style name="TextAppearance.Altyleareena.Body_1" parent="@style/None">
         <item name="android:textSize">@dimen/abc_text_size_body_1_material</item>
+    </style>
+
+    <style name="TextAppearance.Altyleareena.Body_2" parent="@style/None">
+        <item name="android:textSize">@dimen/abc_text_size_body_2_material</item>
+    </style>
+
+    <style name="TextAppearance.Altyleareena.Title" parent="@style/None">
+        <item name="android:textSize">@dimen/abc_text_size_title_material</item>
     </style>
 
     <style name="TextAppearance.Altyleareena.Caption" parent="@style/None">
@@ -35,12 +43,12 @@
 
     <style name="TextAppearance.Altyleareena.List.Title" parent="@style/None">
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/list_text_dark</item>
+        <item name="android:textColor">@color/text_dark</item>
     </style>
 
     <style name="TextAppearance.Altyleareena.List.Subtitle" parent="@style/None">
         <item name="android:textSize">12sp</item>
-        <item name="android:textColor">@color/list_text_light</item>
+        <item name="android:textColor">@color/text_light</item>
     </style>
 
     <style name="None"/>

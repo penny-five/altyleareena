@@ -17,6 +17,7 @@
 package com.github.pennyfive.altyleareena.ui.category.programs;
 
 import android.content.Context;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,11 +34,13 @@ public class CategoryProgramsItemHolder extends BindingViewHolder<Program> {
     private CloudinaryImageLoader imageLoader;
 
     @Bind(R.id.image) ImageView image;
-    @Bind(R.id.title) TextView title;
-    @Bind(R.id.subtitle) TextView subtitle;
+    @Bind(R.id.series_name) TextView seriesName;
+    @Bind(R.id.program_name) TextView programName;
+    @Bind(R.id.category_name) TextView categoryName;
+    @Bind(R.id.release_date) TextView releaseDate;
 
     public CategoryProgramsItemHolder(Context context, ViewGroup parent) {
-        super(context, R.layout.item_grid_two_line_with_image, parent);
+        super(context, R.layout.card_program, parent);
     }
 
     public void setImageLoader(CloudinaryImageLoader imageLoader) {
@@ -47,7 +50,14 @@ public class CategoryProgramsItemHolder extends BindingViewHolder<Program> {
     @Override
     public void onBind(Program program) {
         imageLoader.load(program.imageId()).withCropMode(CloudinaryUriBuilder.CropMode.FIT).withHeight(150).into(image);
-        title.setText(program.getTitleInLanguage("fi"));
-        subtitle.setText("1.1.2015");
+        programName.setText(program.titleInLanguage("fi"));
+        if (program.isPartOfSeries()) {
+            seriesName.setText(program.series().titleInLanguage("fi"));
+            seriesName.setVisibility(View.VISIBLE);
+        } else {
+            seriesName.setVisibility(View.GONE);
+        }
+        categoryName.setText("TV");
+        releaseDate.setText("1.1.2015");
     }
 }
