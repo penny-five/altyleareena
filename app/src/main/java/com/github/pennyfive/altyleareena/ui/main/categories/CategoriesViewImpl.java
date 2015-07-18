@@ -25,7 +25,7 @@ import com.github.pennyfive.altyleareena.R;
 import com.github.pennyfive.altyleareena.model.categories.Category;
 import com.github.pennyfive.altyleareena.ui.base.mvp.impl.AbsAsyncCollectionView;
 import com.github.pennyfive.altyleareena.ui.category.CategoryActivity;
-import com.github.pennyfive.altyleareena.ui.main.MainActivityComponent;
+import com.github.pennyfive.altyleareena.ui.main.MainActivityInstanceComponent;
 import com.github.pennyfive.altyleareena.utils.DaggerUtils;
 
 import javax.inject.Inject;
@@ -43,7 +43,7 @@ public class CategoriesViewImpl extends AbsAsyncCollectionView<Category, Categor
 
     public CategoriesViewImpl(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        DaggerUtils.findComponent(context, MainActivityComponent.class).inject(this);
+        DaggerUtils.findComponent(context, MainActivityInstanceComponent.class).inject(this);
     }
 
     @Inject

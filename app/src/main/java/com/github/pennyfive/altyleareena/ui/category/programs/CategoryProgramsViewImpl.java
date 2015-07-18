@@ -26,7 +26,7 @@ import com.github.pennyfive.altyleareena.model.programs.Program;
 import com.github.pennyfive.altyleareena.ui.base.images.CloudinaryImageLoader;
 import com.github.pennyfive.altyleareena.ui.base.mvp.impl.AbsAsyncCollectionView;
 import com.github.pennyfive.altyleareena.ui.base.recyclerview.RecyclerViewBuilder;
-import com.github.pennyfive.altyleareena.ui.category.CategoryActivityComponent;
+import com.github.pennyfive.altyleareena.ui.category.CategoryActivityInstanceComponent;
 import com.github.pennyfive.altyleareena.utils.DaggerUtils;
 
 import javax.inject.Inject;
@@ -45,7 +45,7 @@ public class CategoryProgramsViewImpl extends AbsAsyncCollectionView<Program, Ca
 
     public CategoryProgramsViewImpl(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        DaggerUtils.findComponent(context, CategoryActivityComponent.class).injectProgramsView(this);
+        DaggerUtils.findComponent(context, CategoryActivityInstanceComponent.class).inject(this);
     }
 
     @Override

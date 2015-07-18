@@ -18,31 +18,30 @@ package com.github.pennyfive.altyleareena.ui.main;
 
 import android.os.Bundle;
 
-import com.github.pennyfive.altyleareena.ApplicationComponent;
 import com.github.pennyfive.altyleareena.R;
-import com.github.pennyfive.altyleareena.ui.base.activity.BaseActivity;
-import com.github.pennyfive.altyleareena.utils.DaggerUtils;
-import com.github.pennyfive.altyleareena.utils.annotations.ProvidesComponent;
+import com.github.pennyfive.altyleareena.ui.base.activity.ScopedActivity;
 
-public class MainActivity extends BaseActivity implements ProvidesComponent<MainActivityComponent> {
-    private MainActivityComponent component;
+public class MainActivity extends ScopedActivity<MainActivityComponent, MainActivityInstanceComponent> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        buildActivityComponent();
         setContentView(R.layout.activity_main);
     }
 
-    private void buildActivityComponent() {
-        component = DaggerMainActivityComponent.builder()
-                .applicationComponent(DaggerUtils.findComponent(this, ApplicationComponent.class))
+    @Override
+    protected MainActivityComponent onCreateActivityComponent() {
+        return DaggerMainActivityComponent.builder()
+                .applicationComponent(getApplicationComponent())
                 .mainActivityModule(new MainActivityModule())
                 .build();
     }
 
     @Override
-    public MainActivityComponent provideComponent() {
-        return component;
+    protected MainActivityInstanceComponent onCreateActivityInstanceComponent() {
+        return DaggerMainActivityInstanceComponent.builder()
+                .mainActivityComponent(getActivityComponent())
+                .mainActivityInstanceModule(new MainActivityInstanceModule(this))
+                .build();
     }
 }

@@ -19,36 +19,35 @@ package com.github.pennyfive.altyleareena.ui.category;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 
-import com.github.pennyfive.altyleareena.ApplicationComponent;
 import com.github.pennyfive.altyleareena.R;
 import com.github.pennyfive.altyleareena.model.categories.Category;
-import com.github.pennyfive.altyleareena.utils.DaggerUtils;
-import com.github.pennyfive.altyleareena.utils.annotations.ProvidesComponent;
+import com.github.pennyfive.altyleareena.ui.base.activity.ScopedActivity;
 
-public class CategoryActivity extends FragmentActivity implements ProvidesComponent<CategoryActivityComponent> {
+public class CategoryActivity extends ScopedActivity<CategoryActivityComponent, CategoryActivityInstanceComponent> {
     private static final String EXTRA_CATEGORY = "category";
-    private CategoryActivityComponent component;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        buildActivityComponent();
         setContentView(R.layout.activity_category);
     }
 
-    private void buildActivityComponent() {
+    @Override
+    protected CategoryActivityComponent onCreateActivityComponent() {
         Category category = getIntent().getParcelableExtra(EXTRA_CATEGORY);
-        component = DaggerCategoryActivityComponent.builder()
-                .applicationComponent(DaggerUtils.findComponent(this, ApplicationComponent.class))
-                .categoryActivityModule(new CategoryActivityModule(this, category))
+        return DaggerCategoryActivityComponent.builder()
+                .applicationComponent(getApplicationComponent())
+                .categoryActivityModule(new CategoryActivityModule(category))
                 .build();
     }
 
     @Override
-    public CategoryActivityComponent provideComponent() {
-        return component;
+    protected CategoryActivityInstanceComponent onCreateActivityInstanceComponent() {
+        return DaggerCategoryActivityInstanceComponent.builder()
+                .categoryActivityComponent(getActivityComponent())
+                .categoryActivityInstanceModule(new CategoryActivityInstanceModule(this))
+                .build();
     }
 
     public static void launchWith(Context context, Category category) {

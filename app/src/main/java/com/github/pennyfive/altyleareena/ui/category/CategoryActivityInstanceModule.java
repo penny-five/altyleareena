@@ -14,23 +14,26 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.ui.main;
+package com.github.pennyfive.altyleareena.ui.category;
 
-import com.github.pennyfive.altyleareena.model.categories.CategoryStore;
-import com.github.pennyfive.altyleareena.ui.main.categories.CategoriesPresenter;
-import com.github.pennyfive.altyleareena.utils.annotations.ActivityScope;
-import com.github.pennyfive.altyleareena.utils.annotations.UiThread;
+import com.github.pennyfive.altyleareena.ui.base.images.CloudinaryImageLoader;
+import com.github.pennyfive.altyleareena.ui.base.images.CloudinaryImageLoaderFactory;
+import com.github.pennyfive.altyleareena.utils.annotations.ActivityInstanceScope;
 
 import dagger.Module;
 import dagger.Provides;
-import rx.Scheduler;
 
 @Module
-public class MainActivityModule {
+public class CategoryActivityInstanceModule {
+    private final CategoryActivity activity;
+
+    CategoryActivityInstanceModule(CategoryActivity activity) {
+        this.activity = activity;
+    }
 
     @Provides
-    @ActivityScope
-    CategoriesPresenter provideCategoriesPresenter(CategoryStore store, @UiThread Scheduler scheduler) {
-        return new CategoriesPresenter(store, scheduler);
+    @ActivityInstanceScope
+    CloudinaryImageLoader provideImageLoader(CloudinaryImageLoaderFactory factory) {
+        return factory.createLoader(activity);
     }
 }

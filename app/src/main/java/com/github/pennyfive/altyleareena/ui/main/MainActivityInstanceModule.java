@@ -16,21 +16,24 @@
 
 package com.github.pennyfive.altyleareena.ui.main;
 
-import com.github.pennyfive.altyleareena.model.categories.CategoryStore;
-import com.github.pennyfive.altyleareena.ui.main.categories.CategoriesPresenter;
-import com.github.pennyfive.altyleareena.utils.annotations.ActivityScope;
-import com.github.pennyfive.altyleareena.utils.annotations.UiThread;
+import com.github.pennyfive.altyleareena.ui.base.images.CloudinaryImageLoader;
+import com.github.pennyfive.altyleareena.ui.base.images.CloudinaryImageLoaderFactory;
+import com.github.pennyfive.altyleareena.utils.annotations.ActivityInstanceScope;
 
 import dagger.Module;
 import dagger.Provides;
-import rx.Scheduler;
 
 @Module
-public class MainActivityModule {
+public class MainActivityInstanceModule {
+    private final MainActivity activity;
+
+    MainActivityInstanceModule(MainActivity activity) {
+        this.activity = activity;
+    }
 
     @Provides
-    @ActivityScope
-    CategoriesPresenter provideCategoriesPresenter(CategoryStore store, @UiThread Scheduler scheduler) {
-        return new CategoriesPresenter(store, scheduler);
+    @ActivityInstanceScope
+    CloudinaryImageLoader provideImageLoader(CloudinaryImageLoaderFactory factory) {
+        return factory.createLoader(activity);
     }
 }

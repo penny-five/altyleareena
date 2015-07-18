@@ -24,8 +24,6 @@ import com.github.pennyfive.altyleareena.model.categories.impl.ApiServiceBackedC
 import com.github.pennyfive.altyleareena.model.programs.ProgramStore;
 import com.github.pennyfive.altyleareena.model.programs.impl.ApiServiceBackedProgramStore;
 import com.github.pennyfive.altyleareena.ui.base.images.CloudinaryImageLoaderFactory;
-import com.github.pennyfive.altyleareena.ui.category.CategoryActivityAppScopedBundle;
-import com.github.pennyfive.altyleareena.ui.main.MainActivityAppScopedBundle;
 import com.github.pennyfive.altyleareena.utils.annotations.ApplicationScope;
 import com.github.pennyfive.altyleareena.utils.annotations.UiThread;
 import com.google.gson.Gson;
@@ -99,17 +97,5 @@ public class ApplicationModule {
     @UiThread
     Scheduler provideUiScheduler() {
         return AndroidSchedulers.mainThread();
-    }
-
-    @Provides
-    @ApplicationScope
-    MainActivityAppScopedBundle provideMainActivityBundle(CategoryStore store, @UiThread Scheduler scheduler) {
-        return new MainActivityAppScopedBundle(store, scheduler);
-    }
-
-    @Provides
-    @ApplicationScope
-    CategoryActivityAppScopedBundle provideCategoryActivityBundle(ProgramStore store, @UiThread Scheduler scheduler) {
-        return new CategoryActivityAppScopedBundle(store, scheduler);
     }
 }

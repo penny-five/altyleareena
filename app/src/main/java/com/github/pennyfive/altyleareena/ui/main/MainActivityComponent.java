@@ -17,7 +17,7 @@
 package com.github.pennyfive.altyleareena.ui.main;
 
 import com.github.pennyfive.altyleareena.ApplicationComponent;
-import com.github.pennyfive.altyleareena.ui.main.categories.CategoriesViewImpl;
+import com.github.pennyfive.altyleareena.ui.main.categories.CategoriesPresenter;
 import com.github.pennyfive.altyleareena.utils.annotations.ActivityScope;
 
 import dagger.Component;
@@ -25,5 +25,5 @@ import dagger.Component;
 @ActivityScope
 @Component(dependencies = ApplicationComponent.class, modules = MainActivityModule.class)
 public interface MainActivityComponent {
-    void inject(CategoriesViewImpl view);
+    CategoriesPresenter getCategoriesPresenter();
 }

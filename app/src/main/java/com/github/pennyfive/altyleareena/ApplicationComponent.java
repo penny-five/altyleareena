@@ -16,12 +16,14 @@
 
 package com.github.pennyfive.altyleareena;
 
+import com.github.pennyfive.altyleareena.model.categories.CategoryStore;
+import com.github.pennyfive.altyleareena.model.programs.ProgramStore;
 import com.github.pennyfive.altyleareena.ui.base.images.CloudinaryImageLoaderFactory;
-import com.github.pennyfive.altyleareena.ui.category.CategoryActivityAppScopedBundle;
-import com.github.pennyfive.altyleareena.ui.main.MainActivityAppScopedBundle;
 import com.github.pennyfive.altyleareena.utils.annotations.ApplicationScope;
+import com.github.pennyfive.altyleareena.utils.annotations.UiThread;
 
 import dagger.Component;
+import rx.Scheduler;
 
 /**
  * Dagger component with application scope.
@@ -29,9 +31,12 @@ import dagger.Component;
 @ApplicationScope
 @Component(modules = ApplicationModule.class)
 public interface ApplicationComponent {
-    MainActivityAppScopedBundle getMainActivityBundle();
-
-    CategoryActivityAppScopedBundle getCategoryActivityBundle();
-
     CloudinaryImageLoaderFactory getImageLoaderFactory();
+
+    ProgramStore getProgramStore();
+
+    CategoryStore getCategoryStore();
+
+    @UiThread
+    Scheduler getScheduler();
 }

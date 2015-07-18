@@ -22,10 +22,9 @@ import java.lang.annotation.RetentionPolicy;
 import javax.inject.Scope;
 
 /**
- * Activity level scope for Dagger context injection. Unlike {@link ActivityInstanceScope} dependencies using this scope should persist over
- * activity restarts.
+ * Activity instance level scope for Dagger context injection.
  */
 @Scope
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ActivityScope {
+public @interface ActivityInstanceScope {
 }

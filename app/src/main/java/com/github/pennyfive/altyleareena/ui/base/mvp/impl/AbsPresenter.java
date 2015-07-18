@@ -20,12 +20,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.github.pennyfive.altyleareena.BuildConfig;
 import com.github.pennyfive.altyleareena.ui.base.mvp.Presenter;
 import com.github.pennyfive.altyleareena.ui.base.mvp.View;
 
 public abstract class AbsPresenter<T extends View> implements Presenter<T> {
-    private static final String DEBUG_LOG_TAG = "AbsPresenter";
-    private static final boolean DEBUG = true;
+    private static final String DEBUG_LOG_TAG = "Presenter";
+    private static final boolean DEBUG = BuildConfig.DEBUG;
     private Bundle savedState;
     private T view;
 

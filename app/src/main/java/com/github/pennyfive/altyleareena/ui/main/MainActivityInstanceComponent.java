@@ -14,10 +14,15 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.ui.base.activity;
+package com.github.pennyfive.altyleareena.ui.main;
 
-import android.support.v4.app.FragmentActivity;
+import com.github.pennyfive.altyleareena.ui.main.categories.CategoriesViewImpl;
+import com.github.pennyfive.altyleareena.utils.annotations.ActivityInstanceScope;
 
-public abstract class BaseActivity extends FragmentActivity {
+import dagger.Component;
 
+@ActivityInstanceScope
+@Component(dependencies = MainActivityComponent.class, modules = MainActivityInstanceModule.class)
+public interface MainActivityInstanceComponent {
+    void inject(CategoriesViewImpl view);
 }

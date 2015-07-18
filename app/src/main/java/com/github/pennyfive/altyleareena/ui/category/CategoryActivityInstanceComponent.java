@@ -14,21 +14,15 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.ui.main;
+package com.github.pennyfive.altyleareena.ui.category;
 
-import com.github.pennyfive.altyleareena.model.categories.CategoryStore;
-import com.github.pennyfive.altyleareena.ui.main.categories.CategoriesPresenter;
+import com.github.pennyfive.altyleareena.ui.category.programs.CategoryProgramsViewImpl;
+import com.github.pennyfive.altyleareena.utils.annotations.ActivityInstanceScope;
 
-import rx.Scheduler;
+import dagger.Component;
 
-public class MainActivityAppScopedBundle {
-    private final CategoriesPresenter categoriesPresenter;
-
-    public MainActivityAppScopedBundle(CategoryStore store, Scheduler scheduler) {
-        categoriesPresenter = new CategoriesPresenter(store, scheduler);
-    }
-
-    public CategoriesPresenter getCategoriesPresenter() {
-        return categoriesPresenter;
-    }
+@ActivityInstanceScope
+@Component(dependencies = CategoryActivityComponent.class, modules = CategoryActivityInstanceModule.class)
+public interface CategoryActivityInstanceComponent {
+    void inject(CategoryProgramsViewImpl view);
 }

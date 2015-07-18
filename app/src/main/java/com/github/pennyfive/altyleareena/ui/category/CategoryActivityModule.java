@@ -17,33 +17,27 @@
 package com.github.pennyfive.altyleareena.ui.category;
 
 import com.github.pennyfive.altyleareena.model.categories.Category;
-import com.github.pennyfive.altyleareena.ui.base.images.CloudinaryImageLoader;
-import com.github.pennyfive.altyleareena.ui.base.images.CloudinaryImageLoaderFactory;
+import com.github.pennyfive.altyleareena.model.programs.ProgramStore;
 import com.github.pennyfive.altyleareena.ui.category.programs.CategoryProgramsPresenter;
 import com.github.pennyfive.altyleareena.utils.annotations.ActivityScope;
+import com.github.pennyfive.altyleareena.utils.annotations.UiThread;
 
 import dagger.Module;
 import dagger.Provides;
+import rx.Scheduler;
 
 @Module
 public class CategoryActivityModule {
-    private final CategoryActivity activity;
     private final Category category;
 
-    CategoryActivityModule(CategoryActivity activity, Category category) {
-        this.activity = activity;
+    CategoryActivityModule(Category category) {
         this.category = category;
     }
 
     @Provides
     @ActivityScope
-    CategoryProgramsPresenter provideProgramsPresenter(CategoryActivityAppScopedBundle bundle) {
-        return bundle.getProgramsPresenter(category);
+    CategoryProgramsPresenter provideProgramsPresenter(ProgramStore store, @UiThread Scheduler scheduler) {
+        return new CategoryProgramsPresenter(store, category, scheduler);
     }
 
-    @Provides
-    @ActivityScope
-    CloudinaryImageLoader provideImageLoader(CloudinaryImageLoaderFactory factory) {
-        return factory.createLoader(activity);
-    }
 }
