@@ -17,15 +17,18 @@
 package com.github.pennyfive.altyleareena.ui.base.recyclerview;
 
 import android.graphics.Rect;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
+import android.view.ViewGroup;
 
 public class PaddingDecoration extends RecyclerView.ItemDecoration {
     private final int leftPadding;
     private final int topPadding;
     private final int rightPadding;
     private final int bottomPadding;
-    private int spanCount = 1;
 
     public PaddingDecoration(int padding) {
         this.leftPadding = padding;
@@ -41,18 +44,69 @@ public class PaddingDecoration extends RecyclerView.ItemDecoration {
         this.bottomPadding = bottomPadding;
     }
 
-    public void setSpanCount(int spanCount) {
-        this.spanCount = spanCount;
-    }
-
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-        int childPosition = parent.getChildLayoutPosition(view);
-        boolean isChildInFirstColumn = childPosition % spanCount == 0;
-        boolean isChildInFirstRow = childPosition < spanCount;
-        outRect.left = isChildInFirstColumn ? leftPadding : 0;
+        SpanResolver resolver = getSpanResolver(parent.getLayoutManager());
+        int spanIndex = resolver.resolveChildSpanIndex(view.getLayoutParams());
+        int spanCount = resolver.resolveSpanCount(parent.getLayoutManager());
+        boolean isChildInFirstColumn = spanIndex == 0;
+        boolean isChildInLastColumn = spanIndex == spanCount - 1;
+        boolean isChildInFirstRow = parent.getChildAdapterPosition(view) < spanCount;
+        outRect.left = isChildInFirstColumn ? leftPadding : (int) (leftPadding * 0.5);
         outRect.top = isChildInFirstRow ? topPadding : 0;
-        outRect.right = rightPadding;
+        outRect.right = isChildInLastColumn ? rightPadding : (int) (rightPadding * 0.5);
         outRect.bottom = bottomPadding;
     }
+
+    private SpanResolver getSpanResolver(RecyclerView.LayoutManager manager) {
+        if (manager instanceof GridLayoutManager) {
+            return GRID_LAYOUT_MANAGER_SPAN_RESOLVER;
+        } else if (manager instanceof StaggeredGridLayoutManager) {
+            return STAGGERED_GRID_LAYOUT_MANAGER_SPAN_RESOLVER;
+        } else if (manager instanceof LinearLayoutManager) {
+            return LINEAR_LAYOUT_MANAGER_SPAN_RESOLVER;
+        }
+        throw new IllegalStateException("Unsupported LayoutManager impl: " + manager.getClass().getName());
+    }
+
+    private interface SpanResolver {
+        int resolveSpanCount(RecyclerView.LayoutManager manager);
+
+        int resolveChildSpanIndex(ViewGroup.LayoutParams childLayoutParams);
+    }
+
+    private static final SpanResolver GRID_LAYOUT_MANAGER_SPAN_RESOLVER = new SpanResolver() {
+        @Override
+        public int resolveSpanCount(RecyclerView.LayoutManager manager) {
+            return ((GridLayoutManager) manager).getSpanCount();
+        }
+
+        @Override
+        public int resolveChildSpanIndex(ViewGroup.LayoutParams childLayoutParams) {
+            return ((GridLayoutManager.LayoutParams) childLayoutParams).getSpanIndex();
+        }
+    };
+    private static final SpanResolver STAGGERED_GRID_LAYOUT_MANAGER_SPAN_RESOLVER = new SpanResolver() {
+        @Override
+        public int resolveSpanCount(RecyclerView.LayoutManager manager) {
+            return ((StaggeredGridLayoutManager) manager).getSpanCount();
+        }
+
+        @Override
+        public int resolveChildSpanIndex(ViewGroup.LayoutParams childLayoutParams) {
+            return ((StaggeredGridLayoutManager.LayoutParams) childLayoutParams).getSpanIndex();
+        }
+    };
+
+    private static final SpanResolver LINEAR_LAYOUT_MANAGER_SPAN_RESOLVER = new SpanResolver() {
+        @Override
+        public int resolveSpanCount(RecyclerView.LayoutManager manager) {
+            return 1;
+        }
+
+        @Override
+        public int resolveChildSpanIndex(ViewGroup.LayoutParams childLayoutParams) {
+            return 1;
+        }
+    };
 }
