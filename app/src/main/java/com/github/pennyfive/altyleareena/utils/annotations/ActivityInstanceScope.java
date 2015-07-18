@@ -22,7 +22,7 @@ import java.lang.annotation.RetentionPolicy;
 import javax.inject.Scope;
 
 /**
- * Activity instance level scope for Dagger context injection.
+ * Activity instance level scope for Dagger injection.
  */
 @Scope
 @Retention(RetentionPolicy.RUNTIME)

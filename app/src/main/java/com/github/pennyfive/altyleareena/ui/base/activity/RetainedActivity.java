@@ -20,7 +20,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
-public class RetainedActivity extends FragmentActivity {
+public abstract class RetainedActivity extends FragmentActivity {
     private static final String TAG_FRAGMENT = "retained_fragment";
     private Object data;
     private RetainedFragment retainedFragment;

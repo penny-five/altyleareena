@@ -22,6 +22,13 @@ import com.github.pennyfive.altyleareena.ApplicationComponent;
 import com.github.pennyfive.altyleareena.utils.DaggerUtils;
 import com.github.pennyfive.altyleareena.utils.annotations.ProvidesComponent;
 
+/**
+ * Base class that helps dealing with two Dagger components, one that has the same lifecycle as the Activity instance, and one that is
+ * retained when the configuration is changed.
+ *
+ * @param <E> {@link dagger.Component} with {@link com.github.pennyfive.altyleareena.utils.annotations.ActivityScope}
+ * @param <S> {@link dagger.Component} with {@link com.github.pennyfive.altyleareena.utils.annotations.ActivityInstanceScope}
+ */
 public abstract class ScopedActivity<E, S> extends RetainedActivity implements ProvidesComponent<S> {
     private ApplicationComponent applicationComponent;
     private E activityComponent;

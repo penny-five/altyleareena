@@ -24,6 +24,9 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
 
+/**
+ * Decorates RecyclerView items with padding. Works with ~all different LayoutManagers.
+ */
 public class PaddingDecoration extends RecyclerView.ItemDecoration {
     private final int leftPadding;
     private final int topPadding;
@@ -86,6 +89,7 @@ public class PaddingDecoration extends RecyclerView.ItemDecoration {
             return ((GridLayoutManager.LayoutParams) childLayoutParams).getSpanIndex();
         }
     };
+
     private static final SpanResolver STAGGERED_GRID_LAYOUT_MANAGER_SPAN_RESOLVER = new SpanResolver() {
         @Override
         public int resolveSpanCount(RecyclerView.LayoutManager manager) {
