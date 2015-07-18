@@ -18,6 +18,7 @@ package com.github.pennyfive.altyleareena.model.categories;
 
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.util.Map;
 
@@ -37,5 +38,22 @@ public abstract class Category implements Parcelable {
 
     public String getTitleInLanguage(@NonNull String language) {
         return titles().get(language);
+    }
+
+    @Nullable
+    @SerializedName("broader")
+    abstract CategoryInfo parentInfo();
+
+    public boolean isSubCategory() {
+        return parentInfo() != null;
+    }
+
+    public String getParentCategoryId() {
+        return isSubCategory() ? parentInfo().id() : null;
+    }
+
+    @AutoParcelGson
+    abstract static class CategoryInfo implements Parcelable {
+        abstract String id();
     }
 }

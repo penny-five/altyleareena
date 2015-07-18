@@ -16,7 +16,6 @@
 
 package com.github.pennyfive.altyleareena.model.programs;
 
-
 import com.github.pennyfive.altyleareena.model.categories.Category;
 
 import java.util.List;
@@ -26,7 +25,8 @@ import auto.parcelgson.AutoParcelGson;
 import auto.parcelgson.gson.annotations.SerializedName;
 
 @AutoParcelGson
-public abstract class Program {
+public abstract class Series {
+
     @SerializedName("id")
     public abstract String id();
 
@@ -37,6 +37,13 @@ public abstract class Program {
         return image() != null && image().available() ? image().id() : null;
     }
 
+    @SerializedName("description")
+    abstract Map<String, String> descriptions();
+
+    public String descriptionInLanguage(String lang) {
+        return descriptions().get(lang);
+    }
+
     @SerializedName("title")
     abstract Map<String, String> titles();
 
@@ -44,21 +51,7 @@ public abstract class Program {
         return titles().get(lang);
     }
 
-    @SerializedName("description")
-    abstract Map<String, String> descriptions();
-
-    public String descriptionInLanguage(String language) {
-        return descriptions().get(language);
-    }
-
     @SerializedName("subject")
     abstract List<Category> categories();
-
-    @SerializedName("partOfSeries")
-    public abstract Series series();
-
-    public boolean isPartOfSeries() {
-        return series() != null;
-    }
 
 }
