@@ -22,4 +22,6 @@ import rx.Observable;
 
 public interface ProgramStore {
     Observable<Program> getPrograms(Category category);
+
+    Observable<Program> getPopularPrograms();
 }

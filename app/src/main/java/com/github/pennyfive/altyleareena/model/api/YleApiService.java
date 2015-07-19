@@ -30,5 +30,6 @@ public interface YleApiService {
     Observable<Response<List<Category>>> getCategories();
 
     @GET("/items.json")
-    Observable<Response<List<Program>>> getCategoryPrograms(@Query("category") String categoryId);
+    Observable<Response<List<Program>>> getPrograms(@Query("category") String categoryId, @Query("order") ProgramQueryOrderParams order);
+
 }

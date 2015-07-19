@@ -14,18 +14,12 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.ui.main;
+package com.github.pennyfive.altyleareena.ui.main.popular;
 
-import com.github.pennyfive.altyleareena.ui.main.categories.CategoriesViewImpl;
-import com.github.pennyfive.altyleareena.ui.main.popular.PopularProgramsViewImpl;
-import com.github.pennyfive.altyleareena.utils.annotations.ActivityInstanceScope;
+import com.github.pennyfive.altyleareena.model.programs.Program;
+import com.github.pennyfive.altyleareena.ui.base.mvp.AsyncView;
+import com.github.pennyfive.altyleareena.ui.base.mvp.CollectionView;
 
-import dagger.Component;
-
-@ActivityInstanceScope
-@Component(dependencies = MainActivityComponent.class, modules = MainActivityInstanceModule.class)
-public interface MainActivityInstanceComponent {
-    void inject(CategoriesViewImpl view);
-
-    void inject(PopularProgramsViewImpl view);
+public interface PopularProgramsView extends CollectionView<Program>, AsyncView {
+    void showProgram(Program program);
 }

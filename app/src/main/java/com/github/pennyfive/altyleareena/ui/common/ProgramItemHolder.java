@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.ui.category.programs;
+package com.github.pennyfive.altyleareena.ui.common;
 
 import android.content.Context;
 import android.view.View;
@@ -31,16 +31,16 @@ import com.github.pennyfive.altyleareena.utils.CloudinaryUriBuilder;
 
 import butterknife.Bind;
 
-public class CategoryProgramsItemHolder extends BindingViewHolder<Program> {
+public class ProgramItemHolder extends BindingViewHolder<Program> {
     private CloudinaryImageLoader imageLoader;
 
     @Bind(R.id.image) ImageView image;
-    @Bind(R.id.series_name) TextView seriesName;
-    @Bind(R.id.program_name) TextView programName;
-    @Bind(R.id.category_name) TextView categoryName;
-    @Bind(R.id.release_date) TextView releaseDate;
+    @Bind(R.id.series_name) TextView seriesNameTextView;
+    @Bind(R.id.program_name) TextView programNameTextView;
+    @Bind(R.id.category_name) TextView categoryNameTextView;
+    @Bind(R.id.release_date) TextView releaseDateTextView;
 
-    public CategoryProgramsItemHolder(Context context, ViewGroup parent) {
+    public ProgramItemHolder(Context context, ViewGroup parent) {
         super(context, R.layout.card_program, parent);
     }
 
@@ -50,15 +50,18 @@ public class CategoryProgramsItemHolder extends BindingViewHolder<Program> {
 
     @Override
     public void onBind(Program program) {
-        imageLoader.load(program.imageId()).withCropMode(CloudinaryUriBuilder.CropMode.FIT).withHeight(150).into(image);
-        programName.setText(program.titles().get(Language.FI));
-        if (program.isPartOfSeries()) {
-            seriesName.setText(program.series().titles().get(Language.FI));
-            seriesName.setVisibility(View.VISIBLE);
-        } else {
-            seriesName.setVisibility(View.GONE);
-        }
-        categoryName.setText("TV");
-        releaseDate.setText("1.1.2015");
+        imageLoader.load(program.imageId()).withCropMode(CloudinaryUriBuilder.CropMode.FIT).withHeight(250).into(image);
+        programNameTextView.setText(program.getTitle(Language.FI));
+
+        String programTitle = program.getTitle(Language.FI);
+        programNameTextView.setText(programTitle);
+        programNameTextView.setVisibility(programTitle != null ? View.VISIBLE : View.GONE);
+
+        String seriesTitle = program.getSeriesTitle(Language.FI);
+        seriesNameTextView.setText(seriesTitle);
+        seriesNameTextView.setVisibility(seriesTitle != null ? View.VISIBLE : View.GONE);
+
+        categoryNameTextView.setText("TV");
+        releaseDateTextView.setText("1.1.2015");
     }
 }

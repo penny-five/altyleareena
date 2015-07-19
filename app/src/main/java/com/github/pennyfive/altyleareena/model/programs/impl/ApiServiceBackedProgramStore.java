@@ -16,21 +16,19 @@
 
 package com.github.pennyfive.altyleareena.model.programs.impl;
 
-import com.github.pennyfive.altyleareena.model.api.Response;
+import com.github.pennyfive.altyleareena.model.api.ProgramQueryOrderParams;
+import com.github.pennyfive.altyleareena.model.api.ProgramQueryOrderParams.OrderBy;
+import com.github.pennyfive.altyleareena.model.api.ProgramQueryOrderParams.SortOrder;
+import com.github.pennyfive.altyleareena.model.api.ProgramQueryOrderParams.TimeWindow;
 import com.github.pennyfive.altyleareena.model.api.YleApiService;
 import com.github.pennyfive.altyleareena.model.categories.Category;
 import com.github.pennyfive.altyleareena.model.programs.Program;
 import com.github.pennyfive.altyleareena.model.programs.ProgramStore;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import rx.Observable;
 
 public class ApiServiceBackedProgramStore implements ProgramStore {
     private final YleApiService service;
-    private final Map<Category, Observable<Response<List<Program>>>> observables = new HashMap<>();
 
     public ApiServiceBackedProgramStore(YleApiService service) {
         this.service = service;
@@ -38,15 +36,16 @@ public class ApiServiceBackedProgramStore implements ProgramStore {
 
     @Override
     public Observable<Program> getPrograms(Category category) {
-        return getOrCreateProgramObservable(category).flatMap(response -> Observable.from(response.getData()));
+        return service.getPrograms(category.id(), null).flatMap(response -> Observable.from(response.getData()));
     }
 
-    private Observable<Response<List<Program>>> getOrCreateProgramObservable(Category category) {
-        Observable<Response<List<Program>>> observable = observables.get(category);
-        if (observable == null) {
-            observable = service.getCategoryPrograms(category.id());
-            observables.put(category, observable);
-        }
-        return observable;
+    @Override
+    public Observable<Program> getPopularPrograms() {
+        ProgramQueryOrderParams orderParams = new ProgramQueryOrderParams();
+        orderParams.setOrderBy(OrderBy.PLAYCOUNT);
+        orderParams.setTimeWindow(TimeWindow.DAY);
+        orderParams.setSortOrder(SortOrder.DESC);
+        return service.getPrograms(null, orderParams).flatMap(response -> Observable.from(response.getData()));
     }
+
 }

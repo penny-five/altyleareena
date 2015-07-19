@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import com.github.pennyfive.altyleareena.R;
 import com.github.pennyfive.altyleareena.ui.base.activity.PagerActivity;
 import com.github.pennyfive.altyleareena.ui.main.categories.CategoriesViewImpl;
+import com.github.pennyfive.altyleareena.ui.main.popular.PopularProgramsViewImpl;
 
 public class MainActivity extends PagerActivity<MainActivityComponent, MainActivityInstanceComponent> {
 
@@ -43,16 +44,30 @@ public class MainActivity extends PagerActivity<MainActivityComponent, MainActiv
 
     @Override
     protected int getCount() {
-        return 1;
+        return 2;
     }
 
     @Override
     protected String getPageTitle(int position) {
-        return getString(R.string.title_categories);
+        switch (position) {
+            case 0:
+                return getString(R.string.title_categories);
+            case 1:
+                return getString(R.string.title_popular_programs);
+            default:
+                throw new IllegalStateException();
+        }
     }
 
     @Override
     protected View instantiateView(ViewGroup container, int position) {
-        return new CategoriesViewImpl(this);
+        switch (position) {
+            case 0:
+                return new CategoriesViewImpl(this);
+            case 1:
+                return new PopularProgramsViewImpl(this);
+            default:
+                throw new IllegalStateException();
+        }
     }
 }

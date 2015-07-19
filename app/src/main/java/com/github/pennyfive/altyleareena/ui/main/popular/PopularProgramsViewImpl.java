@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.ui.category.programs;
+package com.github.pennyfive.altyleareena.ui.main.popular;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -26,27 +26,32 @@ import com.github.pennyfive.altyleareena.model.programs.Program;
 import com.github.pennyfive.altyleareena.ui.base.images.CloudinaryImageLoader;
 import com.github.pennyfive.altyleareena.ui.base.mvp.impl.AbsAsyncCollectionView;
 import com.github.pennyfive.altyleareena.ui.base.recyclerview.RecyclerViewBuilder;
-import com.github.pennyfive.altyleareena.ui.category.CategoryActivityInstanceComponent;
 import com.github.pennyfive.altyleareena.ui.common.ProgramItemHolder;
+import com.github.pennyfive.altyleareena.ui.main.MainActivityInstanceComponent;
 import com.github.pennyfive.altyleareena.utils.DaggerUtils;
 
 import javax.inject.Inject;
 
-public class CategoryProgramsViewImpl extends AbsAsyncCollectionView<Program, ProgramItemHolder> implements CategoryProgramsView {
-    @Inject CategoryProgramsPresenter presenter;
+public class PopularProgramsViewImpl extends AbsAsyncCollectionView<Program, ProgramItemHolder> implements PopularProgramsView {
+    @Inject PopularProgramsPresenter presenter;
     @Inject CloudinaryImageLoader imageLoader;
 
-    public CategoryProgramsViewImpl(Context context) {
+    public PopularProgramsViewImpl(Context context) {
         this(context, null);
     }
 
-    public CategoryProgramsViewImpl(Context context, AttributeSet attrs) {
+    public PopularProgramsViewImpl(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public CategoryProgramsViewImpl(Context context, AttributeSet attrs, int defStyleAttr) {
+    public PopularProgramsViewImpl(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        DaggerUtils.findComponent(context, CategoryActivityInstanceComponent.class).inject(this);
+        DaggerUtils.findComponent(context, MainActivityInstanceComponent.class).inject(this);
+    }
+
+    @Inject
+    public void setPresenter(PopularProgramsPresenter presenter) {
+        this.presenter = presenter;
     }
 
     @Override
@@ -77,13 +82,13 @@ public class CategoryProgramsViewImpl extends AbsAsyncCollectionView<Program, Pr
     }
 
     @Override
-    protected void onRetryAfterErrorClicked() {
-        presenter.onViewRetryAfterErrorClicked();
+    protected void onItemClick(int position, Program item) {
+        presenter.onProgramClicked(item);
     }
 
     @Override
-    protected void onItemClick(int position, Program item) {
-        presenter.onProgramClicked(item);
+    protected void onRetryAfterErrorClicked() {
+        presenter.onViewRetryAfterErrorClicked();
     }
 
     @Override

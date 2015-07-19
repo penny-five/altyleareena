@@ -16,6 +16,7 @@
 
 package com.github.pennyfive.altyleareena.model.programs;
 
+import com.github.pennyfive.altyleareena.model.Language;
 import com.github.pennyfive.altyleareena.model.TextBundle;
 import com.github.pennyfive.altyleareena.model.categories.Category;
 
@@ -38,6 +39,14 @@ public abstract class Program {
 
     @SerializedName("title")
     public abstract TextBundle titles();
+
+    public String getTitle(Language language) {
+        return titles() != null ? titles().get(language) : null;
+    }
+
+    public String getSeriesTitle(Language language) {
+        return series() != null && series().titles() != null ? series().titles().get(language) : null;
+    }
 
     @SerializedName("description")
     public abstract TextBundle descriptions();

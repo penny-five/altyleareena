@@ -62,6 +62,7 @@ public class CloudinaryImageLoader {
         if (debugEnabled) {
             glideRequest.listener(debugListener);
         }
+        glideRequest.centerCrop();
         glideRequest.into(view);
         pendingRequest = null;
     }

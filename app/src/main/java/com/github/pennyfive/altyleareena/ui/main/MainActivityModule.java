@@ -17,7 +17,9 @@
 package com.github.pennyfive.altyleareena.ui.main;
 
 import com.github.pennyfive.altyleareena.model.categories.CategoryStore;
+import com.github.pennyfive.altyleareena.model.programs.ProgramStore;
 import com.github.pennyfive.altyleareena.ui.main.categories.CategoriesPresenter;
+import com.github.pennyfive.altyleareena.ui.main.popular.PopularProgramsPresenter;
 import com.github.pennyfive.altyleareena.utils.annotations.ActivityScope;
 import com.github.pennyfive.altyleareena.utils.annotations.UiThread;
 
@@ -32,5 +34,11 @@ public class MainActivityModule {
     @ActivityScope
     CategoriesPresenter provideCategoriesPresenter(CategoryStore store, @UiThread Scheduler scheduler) {
         return new CategoriesPresenter(store, scheduler);
+    }
+
+    @Provides
+    @ActivityScope
+    PopularProgramsPresenter providePopularProgramsPresenter(ProgramStore store, @UiThread Scheduler scheduler) {
+        return new PopularProgramsPresenter(store, scheduler);
     }
 }

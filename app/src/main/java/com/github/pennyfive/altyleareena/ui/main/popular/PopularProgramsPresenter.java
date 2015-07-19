@@ -14,30 +14,30 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.ui.main.categories;
+package com.github.pennyfive.altyleareena.ui.main.popular;
 
-import com.github.pennyfive.altyleareena.model.categories.Category;
-import com.github.pennyfive.altyleareena.model.categories.CategoryStore;
+import com.github.pennyfive.altyleareena.model.programs.Program;
+import com.github.pennyfive.altyleareena.model.programs.ProgramStore;
 import com.github.pennyfive.altyleareena.ui.base.mvp.impl.AbsAsyncCollectionPresenter;
 
 import rx.Observable;
 import rx.Scheduler;
 
-public class CategoriesPresenter extends AbsAsyncCollectionPresenter<Category, CategoriesView> {
-    private final CategoryStore store;
+public class PopularProgramsPresenter extends AbsAsyncCollectionPresenter<Program, PopularProgramsView> {
+    private final ProgramStore store;
 
-    public CategoriesPresenter(CategoryStore store, Scheduler scheduler) {
+    public PopularProgramsPresenter(ProgramStore store, Scheduler scheduler) {
         super(scheduler);
         this.store = store;
     }
 
     @Override
-    protected Observable<Category> createObservable() {
-        return store.getCategories();
+    protected Observable<Program> createObservable() {
+        return store.getPopularPrograms();
     }
 
-    public void onCategoryClicked(Category category) {
-        getView().showCategory(category);
+    public void onProgramClicked(Program program) {
+        getView().showProgram(program);
     }
 
 }
