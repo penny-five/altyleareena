@@ -20,6 +20,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.github.pennyfive.altyleareena.R;
+import com.github.pennyfive.altyleareena.model.Language;
+import com.github.pennyfive.altyleareena.model.TextBundle;
 import com.github.pennyfive.altyleareena.model.categories.Category;
 import com.github.pennyfive.altyleareena.ui.base.adapter.BindingViewHolder;
 
@@ -31,6 +33,6 @@ public class CategoriesItemHolder extends BindingViewHolder<Category> {
 
     @Override
     public void onBind(Category item) {
-        ((TextView) itemView.findViewById(R.id.text)).setText(item.getTitleInLanguage("fi"));
+        ((TextView) itemView.findViewById(R.id.text)).setText(item.titles().get(Language.FI, TextBundle.FallbackPolicy.RETURN_NEXT_AVAILABLE));
     }
 }

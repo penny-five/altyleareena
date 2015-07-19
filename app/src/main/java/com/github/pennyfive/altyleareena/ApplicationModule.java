@@ -18,9 +18,11 @@ package com.github.pennyfive.altyleareena;
 
 import android.content.Context;
 
+import com.github.pennyfive.altyleareena.model.TextBundle;
 import com.github.pennyfive.altyleareena.model.api.YleApiService;
 import com.github.pennyfive.altyleareena.model.categories.CategoryStore;
 import com.github.pennyfive.altyleareena.model.categories.impl.ApiServiceBackedCategoryStore;
+import com.github.pennyfive.altyleareena.model.json.TextBundleDeserializer;
 import com.github.pennyfive.altyleareena.model.programs.ProgramStore;
 import com.github.pennyfive.altyleareena.model.programs.impl.ApiServiceBackedProgramStore;
 import com.github.pennyfive.altyleareena.ui.base.images.CloudinaryImageLoaderFactory;
@@ -89,6 +91,7 @@ public class ApplicationModule {
     Gson provideGson() {
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapterFactory(new AutoParcelGsonTypeAdapterFactory());
+        builder.registerTypeAdapter(TextBundle.class, new TextBundleDeserializer());
         return builder.create();
     }
 

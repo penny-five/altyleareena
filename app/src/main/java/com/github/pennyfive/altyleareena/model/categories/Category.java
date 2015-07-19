@@ -17,10 +17,9 @@
 package com.github.pennyfive.altyleareena.model.categories;
 
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import java.util.Map;
+import com.github.pennyfive.altyleareena.model.TextBundle;
 
 import auto.parcelgson.AutoParcelGson;
 import auto.parcelgson.gson.annotations.SerializedName;
@@ -34,11 +33,7 @@ public abstract class Category implements Parcelable {
     public abstract String id();
 
     @SerializedName("title")
-    abstract Map<String, String> titles();
-
-    public String getTitleInLanguage(@NonNull String language) {
-        return titles().get(language);
-    }
+    public abstract TextBundle titles();
 
     @Nullable
     @SerializedName("broader")

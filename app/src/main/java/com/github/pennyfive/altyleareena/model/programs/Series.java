@@ -16,10 +16,10 @@
 
 package com.github.pennyfive.altyleareena.model.programs;
 
+import com.github.pennyfive.altyleareena.model.TextBundle;
 import com.github.pennyfive.altyleareena.model.categories.Category;
 
 import java.util.List;
-import java.util.Map;
 
 import auto.parcelgson.AutoParcelGson;
 import auto.parcelgson.gson.annotations.SerializedName;
@@ -38,18 +38,10 @@ public abstract class Series {
     }
 
     @SerializedName("description")
-    abstract Map<String, String> descriptions();
-
-    public String descriptionInLanguage(String lang) {
-        return descriptions().get(lang);
-    }
+    public abstract TextBundle descriptions();
 
     @SerializedName("title")
-    abstract Map<String, String> titles();
-
-    public String titleInLanguage(String lang) {
-        return titles().get(lang);
-    }
+    public abstract TextBundle titles();
 
     @SerializedName("subject")
     abstract List<Category> categories();

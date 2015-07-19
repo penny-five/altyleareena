@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.pennyfive.altyleareena.R;
+import com.github.pennyfive.altyleareena.model.Language;
 import com.github.pennyfive.altyleareena.model.programs.Program;
 import com.github.pennyfive.altyleareena.ui.base.adapter.BindingViewHolder;
 import com.github.pennyfive.altyleareena.ui.base.images.CloudinaryImageLoader;
@@ -50,9 +51,9 @@ public class CategoryProgramsItemHolder extends BindingViewHolder<Program> {
     @Override
     public void onBind(Program program) {
         imageLoader.load(program.imageId()).withCropMode(CloudinaryUriBuilder.CropMode.FIT).withHeight(150).into(image);
-        programName.setText(program.titleInLanguage("fi"));
+        programName.setText(program.titles().get(Language.FI));
         if (program.isPartOfSeries()) {
-            seriesName.setText(program.series().titleInLanguage("fi"));
+            seriesName.setText(program.series().titles().get(Language.FI));
             seriesName.setVisibility(View.VISIBLE);
         } else {
             seriesName.setVisibility(View.GONE);
