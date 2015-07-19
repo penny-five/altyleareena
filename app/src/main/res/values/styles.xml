@@ -17,8 +17,28 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/app_primary</item>
+        <item name="colorPrimaryDark">@color/app_primary_dark</item>
+        <item name="colorAccent">@color/app_accent</item>
+    </style>
+
+    <style name="Widget.Altyleareena.Toolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="titleTextAppearance">@style/TextAppearance.Widget.Altyleareena.Toolbar.Title</item>
+    </style>
+
+    <style name="TextAppearance.Widget.Altyleareena.Toolbar.Title" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textColor">@color/toolbar_title</item>
+    </style>
+
+    <style name="Widget.Altyleareena.TabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">@color/tablayout_tab_indicator</item>
+        <item name="tabTextAppearance">@style/TextAppearance.Altyleareena.Tab</item>
+        <item name="android:background">@color/tablayout_background</item>
+    </style>
+
+    <style name="TextAppearance.Altyleareena.Tab" parent="TextAppearance.Design.Tab">
+        <item name="android:textColor">@color/tablayout_tab_text</item>
     </style>
 
     <style name="TextAppearance.Altyleareena.Headline" parent="@style/None">

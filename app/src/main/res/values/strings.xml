@@ -17,4 +17,5 @@
 <resources>
     <string name="app_name">altyleareena</string>
     <string name="try_again">Yritä uudelleen</string>
+    <string name="title_categories">Kategoriat</string>
 </resources>

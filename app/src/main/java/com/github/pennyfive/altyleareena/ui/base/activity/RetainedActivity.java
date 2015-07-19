@@ -18,9 +18,9 @@ package com.github.pennyfive.altyleareena.ui.base.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 
-public abstract class RetainedActivity extends FragmentActivity {
+public abstract class RetainedActivity extends AppCompatActivity {
     private static final String TAG_FRAGMENT = "retained_fragment";
     private Object data;
     private RetainedFragment retainedFragment;

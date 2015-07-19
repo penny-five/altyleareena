@@ -16,18 +16,14 @@
 
 package com.github.pennyfive.altyleareena.ui.main;
 
-import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.github.pennyfive.altyleareena.R;
-import com.github.pennyfive.altyleareena.ui.base.activity.ScopedActivity;
+import com.github.pennyfive.altyleareena.ui.base.activity.PagerActivity;
+import com.github.pennyfive.altyleareena.ui.main.categories.CategoriesViewImpl;
 
-public class MainActivity extends ScopedActivity<MainActivityComponent, MainActivityInstanceComponent> {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }
+public class MainActivity extends PagerActivity<MainActivityComponent, MainActivityInstanceComponent> {
 
     @Override
     protected MainActivityComponent onCreateActivityComponent() {
@@ -43,5 +39,20 @@ public class MainActivity extends ScopedActivity<MainActivityComponent, MainActi
                 .mainActivityComponent(getActivityComponent())
                 .mainActivityInstanceModule(new MainActivityInstanceModule(this))
                 .build();
+    }
+
+    @Override
+    protected int getCount() {
+        return 1;
+    }
+
+    @Override
+    protected String getPageTitle(int position) {
+        return getString(R.string.title_categories);
+    }
+
+    @Override
+    protected View instantiateView(ViewGroup container, int position) {
+        return new CategoriesViewImpl(this);
     }
 }
