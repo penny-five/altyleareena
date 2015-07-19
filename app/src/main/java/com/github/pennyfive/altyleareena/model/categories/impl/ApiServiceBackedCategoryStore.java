@@ -29,7 +29,7 @@ public class ApiServiceBackedCategoryStore implements CategoryStore {
     private final Observable<Response<List<Category>>> observable;
 
     public ApiServiceBackedCategoryStore(YleApiService service) {
-        observable = service.getCategories().cache();
+        observable = service.getCategories();
     }
 
     @Override

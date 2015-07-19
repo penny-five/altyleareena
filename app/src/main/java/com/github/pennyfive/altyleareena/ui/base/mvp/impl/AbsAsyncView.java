@@ -20,18 +20,22 @@ import android.content.Context;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.github.pennyfive.altyleareena.R;
 import com.github.pennyfive.altyleareena.ui.base.mvp.AsyncView;
 
 /**
  * Base layout that implements {@link AsyncView}.
  * <p>
- * Delegates View creation for each state to subclasses. Default implementation of {@link #onCreateLoadingView(LayoutInflater)} (and other similar
- * methods) returns an empty View.
+ * Delegates View creation for each state to subclasses. Default implementation of {@link #onCreateLoadingView(LayoutInflater, ViewGroup)}
+ * (and other similar methods) returns an empty View.
  */
 public abstract class AbsAsyncView extends AbsView implements AsyncView {
     private static final String STATE_UNDEFINED = "Undefined";
@@ -59,7 +63,7 @@ public abstract class AbsAsyncView extends AbsView implements AsyncView {
     public AbsAsyncView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         inflater = LayoutInflater.from(context);
-        contentView = onCreateContentView(inflater);
+        contentView = onCreateContentView(inflater, this);
     }
 
     private void changeState(String state) {
@@ -94,11 +98,11 @@ public abstract class AbsAsyncView extends AbsView implements AsyncView {
             case STATE_CONTENT:
                 return contentView;
             case STATE_LOADING:
-                return onCreateLoadingView(inflater);
+                return onCreateLoadingView(inflater, this);
             case STATE_ERROR:
-                return onCreateErrorView(inflater, errorText);
+                return onCreateErrorView(inflater, this, errorText);
             case STATE_EMPTY:
-                return onCreateEmptyView(inflater, emptyText);
+                return onCreateEmptyView(inflater, this, emptyText);
             default:
                 throw new IllegalStateException();
         }
@@ -112,30 +116,52 @@ public abstract class AbsAsyncView extends AbsView implements AsyncView {
         changeState(STATE_CONTENT);
     }
 
-    public void showEmpty(String text) {
-        emptyText = text;
+    public void showEmpty() {
         changeState(STATE_EMPTY);
     }
 
-    public void showError(String text) {
-        errorText = text;
+    public void showError(Throwable error) {
         changeState(STATE_ERROR);
     }
 
+    protected void setEmptyTextResource(@StringRes int resid) {
+        setEmptyText(getResources().getString(resid));
+    }
 
-    protected View onCreateContentView(@NonNull LayoutInflater inflater) {
+    protected void setEmptyText(String emptyText) {
+        this.emptyText = emptyText;
+    }
+
+    protected void setErrorTextResource(@StringRes int resid) {
+        setErrorText(getResources().getString(resid));
+    }
+
+    protected void setErrorText(String errorText) {
+        this.errorText = errorText;
+    }
+
+    protected View onCreateContentView(@NonNull LayoutInflater inflater, ViewGroup parent) {
         return new View(getContext());
     }
 
-    protected View onCreateLoadingView(@NonNull LayoutInflater inflater) {
-        return new View(getContext());
+    protected View onCreateLoadingView(@NonNull LayoutInflater inflater, ViewGroup parent) {
+        return inflater.inflate(R.layout.view_loading, parent, false);
     }
 
-    protected View onCreateErrorView(@NonNull LayoutInflater inflater, @Nullable String text) {
-        return new View(getContext());
+    protected View onCreateErrorView(@NonNull LayoutInflater inflater, ViewGroup parent, @Nullable String text) {
+        View view = inflater.inflate(R.layout.view_error, parent, false);
+        ((TextView) view.findViewById(R.id.text)).setText(text);
+        view.findViewById(R.id.button).setOnClickListener(v -> onRetryAfterErrorClicked());
+        return view;
     }
 
-    protected View onCreateEmptyView(@NonNull LayoutInflater inflater, @Nullable String text) {
-        return new View(getContext());
+    protected View onCreateEmptyView(@NonNull LayoutInflater inflater, ViewGroup parent, @Nullable String text) {
+        View view = inflater.inflate(R.layout.view_empty, parent, false);
+        ((TextView) view.findViewById(R.id.text)).setText(text);
+        return view;
+    }
+
+    protected void onRetryAfterErrorClicked() {
+
     }
 }

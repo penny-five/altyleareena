@@ -68,7 +68,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    // Google Android libraries
+    // Android support libraries
     compile 'com.android.support:support-v4:22.2.1'
     compile 'com.android.support:appcompat-v7:22.2.1'
     compile 'com.android.support:cardview-v7:22.2.1'
@@ -98,6 +98,9 @@ dependencies {
 
     // Roboto
     compile 'com.github.johnkil.android-robototextview:robototextview:2.3.0'
+
+    // Material style progress spinner
+    compile 'com.pnikosis:materialish-progress:1.5'
 
     // Parcelables
     compile 'me.tatarka:auto-parcel-gson:0.1'

@@ -48,7 +48,7 @@ public abstract class AbsAsyncCollectionView<T, VH extends BindingViewHolder<T>>
     }
 
     @Override
-    protected View onCreateContentView(@NonNull LayoutInflater inflater) {
+    protected View onCreateContentView(@NonNull LayoutInflater inflater, ViewGroup parent) {
         RecyclerViewBuilder builder = createBuilderWithDefaultParams(getContext());
         onSetupRecyclerViewBuilder(builder);
         recyclerView = builder.build();

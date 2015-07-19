@@ -69,6 +69,11 @@ public class CategoriesViewImpl extends AbsAsyncCollectionView<Category, Categor
     }
 
     @Override
+    protected void onRetryAfterErrorClicked() {
+        presenter.onViewRetryAfterErrorClicked();
+    }
+
+    @Override
     protected void onItemClick(int position, Category item) {
         presenter.onCategoryClicked(item);
     }

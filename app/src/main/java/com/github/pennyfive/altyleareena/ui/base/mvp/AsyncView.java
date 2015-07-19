@@ -19,14 +19,14 @@ package com.github.pennyfive.altyleareena.ui.base.mvp;
 /**
  * Special {@link View} for cases where the view data is loaded asynchronously, having a need to display specific UI states for data loading,
  * empty results and failed load operation.
- * <p/>
+ * <p>
  */
 public interface AsyncView extends View {
     void showContent();
 
     void showLoading();
 
-    void showError(String text);
+    void showError(Throwable error);
 
-    void showEmpty(String text);
+    void showEmpty();
 }

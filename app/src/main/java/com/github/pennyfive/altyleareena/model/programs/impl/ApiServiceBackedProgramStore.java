@@ -44,7 +44,7 @@ public class ApiServiceBackedProgramStore implements ProgramStore {
     private Observable<Response<List<Program>>> getOrCreateProgramObservable(Category category) {
         Observable<Response<List<Program>>> observable = observables.get(category);
         if (observable == null) {
-            observable = service.getCategoryPrograms(category.id()).cache();
+            observable = service.getCategoryPrograms(category.id());
             observables.put(category, observable);
         }
         return observable;
