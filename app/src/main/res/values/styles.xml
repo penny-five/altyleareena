@@ -33,6 +33,7 @@
 
     <style name="Widget.Altyleareena.TabLayout" parent="Widget.Design.TabLayout">
         <item name="tabIndicatorColor">@color/tablayout_tab_indicator</item>
+        <item name="tabSelectedTextColor">@color/tablayout_tab_text_selected</item>
         <item name="tabTextAppearance">@style/TextAppearance.Altyleareena.Tab</item>
         <item name="android:background">@color/tablayout_background</item>
     </style>

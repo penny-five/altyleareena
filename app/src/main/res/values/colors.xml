@@ -16,13 +16,14 @@
   -->
 
 <resources>
-    <color name="app_primary">#2196f3</color>
-    <color name="app_primary_dark">#1565c0</color>
-    <color name="app_accent">#ffeb3b</color>
+    <color name="app_primary">#546e7a</color>
+    <color name="app_primary_dark">#455a65</color>
+    <color name="app_accent">#ffea00</color>
     <color name="toolbar_title">@android:color/white</color>
     <color name="tablayout_background">@color/app_primary</color>
     <color name="tablayout_tab_indicator">@color/app_accent</color>
-    <color name="tablayout_tab_text">@android:color/white</color>
+    <color name="tablayout_tab_text">#99ffffff</color>
+    <color name="tablayout_tab_text_selected">#ffffff</color>
     <color name="selector_light_background">#b0bec5</color>
     <color name="background">@color/background_material_light</color>
     <color name="grid_background">@android:color/white</color>
