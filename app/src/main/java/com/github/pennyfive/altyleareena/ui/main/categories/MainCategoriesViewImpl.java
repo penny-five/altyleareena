@@ -24,30 +24,31 @@ import android.view.ViewGroup;
 import com.github.pennyfive.altyleareena.R;
 import com.github.pennyfive.altyleareena.model.categories.Category;
 import com.github.pennyfive.altyleareena.ui.base.mvp.impl.AbsAsyncCollectionView;
+import com.github.pennyfive.altyleareena.ui.base.recyclerview.RecyclerViewBuilder;
 import com.github.pennyfive.altyleareena.ui.category.CategoryActivity;
 import com.github.pennyfive.altyleareena.ui.main.MainActivityInstanceComponent;
 import com.github.pennyfive.altyleareena.utils.DaggerUtils;
 
 import javax.inject.Inject;
 
-public class CategoriesViewImpl extends AbsAsyncCollectionView<Category, CategoriesItemHolder> implements CategoriesView {
-    private CategoriesPresenter presenter;
+public class MainCategoriesViewImpl extends AbsAsyncCollectionView<Category, MainCategoriesItemHolder> implements MainCategoriesView {
+    private MainCategoriesPresenter presenter;
 
-    public CategoriesViewImpl(Context context) {
+    public MainCategoriesViewImpl(Context context) {
         this(context, null);
     }
 
-    public CategoriesViewImpl(Context context, AttributeSet attrs) {
+    public MainCategoriesViewImpl(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public CategoriesViewImpl(Context context, AttributeSet attrs, int defStyleAttr) {
+    public MainCategoriesViewImpl(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         DaggerUtils.findComponent(context, MainActivityInstanceComponent.class).inject(this);
     }
 
     @Inject
-    public void setPresenter(CategoriesPresenter presenter) {
+    public void setPresenter(MainCategoriesPresenter presenter) {
         this.presenter = presenter;
     }
 
@@ -64,8 +65,15 @@ public class CategoriesViewImpl extends AbsAsyncCollectionView<Category, Categor
     }
 
     @Override
-    protected CategoriesItemHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int ViewType) {
-        return new CategoriesItemHolder(inflater.inflate(R.layout.item_one_line, parent, false));
+    protected void onSetupRecyclerViewBuilder(RecyclerViewBuilder builder) {
+        super.onSetupRecyclerViewBuilder(builder);
+        builder.setSpanCountFromResource(R.integer.main_categories_span_count);
+        builder.setPaddingFromResource(R.dimen.grid_padding);
+    }
+
+    @Override
+    protected MainCategoriesItemHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int ViewType) {
+        return new MainCategoriesItemHolder(inflater.inflate(R.layout.item_category_with_image, parent, false));
     }
 
     @Override

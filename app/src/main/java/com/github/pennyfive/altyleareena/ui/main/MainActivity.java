@@ -21,7 +21,7 @@ import android.view.ViewGroup;
 
 import com.github.pennyfive.altyleareena.R;
 import com.github.pennyfive.altyleareena.ui.base.activity.PagerActivity;
-import com.github.pennyfive.altyleareena.ui.main.categories.CategoriesViewImpl;
+import com.github.pennyfive.altyleareena.ui.main.categories.MainCategoriesViewImpl;
 import com.github.pennyfive.altyleareena.ui.main.popular.PopularProgramsViewImpl;
 
 public class MainActivity extends PagerActivity<MainActivityComponent, MainActivityInstanceComponent> {
@@ -63,7 +63,7 @@ public class MainActivity extends PagerActivity<MainActivityComponent, MainActiv
     protected View instantiateView(ViewGroup container, int position) {
         switch (position) {
             case 0:
-                return new CategoriesViewImpl(this);
+                return new MainCategoriesViewImpl(this);
             case 1:
                 return new PopularProgramsViewImpl(this);
             default:

@@ -18,7 +18,7 @@ package com.github.pennyfive.altyleareena.ui.main;
 
 import com.github.pennyfive.altyleareena.ApplicationComponent;
 import com.github.pennyfive.altyleareena.ui.base.images.CloudinaryImageLoaderFactory;
-import com.github.pennyfive.altyleareena.ui.main.categories.CategoriesPresenter;
+import com.github.pennyfive.altyleareena.ui.main.categories.MainCategoriesPresenter;
 import com.github.pennyfive.altyleareena.ui.main.popular.PopularProgramsPresenter;
 import com.github.pennyfive.altyleareena.utils.annotations.ActivityScope;
 
@@ -27,7 +27,7 @@ import dagger.Component;
 @ActivityScope
 @Component(dependencies = ApplicationComponent.class, modules = MainActivityModule.class)
 public interface MainActivityComponent {
-    CategoriesPresenter getCategoriesPresenter();
+    MainCategoriesPresenter getMainCategoriesPresenter();
 
     PopularProgramsPresenter getPopularProgramsPresenter();
 

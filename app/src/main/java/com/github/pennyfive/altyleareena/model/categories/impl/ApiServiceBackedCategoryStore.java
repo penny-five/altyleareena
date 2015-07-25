@@ -27,13 +27,20 @@ import rx.Observable;
 
 public class ApiServiceBackedCategoryStore implements CategoryStore {
     private final Observable<Response<List<Category>>> observable;
+    private final List<String> mainCategoryIds;
 
-    public ApiServiceBackedCategoryStore(YleApiService service) {
+    public ApiServiceBackedCategoryStore(YleApiService service, List<String> mainCategoryIds) {
         observable = service.getCategories();
+        this.mainCategoryIds = mainCategoryIds;
     }
 
     @Override
     public Observable<Category> getCategories() {
         return observable.flatMap(response -> Observable.from(response.getData()));
+    }
+
+    @Override
+    public Observable<Category> getMainCategories() {
+        return getCategories().filter(category -> mainCategoryIds.contains(category.id()));
     }
 }

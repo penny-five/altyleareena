@@ -20,4 +20,6 @@ import rx.Observable;
 
 public interface CategoryStore {
     Observable<Category> getCategories();
+
+    Observable<Category> getMainCategories();
 }

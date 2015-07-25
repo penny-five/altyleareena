@@ -16,7 +16,7 @@
 
 package com.github.pennyfive.altyleareena.ui.main;
 
-import com.github.pennyfive.altyleareena.ui.main.categories.CategoriesViewImpl;
+import com.github.pennyfive.altyleareena.ui.main.categories.MainCategoriesViewImpl;
 import com.github.pennyfive.altyleareena.ui.main.popular.PopularProgramsViewImpl;
 import com.github.pennyfive.altyleareena.utils.annotations.ActivityInstanceScope;
 
@@ -25,7 +25,7 @@ import dagger.Component;
 @ActivityInstanceScope
 @Component(dependencies = MainActivityComponent.class, modules = MainActivityInstanceModule.class)
 public interface MainActivityInstanceComponent {
-    void inject(CategoriesViewImpl view);
+    void inject(MainCategoriesViewImpl view);
 
     void inject(PopularProgramsViewImpl view);
 }

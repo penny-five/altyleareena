@@ -31,6 +31,8 @@ import com.github.pennyfive.altyleareena.utils.annotations.UiThread;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.Arrays;
+
 import auto.parcelgson.gson.AutoParcelGsonTypeAdapterFactory;
 import dagger.Module;
 import dagger.Provides;
@@ -62,7 +64,7 @@ public class ApplicationModule {
     @Provides
     @ApplicationScope
     CategoryStore provideCategoriesStore(YleApiService service) {
-        return new ApiServiceBackedCategoryStore(service);
+        return new ApiServiceBackedCategoryStore(service, Arrays.asList(BuildConfig.MAIN_CATEGORIES));
     }
 
     @Provides

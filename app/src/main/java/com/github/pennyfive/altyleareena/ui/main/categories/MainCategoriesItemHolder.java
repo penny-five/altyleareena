@@ -17,22 +17,30 @@
 package com.github.pennyfive.altyleareena.ui.main.categories;
 
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.pennyfive.altyleareena.R;
 import com.github.pennyfive.altyleareena.model.Language;
-import com.github.pennyfive.altyleareena.model.TextBundle;
 import com.github.pennyfive.altyleareena.model.categories.Category;
+import com.github.pennyfive.altyleareena.ui.CategoryTheme;
 import com.github.pennyfive.altyleareena.ui.base.adapter.BindingViewHolder;
 
-public class CategoriesItemHolder extends BindingViewHolder<Category> {
+import butterknife.Bind;
 
-    public CategoriesItemHolder(View itemView) {
+public class MainCategoriesItemHolder extends BindingViewHolder<Category> {
+    @Bind(R.id.category_icon) ImageView iconImageView;
+    @Bind(R.id.category_name) TextView nameTextView;
+
+    public MainCategoriesItemHolder(View itemView) {
         super(itemView);
     }
 
     @Override
     public void onBind(Category item) {
-        ((TextView) itemView.findViewById(R.id.text)).setText(item.titles().get(Language.FI, TextBundle.FallbackPolicy.RETURN_NEXT_AVAILABLE));
+        CategoryTheme theme = CategoryTheme.resolve(item);
+        itemView.setBackgroundResource(theme.getColorResource());
+        iconImageView.setImageResource(theme.getIconResource());
+        nameTextView.setText(item.titles().get(Language.FI));
     }
 }

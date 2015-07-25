@@ -17,4 +17,5 @@
 
 <resources>
     <integer name="grid_span_count">2</integer>
+  <integer name="main_categories_span_count">2</integer>
 </resources>

@@ -33,6 +33,15 @@ def versionMinor = 0
 def versionPatch = 1
 def versionBuild = 0
 
+def mainCategories = [
+        "5-133", // Kotimaiset sarjat
+        "5-134", // Ulkomaiset sarjat
+        "5-135", // Elokuvat
+        "5-195", // Lapset
+        "5-226", // Uutiset
+        "5-228", // Urheilu
+];
+
 android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
@@ -49,6 +58,7 @@ android {
         /* Yle API credentials must be placed in gradle.properties */
         buildConfigField("String", "YLE_APP_ID", getProperty("yle_app_id"))
         buildConfigField("String", "YLE_APP_KEY", getProperty("yle_app_key"))
+        buildConfigField("String[]", "MAIN_CATEGORIES", "new String[]{" + mainCategories.collect({ "\"$it\"" }).join(",") + "}")
     }
     buildTypes {
         release {
