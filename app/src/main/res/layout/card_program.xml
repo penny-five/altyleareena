@@ -22,10 +22,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <com.github.pennyfive.altyleareena.ui.base.view.ForegroundLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:foreground="@drawable/selector_light">
 
         <com.github.pennyfive.altyleareena.ui.base.view.FixedAspectRatioImageView
             android:id="@+id/image"
@@ -86,6 +87,6 @@
                 app:textWeight="bold"
                 tools:text="1.1.2015"/>
         </LinearLayout>
-    </LinearLayout>
+    </com.github.pennyfive.altyleareena.ui.base.view.ForegroundLinearLayout>
 
 </android.support.v7.widget.CardView>

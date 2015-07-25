@@ -24,7 +24,7 @@
     <color name="tablayout_tab_indicator">@color/app_accent</color>
     <color name="tablayout_tab_text">#99ffffff</color>
     <color name="tablayout_tab_text_selected">#ffffff</color>
-    <color name="selector_light_background">#b0bec5</color>
+    <color name="selector_light_background">#afb0bec5</color>
     <color name="background">@color/background_material_light</color>
     <color name="grid_background">@android:color/white</color>
     <color name="text_dark">@color/abc_primary_text_material_light</color>
