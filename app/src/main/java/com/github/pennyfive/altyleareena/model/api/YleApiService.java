@@ -29,7 +29,7 @@ public interface YleApiService {
     @GET("/categories.json")
     Observable<Response<List<Category>>> getCategories();
 
-    @GET("/items.json")
+    @GET("/items.json?availability=ondemand&mediaobject=video")
     Observable<Response<List<Program>>> getPrograms(@Query("category") String categoryId, @Query("order") ProgramQueryOrderParams order);
 
 }
