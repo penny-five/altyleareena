@@ -20,4 +20,13 @@
         <attr name="widthRatio" format="integer"/>
         <attr name="heightRatio" format="integer"/>
     </declare-styleable>
+
+    <attr name="foreground" format="reference"/>
+
+    <declare-styleable name="ForegroundLinearLayout">
+        <attr name="foreground"/>
+    </declare-styleable>
+    <declare-styleable name="ForegroundRelativeLayout">
+        <attr name="foreground"/>
+    </declare-styleable>
 </resources>
