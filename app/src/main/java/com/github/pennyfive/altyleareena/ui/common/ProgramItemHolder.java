@@ -17,6 +17,7 @@
 package com.github.pennyfive.altyleareena.ui.common;
 
 import android.content.Context;
+import android.support.annotation.ColorRes;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -24,10 +25,14 @@ import android.widget.TextView;
 
 import com.github.pennyfive.altyleareena.R;
 import com.github.pennyfive.altyleareena.model.Language;
+import com.github.pennyfive.altyleareena.model.categories.Category;
 import com.github.pennyfive.altyleareena.model.programs.Program;
+import com.github.pennyfive.altyleareena.ui.CategoryTheme;
 import com.github.pennyfive.altyleareena.ui.base.adapter.BindingViewHolder;
 import com.github.pennyfive.altyleareena.ui.base.images.CloudinaryImageLoader;
 import com.github.pennyfive.altyleareena.utils.CloudinaryUriBuilder;
+
+import java.util.List;
 
 import butterknife.Bind;
 
@@ -38,7 +43,6 @@ public class ProgramItemHolder extends BindingViewHolder<Program> {
     @Bind(R.id.series_name) TextView seriesNameTextView;
     @Bind(R.id.program_name) TextView programNameTextView;
     @Bind(R.id.category_name) TextView categoryNameTextView;
-    @Bind(R.id.release_date) TextView releaseDateTextView;
 
     public ProgramItemHolder(Context context, ViewGroup parent) {
         super(context, R.layout.card_program, parent);
@@ -61,7 +65,23 @@ public class ProgramItemHolder extends BindingViewHolder<Program> {
         seriesNameTextView.setText(seriesTitle);
         seriesNameTextView.setVisibility(seriesTitle != null ? View.VISIBLE : View.GONE);
 
-        categoryNameTextView.setText("TV");
-        releaseDateTextView.setText("1.1.2015");
+        categoryNameTextView.setText(program.categories().get(0).titles().get(Language.FI));
+        categoryNameTextView.setTextColor(resolveDisplayedThemeColor(program.categories()));
+    }
+
+    private int resolveDisplayedThemeColor(List<Category> categories) {
+        @ColorRes int colorResource = -1;
+        /* Iterate backwards. Categories are ordered from most specific to least specific. */
+        for (int i = categories.size() - 1; i >= 0; i--) {
+            CategoryTheme theme = CategoryTheme.resolve(categories.get(i));
+            if (theme != CategoryTheme.UNKNOWN) {
+                colorResource = theme.getColorResource();
+                break;
+            }
+        }
+        if (colorResource == -1) {
+            colorResource = CategoryTheme.UNKNOWN.getColorResource();
+        }
+        return itemView.getResources().getColor(colorResource);
     }
 }

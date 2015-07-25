@@ -60,33 +60,18 @@
             android:textColor="@color/text_dark"
             tools:text="Program name"/>
 
-        <LinearLayout
+
+        <com.devspark.robototextview.widget.RobotoTextView
+            android:id="@+id/category_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="8dp">
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:textAppearance="@style/TextAppearance.Altyleareena.Caption"
+            app:fontFamily="roboto"
+            app:textWeight="bold"
+            tools:text="Category name"/>
 
-            <com.devspark.robototextview.widget.RobotoTextView
-                android:id="@+id/category_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textAppearance="@style/TextAppearance.Altyleareena.Caption"
-                app:fontFamily="roboto"
-                app:textWeight="bold"
-                tools:text="Category name"/>
-
-            <com.devspark.robototextview.widget.RobotoTextView
-                android:id="@+id/release_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:textAppearance="@style/TextAppearance.Altyleareena.Caption"
-                android:textColor="@color/text_extra_light"
-                app:fontFamily="roboto"
-                app:textWeight="bold"
-                tools:text="1.1.2015"/>
-        </LinearLayout>
     </com.github.pennyfive.altyleareena.ui.base.view.ForegroundLinearLayout>
 
 </android.support.v7.widget.CardView>

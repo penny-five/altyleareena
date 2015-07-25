@@ -16,6 +16,7 @@
 
 package com.github.pennyfive.altyleareena.ui;
 
+import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 
 import com.github.pennyfive.altyleareena.R;
@@ -43,7 +44,7 @@ public enum CategoryTheme {
         this.iconResid = iconResid;
     }
 
-    @DrawableRes
+    @ColorRes
     public int getColorResource() {
         return colorResid;
     }
