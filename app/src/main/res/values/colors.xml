@@ -30,4 +30,12 @@
     <color name="text_dark">@color/abc_primary_text_material_light</color>
     <color name="text_light">#727272</color>
     <color name="text_extra_light">#b9b9b9</color>
+
+    <color name="category_theme_movies">#2196f3</color>
+    <color name="category_theme_news">#5c6bc0</color>
+    <color name="category_theme_finnish_series">#ef5350</color>
+    <color name="category_theme_foreign_series">#ef5350</color>
+    <color name="category_theme_sports">#4CAF50</color>
+    <color name="category_theme_children">#F06292</color>
+    <color name="category_theme_unknown">#616161</color>
 </resources>
