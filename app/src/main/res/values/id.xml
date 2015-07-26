@@ -18,4 +18,5 @@
 <resources>
     <item name="recycler_view" type="id"/>
     <item name="adapter_position" type="id"/>
+  <item name="view_container" type="id"/>
 </resources>

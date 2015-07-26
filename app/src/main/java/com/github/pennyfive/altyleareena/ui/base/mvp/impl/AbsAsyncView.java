@@ -74,13 +74,11 @@ public abstract class AbsAsyncView extends AbsView implements AsyncView {
     }
 
     private void applyState() {
-        removeAllViews();
-
         View view = onCreateViewForState(currentState);
         if (view == null) {
             throw new IllegalStateException("Didn't create view for state " + currentState);
         }
-        addView(view);
+        setContent(view);
     }
 
     @Override
@@ -142,6 +140,10 @@ public abstract class AbsAsyncView extends AbsView implements AsyncView {
 
     protected View onCreateContentView(@NonNull LayoutInflater inflater, ViewGroup parent) {
         return new View(getContext());
+    }
+
+    protected View getContentView() {
+        return contentView;
     }
 
     protected View onCreateLoadingView(@NonNull LayoutInflater inflater, ViewGroup parent) {

@@ -16,34 +16,44 @@
 
 package com.github.pennyfive.altyleareena.ui.base.mvp.impl;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.SparseArray;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.github.pennyfive.altyleareena.R;
 import com.github.pennyfive.altyleareena.ui.base.mvp.View;
 
 public class AbsView extends FrameLayout implements View {
+    private ViewGroup container;
 
     public AbsView(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public AbsView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
     }
 
     public AbsView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        setupContentDecor();
+
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public AbsView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+    private void setupContentDecor() {
+        android.view.View decorView = onCreateContentDecor(LayoutInflater.from(getContext()), this);
+        super.addView(decorView, -1, generateDefaultLayoutParams());
+
+        container = (ViewGroup) decorView.findViewById(R.id.view_container);
+        if (container == null) {
+            throw new IllegalStateException("Content decor doesn't have ViewGroup with id R.id.view_container");
+        }
     }
 
     @Override
@@ -59,4 +69,24 @@ public class AbsView extends FrameLayout implements View {
         restoreHierarchyState(stateContainer);
     }
 
+    @Override
+    public final void addView(@NonNull android.view.View child, int index, @NonNull ViewGroup.LayoutParams params) {
+        throw new UnsupportedOperationException("Use #setContent(View)");
+    }
+
+    @Override
+    public void removeAllViews() {
+        throw new UnsupportedOperationException("Don't call manually");
+    }
+
+    protected android.view.View onCreateContentDecor(LayoutInflater inflater, ViewGroup parent) {
+        FrameLayout decorLayout = new FrameLayout(getContext());
+        decorLayout.setId(R.id.view_container);
+        return decorLayout;
+    }
+
+    protected void setContent(android.view.View view) {
+        container.removeAllViews();
+        container.addView(view);
+    }
 }

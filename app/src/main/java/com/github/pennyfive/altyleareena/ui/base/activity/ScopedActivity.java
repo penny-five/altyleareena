@@ -50,13 +50,9 @@ public abstract class ScopedActivity<E, S> extends RetainedActivity implements P
         activityInstanceComponent = onCreateActivityInstanceComponent();
     }
 
-    protected E onCreateActivityComponent() {
-        return null;
-    }
+    protected abstract E onCreateActivityComponent();
 
-    protected S onCreateActivityInstanceComponent() {
-        return null;
-    }
+    protected abstract S onCreateActivityInstanceComponent();
 
     protected ApplicationComponent getApplicationComponent() {
         return applicationComponent;
