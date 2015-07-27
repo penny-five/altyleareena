@@ -20,6 +20,7 @@ import com.github.pennyfive.altyleareena.model.api.ProgramQueryOrderParams;
 import com.github.pennyfive.altyleareena.model.api.ProgramQueryOrderParams.OrderBy;
 import com.github.pennyfive.altyleareena.model.api.ProgramQueryOrderParams.SortOrder;
 import com.github.pennyfive.altyleareena.model.api.ProgramQueryOrderParams.TimeWindow;
+import com.github.pennyfive.altyleareena.model.api.Response;
 import com.github.pennyfive.altyleareena.model.api.YleApiService;
 import com.github.pennyfive.altyleareena.model.categories.Category;
 import com.github.pennyfive.altyleareena.model.programs.Program;
@@ -37,6 +38,11 @@ public class ApiServiceBackedProgramStore implements ProgramStore {
     @Override
     public Observable<Program> getPrograms(Category category) {
         return service.getPrograms(category.id(), null).flatMap(response -> Observable.from(response.getData()));
+    }
+
+    @Override
+    public Observable<Program> getProgram(String programId) {
+        return service.getProgram(programId).map(Response::getData);
     }
 
     @Override

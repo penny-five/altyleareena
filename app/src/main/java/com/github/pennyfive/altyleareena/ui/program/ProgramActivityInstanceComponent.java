@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.model.programs;
+package com.github.pennyfive.altyleareena.ui.program;
 
-import com.github.pennyfive.altyleareena.model.categories.Category;
+import com.github.pennyfive.altyleareena.utils.annotations.ActivityInstanceScope;
 
-import rx.Observable;
+import dagger.Component;
 
-public interface ProgramStore {
-    Observable<Program> getPrograms(Category category);
+@ActivityInstanceScope
+@Component(dependencies = ProgramActivityComponent.class, modules = ProgramActivityInstanceModule.class)
+public interface ProgramActivityInstanceComponent {
+    void inject(ProgramViewImpl view);
 
-    Observable<Program> getProgram(String programId);
-
-    Observable<Program> getPopularPrograms();
 }

@@ -14,26 +14,27 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.model.api;
+package com.github.pennyfive.altyleareena.ui.program;
 
-import com.github.pennyfive.altyleareena.model.categories.Category;
 import com.github.pennyfive.altyleareena.model.programs.Program;
+import com.github.pennyfive.altyleareena.model.programs.ProgramStore;
+import com.github.pennyfive.altyleareena.ui.base.mvp.impl.AbsAsyncPresenter;
 
-import java.util.List;
-
-import retrofit.http.GET;
-import retrofit.http.Path;
-import retrofit.http.Query;
 import rx.Observable;
+import rx.Scheduler;
 
-public interface YleApiService {
-    @GET("/categories.json")
-    Observable<Response<List<Category>>> getCategories();
+public class ProgramPresenter extends AbsAsyncPresenter<Program, ProgramView> {
+    private final ProgramStore store;
+    private final String programId;
 
-    @GET("/items.json?availability=ondemand&mediaobject=video")
-    Observable<Response<List<Program>>> getPrograms(@Query("category") String categoryId, @Query("order") ProgramQueryOrderParams order);
+    protected ProgramPresenter(ProgramStore store, String programId, Scheduler scheduler) {
+        super(scheduler);
+        this.store = store;
+        this.programId = programId;
+    }
 
-    @GET("/items/{id}.json")
-    Observable<Response<Program>> getProgram(@Path("id") String programId);
-
+    @Override
+    protected Observable<Program> createObservable() {
+        return store.getProgram(programId);
+    }
 }

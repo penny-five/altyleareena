@@ -56,6 +56,10 @@ public class AbsView extends FrameLayout implements View {
         }
     }
 
+    protected android.view.View getDecorView() {
+        return getChildAt(0);
+    }
+
     @Override
     public final void onSaveState(Bundle outState) {
         SparseArray<Parcelable> stateContainer = new SparseArray<>();

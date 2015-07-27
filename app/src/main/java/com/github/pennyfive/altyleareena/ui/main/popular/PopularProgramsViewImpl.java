@@ -28,6 +28,7 @@ import com.github.pennyfive.altyleareena.ui.base.mvp.impl.AbsAsyncCollectionView
 import com.github.pennyfive.altyleareena.ui.base.recyclerview.RecyclerViewBuilder;
 import com.github.pennyfive.altyleareena.ui.common.ProgramItemHolder;
 import com.github.pennyfive.altyleareena.ui.main.MainActivityInstanceComponent;
+import com.github.pennyfive.altyleareena.ui.program.ProgramActivity;
 import com.github.pennyfive.altyleareena.utils.DaggerUtils;
 
 import javax.inject.Inject;
@@ -93,6 +94,6 @@ public class PopularProgramsViewImpl extends AbsAsyncCollectionView<Program, Pro
 
     @Override
     public void showProgram(Program program) {
-
+        ProgramActivity.launchWith(getContext(), program);
     }
 }

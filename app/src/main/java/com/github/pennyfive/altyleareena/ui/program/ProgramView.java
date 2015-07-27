@@ -14,16 +14,12 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.model.programs;
+package com.github.pennyfive.altyleareena.ui.program;
 
-import com.github.pennyfive.altyleareena.model.categories.Category;
+import com.github.pennyfive.altyleareena.model.programs.Program;
+import com.github.pennyfive.altyleareena.ui.base.mvp.AsyncView;
+import com.github.pennyfive.altyleareena.ui.base.mvp.ItemView;
 
-import rx.Observable;
+public interface ProgramView extends AsyncView, ItemView<Program> {
 
-public interface ProgramStore {
-    Observable<Program> getPrograms(Category category);
-
-    Observable<Program> getProgram(String programId);
-
-    Observable<Program> getPopularPrograms();
 }

@@ -14,16 +14,19 @@
  * limitations under the License.
  */
 
-package com.github.pennyfive.altyleareena.model.programs;
+package com.github.pennyfive.altyleareena.ui.program;
 
-import com.github.pennyfive.altyleareena.model.categories.Category;
+import com.github.pennyfive.altyleareena.ApplicationComponent;
+import com.github.pennyfive.altyleareena.ui.base.images.CloudinaryImageLoaderFactory;
+import com.github.pennyfive.altyleareena.utils.annotations.ActivityScope;
 
-import rx.Observable;
+import dagger.Component;
 
-public interface ProgramStore {
-    Observable<Program> getPrograms(Category category);
+@ActivityScope
+@Component(dependencies = ApplicationComponent.class, modules = ProgramActivityModule.class)
+public interface ProgramActivityComponent {
 
-    Observable<Program> getProgram(String programId);
+    ProgramPresenter getProgramPresenter();
 
-    Observable<Program> getPopularPrograms();
+    CloudinaryImageLoaderFactory getCloudinaryImageLoaderFactory();
 }
