@@ -18,56 +18,70 @@ package com.github.pennyfive.altyleareena.ui.base.activity;
 
 import android.os.Bundle;
 
-import com.github.pennyfive.altyleareena.ApplicationComponent;
 import com.github.pennyfive.altyleareena.utils.DaggerUtils;
-import com.github.pennyfive.altyleareena.utils.annotations.ProvidesComponent;
+import com.github.pennyfive.altyleareena.utils.annotations.ActivityInstanceScope;
+import com.github.pennyfive.altyleareena.utils.annotations.ActivityScope;
+import com.github.pennyfive.altyleareena.utils.annotations.ComponentProvider;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
- * Base class that helps dealing with two Dagger components, one that has the same lifecycle as the Activity instance, and one that is
- * retained when the configuration is changed.
- *
- * @param <E> {@link dagger.Component} with {@link com.github.pennyfive.altyleareena.utils.annotations.ActivityScope}
- * @param <S> {@link dagger.Component} with {@link com.github.pennyfive.altyleareena.utils.annotations.ActivityInstanceScope}
+ * Activity base class that helps dealing with Dagger components that should be retained over configuration changes.
+ * <p>
+ * Subclasses should annotate provider methods with either {@link ActivityScope} or {@link ActivityInstanceScope} depending on if the
+ * dependency should be retained or not.
  */
-public abstract class ScopedActivity<E, S> extends RetainedActivity implements ProvidesComponent<S> {
-    private ApplicationComponent applicationComponent;
-    private E activityComponent;
-    private S activityInstanceComponent;
+public abstract class ScopedActivity extends RetainedActivity implements ComponentProvider {
+    private List<Object> instanceComponents = new ArrayList<>();
+    private List<Object> scopedComponents;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        applicationComponent = DaggerUtils.findComponent(this, ApplicationComponent.class);
-
         //noinspection unchecked
-        activityComponent = (E) getRetainedData();
-        if (activityComponent == null) {
-            activityComponent = onCreateActivityComponent();
-            setRetainedData(activityComponent);
+        scopedComponents = (List<Object>) getRetainedData();
+        boolean shouldInstantiateScopedComponents = scopedComponents == null;
+        if (shouldInstantiateScopedComponents) {
+            scopedComponents = new ArrayList<>();
+            setRetainedData(scopedComponents);
         }
 
-        activityInstanceComponent = onCreateActivityInstanceComponent();
-    }
-
-    protected abstract E onCreateActivityComponent();
-
-    protected abstract S onCreateActivityInstanceComponent();
-
-    protected ApplicationComponent getApplicationComponent() {
-        return applicationComponent;
-    }
-
-    protected E getActivityComponent() {
-        return activityComponent;
-    }
-
-    protected S getActivityInstanceComponent() {
-        return activityInstanceComponent;
+        for (Method method : DaggerUtils.findProviderMethods(this.getClass())) {
+            try {
+                if (shouldInstantiateScopedComponents && method.isAnnotationPresent(ActivityScope.class)) {
+                    scopedComponents.add(method.invoke(this));
+                } else if (method.isAnnotationPresent(ActivityInstanceScope.class)) {
+                    instanceComponents.add(method.invoke(this));
+                }
+            } catch (InvocationTargetException e) {
+                throw new IllegalStateException(e);
+            } catch (IllegalAccessException e) {
+                throw new IllegalStateException(e);
+            }
+        }
     }
 
     @Override
-    public final S provideComponent() {
-        return activityInstanceComponent;
+    public <T> T findComponent(Class<T> componentClass) {
+        T component = searchComponent(instanceComponents, componentClass);
+        if (component == null) {
+            component = searchComponent(scopedComponents, componentClass);
+        }
+        return component != null ? component : DaggerUtils.findComponent(getApplication(), componentClass);
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T> T searchComponent(Collection<Object> items, Class<T> clazz) {
+        for (Object o : items) {
+            if (clazz.isInstance(o)) {
+                return (T) o;
+            }
+        }
+        return null;
     }
 }

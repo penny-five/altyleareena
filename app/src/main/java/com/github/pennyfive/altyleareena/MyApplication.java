@@ -18,12 +18,14 @@ package com.github.pennyfive.altyleareena;
 
 import android.app.Application;
 
+import com.github.pennyfive.altyleareena.utils.annotations.ApplicationScope;
+import com.github.pennyfive.altyleareena.utils.annotations.ComponentProvider;
 import com.github.pennyfive.altyleareena.utils.annotations.ProvidesComponent;
 
 /**
  * TODO: rename once app name has been decided
  */
-public class MyApplication extends Application implements ProvidesComponent<ApplicationComponent> {
+public class MyApplication extends Application implements ComponentProvider {
     private ApplicationComponent component;
 
     @Override
@@ -38,8 +40,15 @@ public class MyApplication extends Application implements ProvidesComponent<Appl
                 .build();
     }
 
-    @Override
-    public ApplicationComponent provideComponent() {
+    @ProvidesComponent
+    @ApplicationScope
+    public ApplicationComponent provideApplicationComponent() {
         return component;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T> T findComponent(Class<T> componentClass) {
+        return componentClass == ApplicationComponent.class ? (T) component : null;
     }
 }

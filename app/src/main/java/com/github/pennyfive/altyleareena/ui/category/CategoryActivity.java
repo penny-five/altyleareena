@@ -20,11 +20,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.github.pennyfive.altyleareena.ApplicationComponent;
 import com.github.pennyfive.altyleareena.R;
 import com.github.pennyfive.altyleareena.model.categories.Category;
 import com.github.pennyfive.altyleareena.ui.base.activity.ScopedActivity;
+import com.github.pennyfive.altyleareena.utils.annotations.ActivityInstanceScope;
+import com.github.pennyfive.altyleareena.utils.annotations.ActivityScope;
+import com.github.pennyfive.altyleareena.utils.annotations.ProvidesComponent;
 
-public class CategoryActivity extends ScopedActivity<CategoryActivityComponent, CategoryActivityInstanceComponent> {
+public class CategoryActivity extends ScopedActivity {
     private static final String EXTRA_CATEGORY = "category";
 
     @Override
@@ -33,19 +37,21 @@ public class CategoryActivity extends ScopedActivity<CategoryActivityComponent, 
         setContentView(R.layout.activity_category);
     }
 
-    @Override
-    protected CategoryActivityComponent onCreateActivityComponent() {
+    @ProvidesComponent
+    @ActivityScope
+    public CategoryActivityComponent provideActivityComponent() {
         Category category = getIntent().getParcelableExtra(EXTRA_CATEGORY);
         return DaggerCategoryActivityComponent.builder()
-                .applicationComponent(getApplicationComponent())
+                .applicationComponent(findComponent(ApplicationComponent.class))
                 .categoryActivityModule(new CategoryActivityModule(category))
                 .build();
     }
 
-    @Override
-    protected CategoryActivityInstanceComponent onCreateActivityInstanceComponent() {
+    @ProvidesComponent
+    @ActivityInstanceScope
+    public CategoryActivityInstanceComponent provideActivityInstanceComponent() {
         return DaggerCategoryActivityInstanceComponent.builder()
-                .categoryActivityComponent(getActivityComponent())
+                .categoryActivityComponent(findComponent(CategoryActivityComponent.class))
                 .categoryActivityInstanceModule(new CategoryActivityInstanceModule(this))
                 .build();
     }

@@ -20,6 +20,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
+/**
+ * Activity base class that implements the retained fragment pattern.
+ */
 public abstract class RetainedActivity extends AppCompatActivity {
     private static final String TAG_FRAGMENT = "retained_fragment";
     private Object data;

@@ -16,12 +16,6 @@
 
 package com.github.pennyfive.altyleareena.utils.annotations;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
-import javax.inject.Scope;
-
-@Scope
-@Retention(RetentionPolicy.RUNTIME)
-public @interface ProvidesComponent {
+public interface ComponentProvider {
+    <T> T findComponent(Class<T> componentClass);
 }

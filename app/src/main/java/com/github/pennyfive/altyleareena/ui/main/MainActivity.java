@@ -19,25 +19,31 @@ package com.github.pennyfive.altyleareena.ui.main;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.pennyfive.altyleareena.ApplicationComponent;
 import com.github.pennyfive.altyleareena.R;
 import com.github.pennyfive.altyleareena.ui.base.activity.PagerActivity;
 import com.github.pennyfive.altyleareena.ui.main.categories.MainCategoriesViewImpl;
 import com.github.pennyfive.altyleareena.ui.main.popular.PopularProgramsViewImpl;
+import com.github.pennyfive.altyleareena.utils.annotations.ActivityInstanceScope;
+import com.github.pennyfive.altyleareena.utils.annotations.ActivityScope;
+import com.github.pennyfive.altyleareena.utils.annotations.ProvidesComponent;
 
-public class MainActivity extends PagerActivity<MainActivityComponent, MainActivityInstanceComponent> {
+public class MainActivity extends PagerActivity {
 
-    @Override
-    protected MainActivityComponent onCreateActivityComponent() {
+    @ProvidesComponent
+    @ActivityScope
+    public MainActivityComponent provideActivityComponent() {
         return DaggerMainActivityComponent.builder()
-                .applicationComponent(getApplicationComponent())
+                .applicationComponent(findComponent(ApplicationComponent.class))
                 .mainActivityModule(new MainActivityModule())
                 .build();
     }
 
-    @Override
-    protected MainActivityInstanceComponent onCreateActivityInstanceComponent() {
+    @ProvidesComponent
+    @ActivityInstanceScope
+    public MainActivityInstanceComponent provideActivityInstanceComponent() {
         return DaggerMainActivityInstanceComponent.builder()
-                .mainActivityComponent(getActivityComponent())
+                .mainActivityComponent(findComponent(MainActivityComponent.class))
                 .mainActivityInstanceModule(new MainActivityInstanceModule(this))
                 .build();
     }

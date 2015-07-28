@@ -29,7 +29,7 @@ import com.github.pennyfive.altyleareena.ui.base.adapter.PagerViewAdapter;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public abstract class PagerActivity<E, S> extends ScopedActivity<E, S> {
+public abstract class PagerActivity extends ScopedActivity {
     @Bind(R.id.toolbar) Toolbar toolbar;
     @Bind(R.id.tabs) TabLayout tabs;
     @Bind(R.id.pager) ViewPager pager;

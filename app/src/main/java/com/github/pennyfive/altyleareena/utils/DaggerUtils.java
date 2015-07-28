@@ -19,7 +19,13 @@ package com.github.pennyfive.altyleareena.utils;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.github.pennyfive.altyleareena.utils.annotations.ComponentProvider;
 import com.github.pennyfive.altyleareena.utils.annotations.ProvidesComponent;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 import dagger.Component;
 
@@ -46,15 +52,33 @@ public class DaggerUtils {
     @NonNull
     @SuppressWarnings("unchecked")
     private static <T> T tryFindComponent(Context context, Class<T> componentClass) {
-        if (context instanceof ProvidesComponent) {
-            Object component = ((ProvidesComponent) context).provideComponent();
-            if (componentClass.isInstance(component)) {
-                return (T) component;
+        List<Method> providerMethods = findProviderMethods(context.getClass());
+        for (Method providerMethod : providerMethods) {
+            if (providerMethod.getReturnType() == componentClass) {
+                try {
+                    return (T) providerMethod.invoke(context);
+                } catch (IllegalAccessException e) {
+                    throw new IllegalStateException(e);
+                } catch (InvocationTargetException e) {
+                    throw new IllegalStateException(e);
+                }
             }
         }
         if (context == context.getApplicationContext()) {
             throw new IllegalStateException("Could not find provider for component " + componentClass.getName());
         }
         return tryFindComponent(context.getApplicationContext(), componentClass);
+    }
+
+    public static List<Method> findProviderMethods(Class providerClass) {
+        List<Method> providerMethods = new ArrayList<>();
+        if (ComponentProvider.class.isAssignableFrom(providerClass)) {
+            for (Method method : providerClass.getDeclaredMethods()) {
+                if (method.isAnnotationPresent(ProvidesComponent.class)) {
+                    providerMethods.add(method);
+                }
+            }
+        }
+        return providerMethods;
     }
 }

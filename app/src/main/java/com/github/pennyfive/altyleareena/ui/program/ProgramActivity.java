@@ -20,10 +20,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.github.pennyfive.altyleareena.ApplicationComponent;
 import com.github.pennyfive.altyleareena.model.programs.Program;
 import com.github.pennyfive.altyleareena.ui.base.activity.ScopedActivity;
+import com.github.pennyfive.altyleareena.utils.annotations.ActivityInstanceScope;
+import com.github.pennyfive.altyleareena.utils.annotations.ActivityScope;
+import com.github.pennyfive.altyleareena.utils.annotations.ProvidesComponent;
 
-public class ProgramActivity extends ScopedActivity<ProgramActivityComponent, ProgramActivityInstanceComponent> {
+public class ProgramActivity extends ScopedActivity {
     private static final String EXTRA_PROGRAM_ID = "program";
 
     @Override
@@ -32,19 +36,21 @@ public class ProgramActivity extends ScopedActivity<ProgramActivityComponent, Pr
         setContentView(new ProgramViewImpl(this));
     }
 
-    @Override
-    protected ProgramActivityComponent onCreateActivityComponent() {
+    @ProvidesComponent
+    @ActivityScope
+    public ProgramActivityComponent provideActivityComponent() {
         String programId = getIntent().getStringExtra(EXTRA_PROGRAM_ID);
         return DaggerProgramActivityComponent.builder()
-                .applicationComponent(getApplicationComponent())
+                .applicationComponent(findComponent(ApplicationComponent.class))
                 .programActivityModule(new ProgramActivityModule(programId))
                 .build();
     }
 
-    @Override
-    protected ProgramActivityInstanceComponent onCreateActivityInstanceComponent() {
+    @ProvidesComponent
+    @ActivityInstanceScope
+    public ProgramActivityInstanceComponent provideActivityInstanceComponent() {
         return DaggerProgramActivityInstanceComponent.builder()
-                .programActivityComponent(getActivityComponent())
+                .programActivityComponent(findComponent(ProgramActivityComponent.class))
                 .programActivityInstanceModule(new ProgramActivityInstanceModule(this))
                 .build();
     }
